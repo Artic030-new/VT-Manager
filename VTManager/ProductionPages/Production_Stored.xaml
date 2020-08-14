@@ -1,0 +1,84 @@
+﻿<Page x:Class="WpfApp1.ProductionPages.Production_Stored"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.ProductionPages"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      mc:Ignorable="d" 
+      Width="auto" Height="auto"
+      Title="Production_Stored" Loaded="Page_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="71*"/>
+            <RowDefinition Height="98*"/>
+            <RowDefinition Height="258*"/>
+            <RowDefinition/>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="125*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="435*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="256*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle Fill="#fff" Grid.RowSpan="6" Grid.ColumnSpan="3"/>
+        <Rectangle Fill="#273049" Grid.Row="3" Grid.ColumnSpan="3"/>
+        <DataGrid x:Name="production_dg" Margin="10,10,10,10"  Grid.Row="2" Grid.ColumnSpan="3" Style="{DynamicResource DataGridStyle}" ColumnHeaderStyle="{DynamicResource HeaderStyle}" RowStyle="{DynamicResource RowStyle}" CellStyle="{DynamicResource CellsStyle}"  GridLinesVisibility="None" IsReadOnly="True"/>
+        <Label x:Name="page_header" Content="Хранимая продукция" Style="{DynamicResource page_header}"/>
+        <Grid x:Name="searching_items" Grid.Row="1" Grid.ColumnSpan="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="134*"/>
+                <ColumnDefinition Width="137*"/>
+                <ColumnDefinition Width="145*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="storage_field" Margin="8" Height="45" BorderThickness="0" Background="#adb8d9" Foreground="#273049" Template="{StaticResource rounded_textbox}" Style="{DynamicResource rounded_tb}" GotFocus="storage_field_GotFocus" LostFocus="storage_field_LostFocus" PreviewTextInput="storage_field_PreviewTextInput" />
+            <TextBox x:Name="vt_field" Grid.Column="1" Margin="8" Height="45" BorderThickness="0" Background="#adb8d9" Foreground="#273049" Template="{StaticResource rounded_textbox}" Style="{DynamicResource rounded_tb}" GotFocus="vt_field_GotFocus" LostFocus="vt_field_LostFocus" PreviewTextInput="vt_field_PreviewTextInput"/>
+            <Button x:Name="search_button" Grid.Column="2" Content="Найти" Height="42" Click="search_button_Click" BorderThickness="0" Background="#273049" Foreground="#cecece" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Style="{DynamicResource rounded_button}" Margin="8,10,36,10"/>
+        </Grid>
+        <Grid x:Name="service_items" Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="54*"/>
+                <ColumnDefinition Width="54*"/>
+                <ColumnDefinition Width="107*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="export_button" Style="{DynamicResource service_button}" Click="export_button_Click">
+                <Grid x:Name="export_button_grid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="90*"/>
+                    </Grid.ColumnDefinitions>
+                    <Path Fill="#273049">
+                        <Path.Data>
+                            <PathGeometry Figures="M23.1,14.5h-0.5c-0.3,0-0.5,0.2-0.5,0.5v5.4c0,1-0.8,1.8-1.8,1.8h-9.6c-1,0-1.8-0.8-1.8-1.8v-9.6c0-1,0.8-1.8,1.8-1.8h6.1c0.3,0,0.5-0.2,0.5-0.5V8.1c0-0.3-0.2-0.5-0.5-0.5h-6.1c-1.8,0-3.3,1.5-3.3,3.3v9.6c0,1.8,1.5,3.3,3.3,3.3h9.6c1.8,0,3.3-1.5,3.3-3.3V15C23.6,14.8,23.4,14.5,23.1,14.5z M23,7.2l-3.6,1.2c-0.4,0.2-0.6,0.7-0.2,1.1l0.8,0.8l-4.3,5.2c-0.3,0.3-0.2,0.8,0.1,1c0.3,0.3,0.8,0.2,1-0.1l4.2-5.1l0.6,0.6c0.3,0.3,0.9,0.2,1.1-0.2L23.8,8C24,7.5,23.5,7,23,7.2z"/>
+                        </Path.Data>
+                    </Path>
+                    <Label Grid.Column="1" Content="Выгрузить" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#273049"/>
+                </Grid>
+            </Button>
+            <Button x:Name="print_button" Style="{DynamicResource service_button}" Grid.Column="1" Click="print_button_Click">
+                <Grid x:Name="print_button_grid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="90*"/>
+                    </Grid.ColumnDefinitions>
+                    <Path Fill="#273049" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                        <Path.Data>
+                            <PathGeometry Figures="M21.9,10.1h-0.6v-2l-4.5-4.5h-6.6v6.5H9c-1.5,0-2.8,1.2-2.8,2.8v7.1c0,1.5,1.2,2.8,2.8,2.8h12.9c1.5,0,2.8-1.2,2.8-2.8v-7.1C24.7,11.3,23.5,10.1,21.9,10.1z M11.2,4.6h5.2l3.9,3.9v1.6h-9.1V4.6z M23.2,19.9c0,0.7-0.6,1.3-1.3,1.3H9c-0.7,0-1.3-0.6-1.3-1.3v-7.1c0-0.7,0.6-1.3,1.3-1.3h12.9c0.7,0,1.3,0.6,1.3,1.3V19.9zM21.4,17.4H10.1c-0.4,0-0.8,0.4-0.8,0.8c0,0.4,0.4,0.8,0.8,0.8h11.3c0.4,0,0.8-0.4,0.8-0.8C22.2,17.7,21.8,17.4,21.4,17.4z M9.5,12.4c-1.4,0-1.4,2.2,0,2.2C10.9,14.6,10.9,12.4,9.5,12.4z M12.4,14.6c1.4,0,1.4-2.2,0-2.2C11,12.4,11,14.6,12.4,14.6z M17.2,6.8h-4.5c-0.1,0-0.3,0.1-0.3,0.3v0.5c0,0.1,0.1,0.3,0.3,0.3h4.5c0.1,0,0.3-0.1,0.3-0.3V7.1C17.4,6.9,17.3,6.8,17.2,6.8z"/>
+                        </Path.Data>
+                    </Path>
+                    <Label Grid.Column="1" Content="Печать" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#273049"/>
+                </Grid>
+            </Button>
+        </Grid>
+        <TextBox x:Name="debug_textbox" IsEnabled="True" Visibility="Visible" FontFamily="Calibri" FontSize="16" FontWeight="Medium" FontStyle="Italic" Grid.Row="5" TextWrapping="Wrap"/>
+    </Grid>
+</Page>

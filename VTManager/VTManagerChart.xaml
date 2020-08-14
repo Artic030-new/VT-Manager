@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="WpfApp1.VTManagerChart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfApp1"
+             mc:Ignorable="d" 
+             MinWidth="30" Width="auto" Loaded="UserControl_Loaded">
+    <Grid SizeChanged="Grid_SizeChanged">
+        <Grid Background="{Binding Background, ElementName=border}" Opacity="0.045"/>
+        <Border x:Name="border" Height="{Binding BarHeight}" Background="{Binding Color}" VerticalAlignment="Bottom" >
+           
+        </Border>
+        <TextBlock Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Value}" FontSize="24" Foreground="{Binding TextColor}">
+        </TextBlock>
+        <TextBlock Margin="0,50,0,0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ItemName}" FontSize="16" FontWeight="ExtraLight" Foreground="{Binding TextColor}">
+        </TextBlock>
+
+    </Grid>
+</UserControl>
