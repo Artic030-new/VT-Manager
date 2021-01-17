@@ -14,10 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfApp1.Interactive;
-using WpfApp1.Utils;
+using VTManager.Interactive;
+using VTManager.Utils;
 
-namespace WpfApp1.DeliveryPages
+namespace VTManager.DeliveryPages
 {
     /// <summary>
     /// Логика взаимодействия для Delivery_Deliveries.xaml
@@ -33,33 +33,27 @@ namespace WpfApp1.DeliveryPages
         {
             SQLUtils.showTable(VTDataGridQueries.deliveriesQuery, VTManagerConfig.deliveriesCols, deliveries_dg);
             /*                          Плэйсхолдеры                            */
-            if (string.IsNullOrWhiteSpace(provider_field.Text))
-            {
+            if (string.IsNullOrWhiteSpace(provider_field.Text)) {
                 provider_field.Text = "поставщик...";
-                provider_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                provider_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
-            if (string.IsNullOrWhiteSpace(resource_field.Text))
-            {
+            if (string.IsNullOrWhiteSpace(resource_field.Text)) {
                 resource_field.Text = "ресурс...";
-                resource_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                resource_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
-            if (string.IsNullOrWhiteSpace(count_field.Text))
-            {
+            if (string.IsNullOrWhiteSpace(count_field.Text)) {
                 count_field.Text = "кол-во...";
-                count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
-            if (string.IsNullOrWhiteSpace(personal_field.Text))
-            {
+            if (string.IsNullOrWhiteSpace(personal_field.Text)) {
                 personal_field.Text = "фам.сотрудника...";
-                personal_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                personal_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
-            if (date_field.Text.Contains("-"))
-            {
-                date_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+            if (date_field.Text.Contains("-")) {
+                date_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
-        private void search_button_Click(object sender, RoutedEventArgs e)
-        {
+        private void search_button_Click(object sender, RoutedEventArgs e) {
             string search = VTDataGridQueries.deliveriesQuery + " WHERE date LIKE " + "\'" + date_field.Text + "%\'";
             string filters = (!(provider_field.Text == "поставщик...")) ?
                 search += " AND providers.fullName LIKE " + "\'%" + StringUtils.replaceAllUnsupportedChr(provider_field.Text.Trim(StringUtils.trimmer)) + "%\'"
@@ -73,15 +67,12 @@ namespace WpfApp1.DeliveryPages
             SQLUtils.showTable(search, VTManagerConfig.deliveriesCols, deliveries_dg);
             debug_textbox.Text = "Результат:  " + deliveries_dg.Items.Count + StringUtils.computeSuffix(deliveries_dg.Items.Count);
         }
-        private void export_button_Click(object sender, RoutedEventArgs e)
-        {
+        private void export_button_Click(object sender, RoutedEventArgs e) {
             ExportUtils.exportToExcel(deliveries_dg, page_header.Content.ToString().Trim(), "F");
         }
-        private void print_button_Click(object sender, RoutedEventArgs e)
-        {
+        private void print_button_Click(object sender, RoutedEventArgs e) {
             System.Windows.Controls.PrintDialog pd = new System.Windows.Controls.PrintDialog();
-            if ((bool)pd.ShowDialog().GetValueOrDefault())
-            {
+            if ((bool)pd.ShowDialog().GetValueOrDefault()) {
                 Size pageSize = new Size(pd.PrintableAreaWidth, pd.PrintableAreaHeight);
                 deliveries_dg.Measure(pageSize);
                 deliveries_dg.Arrange(new Rect(5, 5, pageSize.Width, pageSize.Height));
@@ -89,127 +80,96 @@ namespace WpfApp1.DeliveryPages
                 ProcessingPage.ThisFrame.Refresh();
             }
         }
-        private void date_field_GotFocus(object sender, RoutedEventArgs e)
-        {
+        private void date_field_GotFocus(object sender, RoutedEventArgs e) {
             date_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)39, (byte)48, (byte)73));
         }
-        private void provider_field_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (provider_field.Text == "поставщик...")
-            {
+        private void provider_field_GotFocus(object sender, RoutedEventArgs e) {
+            if (provider_field.Text == "поставщик...") {
                 provider_field.Text = "";
                 provider_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)39, (byte)48, (byte)73));
             }
         }
-        private void provider_field_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(provider_field.Text))
-            {
+        private void provider_field_LostFocus(object sender, RoutedEventArgs e) {
+            if (string.IsNullOrWhiteSpace(provider_field.Text)) {
                 provider_field.Text = "поставщик...";
-                provider_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                provider_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
-        private void provider_field_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
+        private void provider_field_PreviewTextInput(object sender, TextCompositionEventArgs e) {
             if (!Char.IsLetter(e.Text, 0)) e.Handled = true;
         }
-        private void resource_field_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (resource_field.Text == "ресурс...")
-            {
+        private void resource_field_GotFocus(object sender, RoutedEventArgs e) {
+            if (resource_field.Text == "ресурс...") {
                 resource_field.Text = "";
                 resource_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)39, (byte)48, (byte)73));
             }
         }
-        private void resource_field_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(resource_field.Text))
-            {
+        private void resource_field_LostFocus(object sender, RoutedEventArgs e) {
+            if (string.IsNullOrWhiteSpace(resource_field.Text)) {
                 resource_field.Text = "ресурс...";
-                resource_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                resource_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
-        private void resource_field_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
+        private void resource_field_PreviewTextInput(object sender, TextCompositionEventArgs e) {
             if (!Char.IsLetter(e.Text, 0)) e.Handled = true;
         }
-        private void count_field_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (count_field.Text == "кол-во...")
-            {
+        private void count_field_GotFocus(object sender, RoutedEventArgs e) {
+            if (count_field.Text == "кол-во...") {
                 count_field.Text = "";
                 count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)39, (byte)48, (byte)73));
             }
         }
-        private void count_field_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(count_field.Text))
-            {
+        private void count_field_LostFocus(object sender, RoutedEventArgs e) {
+            if (string.IsNullOrWhiteSpace(count_field.Text)) {
                 count_field.Text = "кол-во...";
-                count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
-        private void count_field_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
+        private void count_field_PreviewTextInput(object sender, TextCompositionEventArgs e) {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
-        private void personal_field_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (personal_field.Text == "фам.сотрудника...")
-            {
+        private void personal_field_GotFocus(object sender, RoutedEventArgs e) {
+            if (personal_field.Text == "фам.сотрудника...") {
                 personal_field.Text = "";
                 personal_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)39, (byte)48, (byte)73));
             }
         }
-        private void personal_field_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(personal_field.Text))
-            {
+        private void personal_field_LostFocus(object sender, RoutedEventArgs e) {
+            if (string.IsNullOrWhiteSpace(personal_field.Text)) {
                 personal_field.Text = "фам.сотрудника...";
-                personal_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                personal_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
-        private void personal_field_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
+        private void personal_field_PreviewTextInput(object sender, TextCompositionEventArgs e) {
             if (!Char.IsLetter(e.Text, 0)) e.Handled = true;
         }
-        private void done_button_Click(object sender, RoutedEventArgs e)
-        {
+        private void done_button_Click(object sender, RoutedEventArgs e) {
             Label t1 = new Label();
             Label t2 = new Label();
             DataRowView data_row = (DataRowView)deliveries_dg.SelectedItem;
             string price = Interaction.InputBox("Введите цену в документе: ");
-            try
-            {
+            try {
                 string id = data_row.Row.ItemArray[0].ToString();
                 string count = data_row.Row.ItemArray[4].ToString();
                 string checkd = data_row.Row.ItemArray[6].ToString();
-                if (!(checkd.Equals("True")))
-                {
+                if (!(checkd.Equals("True"))) {
                     bool is_number = int.TryParse(price, out int n);
-                    if (price != "")
-                    {
-                        if (is_number)
-                        {
+                    if (price != "") {
+                        if (is_number) {
                             SQLUtils.runQuery("SELECT resource.id AS id FROM deliveries JOIN resource ON resource.id = deliveries.resourceId WHERE deliveries.id = " + id, "id", t1);
                             SQLUtils.runQuery("SELECT deliveries.count AS count FROM deliveries JOIN resource ON resource.id = deliveries.resourceId WHERE deliveries.id = " + id, "count", t2);
                             string the_id = t1.Content.ToString().Trim();
                             string the_count = t2.Content.ToString().Trim();
                             SQLUtils.runQuery("UPDATE storage_contains SET count = (count + " + the_count + ") WHERE resourceId = " + the_id + "; UPDATE deliveries SET done = 1, price = " + price + " WHERE id = " + id + "");
                             debug_textbox.Text = "Поставка №" + id + " успешно завершена.";
-                        }
-                        else debug_textbox.Text = "Параметр Цена должен быть числом > 0.";
-                    }
-                    else debug_textbox.Text = "Значение Цена не указано.";
-                } 
-                else
-                {
+                        } else debug_textbox.Text = "Параметр Цена должен быть числом > 0.";
+                    } else debug_textbox.Text = "Значение Цена не указано.";
+                } else {
                     warn_msg.dialog_label.Content = "Внимание";
                     warn_msg.contained_info.Text = "Заказ уже был завершен";
                     warn_msg.Show();
                 }
-            }
-            catch (System.NullReferenceException) { debug_textbox.Text = "Выберите запись!"; }
+            } catch (System.NullReferenceException) { debug_textbox.Text = "Выберите запись!"; }
         }
     }
 }

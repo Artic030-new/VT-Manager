@@ -1,14 +1,14 @@
-﻿<Page x:Class="WpfApp1.DeliveryPages.Delivery_Deliveries"
+﻿<Page x:Class="VTManager.DeliveryPages.Delivery_Deliveries"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:WpfApp1.DeliveryPages"
+      xmlns:local="clr-namespace:VTManager.DeliveryPages"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       Width="auto" Height="auto"
       Title="Delivery_Deliveries" Loaded="Page_Loaded">
-
+ 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60*"/>

@@ -13,10 +13,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfApp1.Utils;
-using WpfApp1.Interactive;
+using VTManager.Utils;
+using VTManager.Interactive;
+using VTManager;
+using Microsoft.VisualBasic;
 
-namespace WpfApp1.ClientPages
+namespace VTManager.ClientPages
 {
     /// <summary>
     /// Логика взаимодействия для Client_Manage.xaml
@@ -34,22 +36,22 @@ namespace WpfApp1.ClientPages
             if (string.IsNullOrWhiteSpace(firstname_field.Text))
             {
                 firstname_field.Text = "фамилия...";
-                firstname_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                firstname_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
             if (string.IsNullOrWhiteSpace(lastname_field.Text))
             {
                 lastname_field.Text = "имя...";
-                lastname_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                lastname_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
             if (string.IsNullOrWhiteSpace(thirdname_field.Text))
             {
                 thirdname_field.Text = "отчество...";
-                thirdname_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                thirdname_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
             if (string.IsNullOrWhiteSpace(email_field.Text))
             {
                 email_field.Text = "эл.почта...";
-                email_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                email_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
         private void firstname_field_GotFocus(object sender, RoutedEventArgs e)
@@ -65,7 +67,7 @@ namespace WpfApp1.ClientPages
             if (string.IsNullOrWhiteSpace(firstname_field.Text))
             {
                 firstname_field.Text = "фамилия...";
-                firstname_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                firstname_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
         private void firstname_field_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -85,7 +87,7 @@ namespace WpfApp1.ClientPages
             if (string.IsNullOrWhiteSpace(lastname_field.Text))
             {
                 lastname_field.Text = "имя...";
-                lastname_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                lastname_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
         private void lastname_field_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -105,7 +107,7 @@ namespace WpfApp1.ClientPages
             if (string.IsNullOrWhiteSpace(thirdname_field.Text))
             {
                 thirdname_field.Text = "отчество...";
-                thirdname_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                thirdname_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
         private void thirdname_field_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -125,7 +127,7 @@ namespace WpfApp1.ClientPages
             if (string.IsNullOrWhiteSpace(email_field.Text))
             {
                 email_field.Text = "эл.почта...";
-                email_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                email_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
      
@@ -152,32 +154,32 @@ namespace WpfApp1.ClientPages
             DataRowView data_row = (DataRowView)clients_dg.SelectedItem;
             try
             {
-                string selected_name = data_row.Row.ItemArray[1].ToString();
-                if (selected_name.Length > 0)
-                {
-                    SQLUtils.runQuery("SELECT phone AS phone FROM users WHERE fullName = " + "\"" + selected_name + "\"", "phone", res1);
-                    SQLUtils.runQuery("SELECT address AS address FROM users WHERE fullName = " + "\"" + selected_name + "\"", "address", res2);
+                string selected_name = data_row.Row.ItemArray[0].ToString();
+                    SQLUtils.runQuery("SELECT phone AS phone FROM dle_users WHERE name = " + "\"" + selected_name + "\"", "phone", res1);
+                    SQLUtils.runQuery("SELECT land AS land FROM dle_users WHERE name = " + "\"" + selected_name + "\"", "land", res2);
                     debug_textbox.Text = "Моб. телефон клиента " + selected_name + " : " + res1.Content.ToString() + "\n" + "Адрес клиента " + selected_name + " : " + res2.Content.ToString();
-                }
+                
             }
             catch (System.NullReferenceException)
             {
                 debug_textbox.Text = "Клиент не выбран.";
             }
         }
-        private void ban_button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                DataRowView data_row = (DataRowView)clients_dg.SelectedItem;
-                string selected_name = data_row.Row.ItemArray[1].ToString();
-                if (selected_name.Length > 0)
-                    SQLUtils.runQuery("UPDATE users SET ban = 1 WHERE fullName = " + "\"" + selected_name + "\"");
+        private void ban_button_Click(object sender, RoutedEventArgs e) {
+            Label res1 = new Label();
+            string reason, days;
+            DataRowView data_row = (DataRowView)clients_dg.SelectedItem;
+            try {
+                string selected_name = data_row.Row.ItemArray[0].ToString();
+                SQLUtils.runQuery("SELECT user_id AS id FROM dle_users WHERE name = " + "\"" + selected_name + "\"", "id", res1);
+                if (selected_name.Length > 0) {
+                    SQLUtils.runQuery("UPDATE dle_users SET banned = \'yes\' WHERE name = " + "\"" + selected_name + "\"");
+                    reason = Interaction.InputBox("Введите причину блокировки: ");
+                    SQLUtils.runQuery(VTDataGridQueries.clientsBanReasonAndDays + "(NULL, '" + res1.Content.ToString() + "', '" + reason + "', '0', '0', '')");
+                }
+
             }
-            catch (System.NullReferenceException)
-            {
-                debug_textbox.Text = "Клиент не выбран.";
-            }
+            catch (System.NullReferenceException) { debug_textbox.Text = "Клиент не выбран.";}
         }
     }
 }

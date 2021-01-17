@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using WpfApp1.Utils;
-using WpfApp1.Interactive;
+using VTManager.Utils;
+using VTManager.Interactive;
 using System;
 using System.Windows.Media;
 
-namespace WpfApp1.ClientPages
+namespace VTManager.ClientPages
 {
     /// <summary>
     /// Логика взаимодействия для Client_Charts.xaml

@@ -1,9 +1,9 @@
-﻿<Window x:Class="WpfApp1.VTManagerDialog"
+﻿<Window x:Class="VTManager.VTManagerDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:local="clr-namespace:VTManager"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="VTManagerDialog" Height="160" Width="250" WindowStyle="None" ResizeMode="NoResize">
@@ -85,7 +85,7 @@
                 VerticalAlignment="Top" 
                 Width="110" 
                 FontSize="16"
-                FontWeight="Bold" Margin="0,4,0,0"
+                FontWeight="Bold" Margin="0,4,0,0" Foreground="#FFCECECE"
                 />
         </Grid>
         <Button 
@@ -103,6 +103,7 @@
         />
         <TextBox 
             x:Name="contained_info"
+
             HorizontalAlignment="center"
             VerticalAlignment="center" 
             Height="48"

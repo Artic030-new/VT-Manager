@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp1
+namespace VTManager
 {
     class VTManagerConfig
     {
@@ -30,7 +30,7 @@ namespace WpfApp1
         /* Выводимые поля клиентов*/
         public static string[] clientCols = { "Логин", "ФИО", "Почта"};
         /*  Выводимые поля заказов  */
-        public static string[] ordersCols = { "№ заказа", "Дата", "Марка", "Количество", "ФИО клиента", "Завершен" };
+        public static string[] ordersCols = { "№ заказа", "ФИО клиента", "Количество", "Марка", "Стоимость заказа", "Дата", "Завершен" };
         /*  Выводимые поля поставщиков  */
         public static string[] providersCols = { "ФИО", "Телефон", "Почта" };
         public static string[] deliveriesCols = { "№ поставки",  "Дата", "Поставщик", "Материал", "Количество", "Принят", "Завершен" };

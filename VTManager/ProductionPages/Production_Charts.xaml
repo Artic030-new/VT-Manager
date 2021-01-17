@@ -1,12 +1,13 @@
-﻿<Page x:Class="WpfApp1.ProductionPages.Production_Charts"
+﻿<Page x:Class="VTManager.ProductionPages.Production_Charts"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:WpfApp1"
+      xmlns:local="clr-namespace:VTManager"
+   
       mc:Ignorable="d" 
-      Width="auto" Height="auto"
-      Title="Production_Charts" Loaded="Page_Loaded_1">
+      Width="1490" Height="1024"
+      Title="Production_Charts" Loaded="Page_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="74*"/>
@@ -31,25 +32,25 @@
         <Rectangle Fill="#273049" Grid.Row="9" Grid.ColumnSpan="3"/>
         <Label x:Name="page_header" Content="Хранимая продукция" Style="{DynamicResource page_header}"/>
         <Label Content="Пентоды" Grid.Row="1" FontSize="14" FontFamily="Calibri" Foreground="#273049"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Height="89" Width="300" Grid.RowSpan="2">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Grid.RowSpan="2">
             <local:VTManagerChart x:Name="vt_mark2" ItemName="6К4" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="20000" Value="0.00" Margin="10" Width="80"/>
             <local:VTManagerChart x:Name="vt_mark3" ItemName="6К7" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="20000" Value="0" Margin="10" Width="80"/>
             <local:VTManagerChart x:Name="vt_mark4" ItemName="6Ж3" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="10000" Value="0" Margin="10" Width="80"/>
         </StackPanel>
         <Label Content="Триоды" Grid.Row="3" FontSize="14" FontFamily="Calibri" Foreground="#273049"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" Height="89" Width="300" Grid.RowSpan="2">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" Grid.RowSpan="2">
             <local:VTManagerChart x:Name="vt_mark5" ItemName="6С1П" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="5000" Value="0" Margin="10" Width="80"/>
             <local:VTManagerChart x:Name="vt_mark6" ItemName="6С2П" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="5000" Value="0" Margin="10" Width="80"/>
             <local:VTManagerChart x:Name="vt_mark7" ItemName="6И1П" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="5000" Value="0" Margin="10" Width="80"/>
         </StackPanel>
         <Label Content="Двойные диоды" Grid.Row="5" FontSize="14" FontFamily="Calibri" Foreground="#273049"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Top" Height="89" Width="300" Grid.RowSpan="2">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Top" Grid.RowSpan="2">
             <local:VTManagerChart x:Name="vt_mark8" ItemName="6Х2П" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="0" Margin="10" Width="80"/>
             <local:VTManagerChart x:Name="vt_mark9" ItemName="6Х6С" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="0" Margin="10" Width="80"/>
 
         </StackPanel>
         <Label Content="Кенотроны" Grid.Row="7" FontSize="14" FontFamily="Calibri" Foreground="#273049"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Top" Height="89" Width="300" Grid.RowSpan="2">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Top" Grid.RowSpan="2">
             <local:VTManagerChart x:Name="vt_mark10" ItemName="6Ц10П" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="0" Margin="10" Width="80"/>
         </StackPanel>
     </Grid>

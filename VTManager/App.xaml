@@ -5,6 +5,15 @@
              StartupUri="AuthWindow.xaml"
              >
     <Application.Resources>
-        <ResourceDictionary Source="Styles/Styles.xaml"/> 
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="NunitoLight">Styles/Fonts/Nunito-Light.ttf#Nunito Light</FontFamily>
+            <FontFamily x:Key="NunitoBold">Styles/Fonts/Nunito-Bold.ttf#Nunito Bold</FontFamily>
+        </ResourceDictionary>
+
     </Application.Resources>
+    
+    
 </Application>

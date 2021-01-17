@@ -12,46 +12,33 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfApp1.Interactive;
-using WpfApp1.Utils;
+using VTManager.Interactive;
+using VTManager.Utils;
 
-namespace WpfApp1.ProductionPages
+namespace VTManager.ProductionPages
 {
     /// <summary>
     /// Логика взаимодействия для Production_Charts.xaml
     /// </summary>
     public partial class Production_Charts : Page
     {
-        public Production_Charts()
-        {
+        public Production_Charts() {
             InitializeComponent();
         }
-    /*  
-     *   Неведомый crack .. (2) 
-     *  private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            SQLUtils.runQuery(VTChartQueries.storedMk2, "mk", vt_mark2);
-            SQLUtils.runQuery(VTChartQueries.storedMk3, "mk", vt_mark3);
-            SQLUtils.runQuery(VTChartQueries.storedMk4, "mk", vt_mark4);
-            SQLUtils.runQuery(VTChartQueries.storedMk5, "mk", vt_mark5);
-            SQLUtils.runQuery(VTChartQueries.storedMk6, "mk", vt_mark6);
-            SQLUtils.runQuery(VTChartQueries.storedMk7, "mk", vt_mark7);
-            SQLUtils.runQuery(VTChartQueries.storedMk8, "mk", vt_mark8);
-            SQLUtils.runQuery(VTChartQueries.storedMk9, "mk", vt_mark9);
-            SQLUtils.runQuery(VTChartQueries.storedMk10, "mk", vt_mark10);
-         
-        }*/
-        private void Page_Loaded_1(object sender, RoutedEventArgs e)
-        {
-            SQLUtils.runQuery(VTChartQueries.storedMk2, "mk", vt_mark2);
-            SQLUtils.runQuery(VTChartQueries.storedMk3, "mk", vt_mark3);
-            SQLUtils.runQuery(VTChartQueries.storedMk4, "mk", vt_mark4);
-            SQLUtils.runQuery(VTChartQueries.storedMk5, "mk", vt_mark5);
-            SQLUtils.runQuery(VTChartQueries.storedMk6, "mk", vt_mark6);
-            SQLUtils.runQuery(VTChartQueries.storedMk7, "mk", vt_mark7);
-            SQLUtils.runQuery(VTChartQueries.storedMk8, "mk", vt_mark8);
-            SQLUtils.runQuery(VTChartQueries.storedMk9, "mk", vt_mark9);
-            SQLUtils.runQuery(VTChartQueries.storedMk10, "mk", vt_mark10);
+        private void Page_Loaded(object sender, RoutedEventArgs e) {
+            showStoredVts();
+        }
+
+        void showStoredVts() {
+            SQLUtils.runQuery(VTChartQueries.selectVt("6К4"), "mk", vt_mark2);
+            SQLUtils.runQuery(VTChartQueries.selectVt("6К7"), "mk", vt_mark3);
+            SQLUtils.runQuery(VTChartQueries.selectVt("6Ж3"), "mk", vt_mark4);
+            SQLUtils.runQuery(VTChartQueries.selectVt("6С1П"), "mk", vt_mark5);
+            SQLUtils.runQuery(VTChartQueries.selectVt("6С2С"), "mk", vt_mark6);
+            SQLUtils.runQuery(VTChartQueries.selectVt("6И1П"), "mk", vt_mark7);
+            SQLUtils.runQuery(VTChartQueries.selectVt("6Х2П"), "mk", vt_mark8);
+            SQLUtils.runQuery(VTChartQueries.selectVt("6Х6С"), "mk", vt_mark9);
+            SQLUtils.runQuery(VTChartQueries.selectVt("6Ц10П"), "mk", vt_mark10);
         }
     }
 }

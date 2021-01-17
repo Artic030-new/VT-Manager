@@ -16,7 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace WpfApp1
+namespace VTManager
 {
     /// <summary>
     /// Логика взаимодействия для MainMenuWindow.xaml
@@ -55,7 +55,7 @@ namespace WpfApp1
         }
         private void close_button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Application.Current.Shutdown(0);
         }
         private void processing_button_Click(object sender, RoutedEventArgs e)
         {
@@ -82,6 +82,11 @@ namespace WpfApp1
         {
             menu_frame.Visibility = Visibility.Visible;
             menu_frame.NavigationService.Navigate(new Uri("ProductionPage.xaml", UriKind.Relative));
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            user_info_textbox.Text += AuthWindow.loginUsr + "!";
         }
     }
 }

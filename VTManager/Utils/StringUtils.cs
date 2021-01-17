@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace WpfApp1
+namespace VTManager
 {
     class StringUtils
     {
@@ -14,17 +13,14 @@ namespace WpfApp1
         /* Адрес сервера для подключения приложения к БД */
         public static string mainUrl = VTManagerConfig.server;
         /* Возвращает путь к любому php файлу на сервере */
-        public static string buildFileUrl(string fUrl)
-        {
+        public static string buildFileUrl(string fUrl) {
             return mainUrl + fUrl;
         }
-        public static string computeSuffix(int i)
-        {
+        public static string computeSuffix(int i) {
             int last = i % 100 / 10;
             if (last == 1)
                 return " Запись";
-            switch (i % 10)
-            {
+            switch (i % 10) {
                 case 1:
                     return " Запись";
                 case 2:
@@ -36,13 +32,10 @@ namespace WpfApp1
             }
         }
         // Удаляет все запрещённые для ввода символы
-        public static string replaceAllUnsupportedChr(string s)
-        {
+        public static string replaceAllUnsupportedChr(string s) {
             StringBuilder sb = new StringBuilder(s.Length);
-            foreach (char c in s)
-            {
-                switch (c)
-                {
+            foreach (char c in s) {
+                switch (c) {
                     case '\t': case '\n': case '-': case '+':
                     case '=': case '.': case ',': case ':':
                     case ';': case '(': case ')': case '{':

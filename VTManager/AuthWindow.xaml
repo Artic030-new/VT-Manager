@@ -1,167 +1,62 @@
-﻿<Window x:Class="WpfApp1.AuthWindow"
+﻿<Window x:Class="VTManager.AuthWindow"
 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-xmlns:local="clr-namespace:WpfApp1"
+xmlns:local="clr-namespace:VTManager"
 mc:Ignorable="d"
-WindowStartupLocation="CenterScreen" 
-    Title="VT Manager | Авторизация" Height="340" Width="460" ResizeMode="NoResize" WindowStyle="None" Activated="Window_Activated" Closed="Window_Closed" Icon="vt.png">
-
-    <Grid  Background="#3c486c">
-
+WindowStartupLocation="CenterScreen" Title="VT Manager | Авторизация" Height="340" Width="460" ResizeMode="NoResize" WindowStyle="None" Activated="Window_Activated" Closed="Window_Closed" Icon="vt.png" Loaded="Window_Loaded">
+    <Window.Resources>
+        <!-- ************************* Надписи ************************** -->
+        <Style x:Key="bold_label" TargetType="{x:Type Label}">
+            <Setter Property="TextElement.FontFamily" Value="{StaticResource NunitoBold}"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Foreground" Value="#EDEDED"></Setter>
+        </Style>
+        <Style x:Key="light_label" TargetType="{x:Type Label}">
+            <Setter Property="TextElement.FontFamily" Value="{StaticResource NunitoLight}"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="Foreground" Value="#EDEDED"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#3c486c">
         <Grid.RowDefinitions>
             <RowDefinition Height="54*"/>
             <RowDefinition Height="101*"/>
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
-        <Label 
-            FontFamily="Calibri"
-            FontSize="36"
-            FontWeight="Regular"
-            x:FieldModifier="private"
-            x:Name="authorize_label"
-            Content="АВТОРИЗАЦИЯ"
-            VerticalAlignment="center"
-            HorizontalAlignment="center" 
-            Width="240"
-            Height="48" 
-            
-            Foreground="#ededed" Margin="114,44,106,16"
-        />
-
-        <Rectangle 
-            Fill="#333d5c"
-            RadiusX="16"
-            RadiusY="16"
-            HorizontalAlignment="center"
-            VerticalAlignment="center"
-            Width="282"
-            Height="205"
-            Grid.Row="1" Margin="89,8,89,19" Grid.RowSpan="2"
-        />
-
-        <Grid x:Name="login_items" Grid.Row="1" HorizontalAlignment="center" VerticalAlignment="center" Width="252" Height="166" Margin="104,18" >
+        <Label x:FieldModifier="private" x:Name="authorize_label" Style="{StaticResource light_label}" FontSize="32" Content="А В Т О Р И З А Ц И Я" VerticalAlignment="center" HorizontalAlignment="center"  Width="340" Height="48" Margin="66,47,54,13"/>
+        <Rectangle Fill="#333d5c" RadiusX="16" RadiusY="16" HorizontalAlignment="center" VerticalAlignment="center" Width="282" Height="200" Grid.Row="1" Margin="93,8,85,24" Grid.RowSpan="2"/>
+        <Grid x:Name="login_items" Grid.Row="1" HorizontalAlignment="center" VerticalAlignment="center" Width="252" Height="166" Margin="104,18">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*" />
-                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="45*" />
+                <ColumnDefinition Width="17*"/>
+                <ColumnDefinition Width="64*"/>
             </Grid.ColumnDefinitions>
-
             <Grid.RowDefinitions>
-                <RowDefinition x:Name="row_login" Height="84*"/>
-                <RowDefinition x:Name="row_password" Height="84*"/>
-                <RowDefinition x:Name="row_login_button" Height="124*"/>
+                <RowDefinition x:Name="row_login" Height="24*"/>
+                <RowDefinition x:Name="row_password" Height="24*"/>
+                <RowDefinition x:Name="row_login_button" Height="16*"/>
+                <RowDefinition Height="19*"/>
             </Grid.RowDefinitions>
-
-            <Label 
-                    x:Name="login_label"
-                    FontFamily="Calibri"
-                    FontSize="18"
-                    FontWeight="Black"
-                
-                    Foreground="#ededed"
-                    VerticalAlignment="center"
-                    HorizontalAlignment="left"
-                    Content="Логин : " Height="32"
-                    Grid.Column="0" Width="69"
-            />
-
-            <Border BorderThickness="1" BorderBrush="Transparent" CornerRadius="6" Padding="4" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0" Background="#273049">
-                <TextBox
-                    x:Name="login_field"
-                    Width="144"
-                    Height="32"
-                    VerticalAlignment="center"
-                    Grid.Column="1" Grid.Row="0"
-                    BorderThickness="0" 
-                    
-                    Background="#273049"
-                    Foreground="#cecece"
-                    FontFamily="Calibri"
-                    FontWeight="Bold"
-                    FontSize="18"
-            />
+            <Label x:Name="login_label" VerticalAlignment="center" HorizontalAlignment="left" Content="Логин : " Height="32" Grid.Column="0" Width="75" Margin="0,7,0,9" Style="{DynamicResource bold_label}"/>
+            <Border BorderThickness="1" BorderBrush="Transparent" CornerRadius="6" Padding="4" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0" Background="#273049" Margin="4,3" Height="42" Width="154" Grid.ColumnSpan="2">
+                <TextBox x:Name="login_field" Width="144" Height="32" VerticalAlignment="center" Grid.Column="1" Grid.Row="0" BorderThickness="0" Background="#273049" Foreground="#cecece" FontFamily="{DynamicResource NunitoBold}" FontSize="18" Margin="0,4,0,-4"/>
             </Border>
-
-            <Label 
-                    x:Name="passsword_label"
-                    FontFamily="Calibri"
-                    FontSize="18"
-                    FontWeight="Black"
-                    Foreground="#ededed"
-                    VerticalAlignment="center"
-                    HorizontalAlignment="left"
-                    Content="Пароль : " Height="29"
-                    Grid.Column="0" Grid.Row="1" Width="79" 
-            />
-
-            <Border BorderThickness="1" BorderBrush="Transparent" CornerRadius="6" Padding="4" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" Background="#273049">
-                <PasswordBox
-                    x:Name="password_field"
-                    Width="144"
-                    Height="32"
-                    VerticalAlignment="center" 
-                    Grid.Column="1" Grid.Row="1" 
-                    BorderThickness="0"
-                    Background="#273049"
-                    Foreground="#cecece"
-                    FontFamily="Calibri"
-                    FontWeight="Bold"
-                    FontSize="18"
-            />
+            <Label x:Name="passsword_label" VerticalAlignment="center" HorizontalAlignment="left" Content="Пароль : " Width="89" Height="32" Grid.Column="0" Grid.Row="1"  Margin="0,7,0,9" Style="{DynamicResource bold_label}"/>
+            <Border BorderThickness="1" BorderBrush="Transparent" CornerRadius="6" Padding="4" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" Background="#273049" Margin="4,3" Height="42" Width="154" Grid.ColumnSpan="2">
+                <PasswordBox x:Name="password_field" Width="144" Height="32" VerticalAlignment="center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" Background="#273049" Foreground="#cecece" FontFamily="{DynamicResource NunitoBold}" FontSize="18" Margin="0,1,0,-1"/>
             </Border>
-
-
-
-            <Button 
-                    x:Name="login_button"
-                    Content="Войти"
-                    Width="100"
-                    Height="45"
-                    VerticalAlignment="bottom" 
-                    Click="login_button_Click"
-                    Grid.Column="0" 
-                    Grid.Row="2" 
-                    Grid.ColumnSpan="2"
-                    BorderThickness="0"
-                    Background="#273049"
-                    Foreground="#cecece"
-                    FontFamily="Calibri"
-                    FontWeight="Bold"
-                    FontSize="18" Margin="76,0,76,-16"
-                    Style="{DynamicResource rounded_button}"
-            />
-            <Border 
-                x:Name="Border"
-                Background="#273049"
-                Width="23"
-                Height="23"
-                CornerRadius="4"
-                BorderThickness="1" Grid.Column="1" Margin="5,3,134,44" Grid.Row="2"
-                />
+            <Button x:Name="login_button" Content="ВОЙТИ" Height="45" VerticalAlignment="bottom"  Click="login_button_Click" Grid.Column="0"  Grid.Row="3"  Grid.ColumnSpan="3" Margin="72,0,80,-16" Padding="0,0,-2,-3" FontFamily="{DynamicResource NunitoBold}" Style="{DynamicResource rounded_button}"/>
+            <Border x:Name="Border" Width="28" Height="28" Background="#273049" CornerRadius="4" HorizontalAlignment="Left" Margin="4,2,0,2" VerticalAlignment="Center" BorderThickness="1" Grid.Column="1" Grid.Row="2"/>
             <CheckBox  
-                x:Name="keep"
-                Content="  Запомнить" 
-                HorizontalAlignment="Left"
-                Grid.Column="1" 
-                Grid.Row="2" 
-                VerticalAlignment="Top"
-                Background="#273049"
-                Foreground="#cecece"
-                FontFamily="Calibri"
-                FontWeight="Bold"
-                FontSize="6"
-                BorderThickness="0" Margin="8,6,0,0" Width="44" RenderTransformOrigin="1.625,0.5">
-
+                x:Name="keep" Content="" HorizontalAlignment="Left" Grid.Column="1"  Grid.Row="2" VerticalAlignment="Top" Style="{DynamicResource auth_checkbox}">
                 <CheckBox.LayoutTransform>
-                    <ScaleTransform 
-                        ScaleX="2" 
-                        ScaleY="2" 
-                    />
+                    <ScaleTransform  ScaleX="2" ScaleY="2" />
                 </CheckBox.LayoutTransform>
             </CheckBox>
+            <Label Grid.Column="2" Grid.Row="2" Content="Запомнить вход" VerticalContentAlignment="Center" Style="{StaticResource light_label}" Margin="0,2,0,36" Grid.RowSpan="2"/>
         </Grid>
-
         <Grid x:Name="header" HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="460" Background="#273049" MouseLeftButtonDown="header_MouseLeftButtonDown">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"/>
@@ -169,50 +64,9 @@ WindowStartupLocation="CenterScreen"
                 <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
-
-            <Label 
-                x:Name="header_label" 
-                HorizontalAlignment="center" 
-                VerticalAlignment="center" 
-                Width="90" 
-                Height="30"
-                Content="VT Manager" 
-                FontWeight="Bold"
-                FontFamily="Calibri"
-                FontSize="16"
-            />
-            <Button 
-                x:Name="close_button"
-                Content="X" 
-                Width="22" 
-                Background="Transparent"
-                Foreground="White"
-                Style="{DynamicResource header_buttons}"
-                Grid.Column="3"
-                FontFamily="Calibri"
-                FontWeight="Bold"
-                FontSize="24" 
-                Margin="0,0,4,0" 
-                HorizontalAlignment="Right" Click="close_button_Click"
-            />
-
-            <Button 
-            x:Name="hide_button"
-            Content="-" 
-            Width="22" 
-            Background="Transparent"
-            Foreground="White"
-            Style="{DynamicResource header_buttons}"
-            Grid.Column="2"
-            FontFamily="Arial"
-            FontWeight="ExtraBlack"
-            FontSize="34"
-            Margin="18,8,30,-7" 
-            Grid.ColumnSpan="2" 
-            RenderTransformOrigin="0.5,0.5" 
-            Height="32" 
-            VerticalAlignment="Top" Click="hide_button_Click"
-            >
+            <Label x:Name="header_label" HorizontalAlignment="center" VerticalAlignment="center" Width="96" Height="30" Content="VT Manager" Style="{DynamicResource light_label}" Margin="2,2,2,1"/>
+            <Button x:Name="close_button" Content="x" Width="22" Background="Transparent" Foreground="White" Style="{DynamicResource header_buttons}" FontFamily="{DynamicResource NunitoLight}" FontSize="20" Grid.Column ="3" Margin="0,-2,4,3" HorizontalAlignment="Right" Click="close_button_Click"/>
+            <Button x:Name="hide_button" Content="—"  Background="Transparent" Foreground="White" Style="{DynamicResource header_buttons}" Grid.Column="2" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5" Height="33" VerticalAlignment="Bottom" Click="hide_button_Click" Margin="0,0,24,0">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -222,7 +76,6 @@ WindowStartupLocation="CenterScreen"
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-
         </Grid>
     </Grid>
 </Window>

@@ -12,10 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfApp1.Interactive;
-using WpfApp1.Utils;
+using VTManager.Interactive;
+using VTManager.Utils;
 
-namespace WpfApp1
+namespace VTManager
 {
     /// <summary>
     /// Логика взаимодействия для Processing_Charts.xaml

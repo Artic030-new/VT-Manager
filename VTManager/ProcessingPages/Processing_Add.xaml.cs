@@ -14,18 +14,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfApp1.Interactive;
-using WpfApp1.Utils;
+using VTManager.Interactive;
+using VTManager.Utils;
 
-namespace WpfApp1.ProcssingPages
+namespace VTManager.ProcssingPages
 {
     /// <summary>
     /// Логика взаимодействия для Processing_Add.xaml
     /// </summary>
     public partial class Processing_Add : Page
     {
-        public Processing_Add()
-        {
+        public Processing_Add() {
             InitializeComponent();
         }
         /*Объекты лейблов под выполняемые запросы*/
@@ -33,8 +32,7 @@ namespace WpfApp1.ProcssingPages
         public Label t2 = new Label();
         /*Текущее время*/
         readonly DateTime theDate = DateTime.Now;
-        private void add_button_Click(object sender, RoutedEventArgs e)
-        {
+        private void add_button_Click(object sender, RoutedEventArgs e) {
             string markValue = select_vt_cbox.SelectedItem.ToString();
             SQLUtils.runQuery("SELECT vt.id AS ids FROM vt WHERE mark = " + "\"" + markValue + "\" ", "ids", t1);
             string personalValue = select_personal_cbox.SelectedItem.ToString();
@@ -42,29 +40,24 @@ namespace WpfApp1.ProcssingPages
             string markIdValue = t1.Content.ToString();
             string personalIdValue = t2.Content.ToString();
             string insertValues = "(NULL, 1, " + personalIdValue + ", " + markIdValue + ", " + shift_field.Text + ", \'" + theDate.ToString("yyyy-MM-dd") +"\', " + plan_field.Text + ", "+ count_field.Text + ", 0, 0)";
-            if (shift_field.Text != "№ смены..." && plan_field.Text != "раб.план" && count_field.Text != "кол-во")
-            {
+            if (shift_field.Text != "№ смены..." && plan_field.Text != "раб.план" && count_field.Text != "кол-во"){
                 SQLUtils.runQuery(VTDataGridQueries.addPlan + insertValues);
                 debug_textbox.Text = "Рабочий план № " + shift_field.Text + " успешно создан.";
-            }
-            else debug_textbox.Text = "Заполните все поля!";
+            } else debug_textbox.Text = "Заполните все поля!";
         }
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {                            /*  Плейсхолдеры    */
-            if (string.IsNullOrWhiteSpace(shift_field.Text))
-            {
+        private void Page_Loaded(object sender, RoutedEventArgs e) {                            
+            /*  Плейсхолдеры    */
+            if (string.IsNullOrWhiteSpace(shift_field.Text)) {
                 shift_field.Text = "№ смены...";
-                shift_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                shift_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
-            if (string.IsNullOrWhiteSpace(plan_field.Text))
-            {
+            if (string.IsNullOrWhiteSpace(plan_field.Text)) {
                 plan_field.Text = "раб.план";
-                plan_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                plan_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
-            if (string.IsNullOrWhiteSpace(count_field.Text))
-            {
+            if (string.IsNullOrWhiteSpace(count_field.Text)) {
                 count_field.Text = "кол-во";
-                count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
             /*Лампа выбранная при загрузке формы*/
             select_vt_cbox.SelectedIndex = 0;
@@ -84,8 +77,7 @@ namespace WpfApp1.ProcssingPages
                 personalid.Add(s);
             /*Коллекция с фамилиями персонала*/
             ArrayList personal = new ArrayList();
-            for (int id = 0; id <= personalid.Count - 2; id++)
-            {
+            for (int id = 0; id <= personalid.Count - 2; id++) {
                 SQLUtils.runQuery("SELECT firstName AS name FROM personal WHERE id = " + personalid[id], "name", t1);
                 string namesCountStr = t1.Content.ToString();
                 personal.Add(namesCountStr);
@@ -96,15 +88,12 @@ namespace WpfApp1.ProcssingPages
             /*Показывает таблицу с данными о всех незакрытых сменах*/
             SQLUtils.showTable(VTDataGridQueries.unsolvedProcessingQuery, VTManagerConfig.unsolvedCols, unsolved_plans_dg);
         }
-        private void export_button_Click(object sender, RoutedEventArgs e)
-        {
+        private void export_button_Click(object sender, RoutedEventArgs e) {
             ExportUtils.exportToExcel(unsolved_plans_dg, page_header.Content.ToString().Trim(), "F");
         }
-        private void print_button_Click(object sender, RoutedEventArgs e)
-        {
+        private void print_button_Click(object sender, RoutedEventArgs e) {
             System.Windows.Controls.PrintDialog pd = new System.Windows.Controls.PrintDialog();
-            if ((bool)pd.ShowDialog().GetValueOrDefault())
-            {
+            if ((bool)pd.ShowDialog().GetValueOrDefault()) {
                 Size pageSize = new Size(pd.PrintableAreaWidth, pd.PrintableAreaHeight);
                 unsolved_plans_dg.Measure(pageSize);
                 unsolved_plans_dg.Arrange(new Rect(15, 15, pageSize.Width, pageSize.Height));
@@ -112,66 +101,50 @@ namespace WpfApp1.ProcssingPages
                 ProcessingPage.ThisFrame.Refresh();
             }
         }
-        private void shift_field_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (shift_field.Text == "№ смены...")
-            {
+        private void shift_field_GotFocus(object sender, RoutedEventArgs e) {
+            if (shift_field.Text == "№ смены...") {
                 shift_field.Text = "";
-                shift_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)39, (byte)48, (byte)73));
+                shift_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 39, 48, 73));
             }
         }
-        private void shift_field_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(shift_field.Text))
-            {
+        private void shift_field_LostFocus(object sender, RoutedEventArgs e) {
+            if (string.IsNullOrWhiteSpace(shift_field.Text)) {
                 shift_field.Text = "№ смены...";
-                shift_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                shift_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
-        private void shift_field_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
+        private void shift_field_PreviewTextInput(object sender, TextCompositionEventArgs e) {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
-        private void plan_field_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (plan_field.Text == "раб.план")
-            {
+        private void plan_field_GotFocus(object sender, RoutedEventArgs e) {
+            if (plan_field.Text == "раб.план") {
                 plan_field.Text = "";
                 plan_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)39, (byte)48, (byte)73));
             }
         }
-        private void plan_field_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(plan_field.Text))
-            {
+        private void plan_field_LostFocus(object sender, RoutedEventArgs e) {
+            if (string.IsNullOrWhiteSpace(plan_field.Text)) {
                 plan_field.Text = "раб.план";
-                plan_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                plan_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
-        private void plan_field_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
+        private void plan_field_PreviewTextInput(object sender, TextCompositionEventArgs e) {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
-        private void count_field_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (count_field.Text == "кол-во")
-            {
+        private void count_field_GotFocus(object sender, RoutedEventArgs e) {
+            if (count_field.Text == "кол-во") {
                 count_field.Text = "";
                 count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)39, (byte)48, (byte)73));
             }
         }
-        private void count_field_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(count_field.Text))
-            {
+        private void count_field_LostFocus(object sender, RoutedEventArgs e) {
+            if (string.IsNullOrWhiteSpace(count_field.Text)) {
                 count_field.Text = "кол-во";
-                count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
-        private void count_field_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
+        private void count_field_PreviewTextInput(object sender, TextCompositionEventArgs e) {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
-
     }
 }

@@ -13,10 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfApp1.Interactive;
-using WpfApp1.Utils;
+using VTManager.Interactive;
+using VTManager.Utils;
 
-namespace WpfApp1.DeliveryPages
+namespace VTManager.DeliveryPages
 {
     /// <summary>
     /// Логика взаимодействия для Delivery_Add.xaml
@@ -36,7 +36,7 @@ namespace WpfApp1.DeliveryPages
             if (string.IsNullOrWhiteSpace(count_field.Text))
             {
                 count_field.Text = "кол-во...";
-                count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
 
            
@@ -96,7 +96,7 @@ namespace WpfApp1.DeliveryPages
             if (string.IsNullOrWhiteSpace(count_field.Text))
             {
                 count_field.Text = "кол-во...";
-                count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, (byte)151, (byte)170, (byte)222));
+                count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
         }
         private void count_field_PreviewTextInput(object sender, TextCompositionEventArgs e)

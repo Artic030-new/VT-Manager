@@ -9,19 +9,16 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Excel = Microsoft.Office.Interop.Excel;
-namespace WpfApp1
+namespace VTManager
 {
     class ExportUtils
     {
-        public static Excel.Application runExcel() 
-        {
+        public static Excel.Application runExcel() {
            return new Excel.Application();
         }
 
-        public static void exportToExcel(System.Windows.Controls.DataGrid dg, string table_name, string last_excel_row)
-        {
-            try
-            {
+        public static void exportToExcel(System.Windows.Controls.DataGrid dg, string table_name, string last_excel_row) {
+            try {
                 Excel.Application xcel = runExcel();
                 Excel.Workbook wb = null;
                 Excel.Worksheet ws = null;
@@ -30,8 +27,7 @@ namespace WpfApp1
                 openDlg.Filter = "Excel Таблицы (.xls)|*.xls |Excel Таблицы (.xlsx)|*.xlsx";
                 openDlg.FilterIndex = 2;
                 openDlg.RestoreDirectory = true;
-                    if (openDlg.ShowDialog() == DialogResult.OK)
-                    {
+                    if (openDlg.ShowDialog() == DialogResult.OK) {
                         xcel.DisplayAlerts = false;
                         wb = xcel.Workbooks.Add();
                         ws = wb.ActiveSheet;
@@ -51,11 +47,7 @@ namespace WpfApp1
                         xcel.Visible = true;
                     }
             }
-            catch (Exception)
-            {
-
-            }
+            catch (Exception){}
         }
-      
     }
 }
