@@ -42,6 +42,14 @@ namespace VTManager.Interactive
             return "SELECT Sum(" + sum_col + ") AS " + az + " FROM " + from + " JOIN " + join + " ON " + from + ".id = " + join + "." + idColumn + " WHERE " + from + "." + where;
 
         }
+        public string selectAll(string from)
+        {
+            return "SELECT * FROM " + from; 
+        }
 
+        public string select(string az, string from, params String[] selectors)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
