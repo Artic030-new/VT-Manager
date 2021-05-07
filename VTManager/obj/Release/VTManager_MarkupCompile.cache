@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\030\Desktop\VTManager\VTManager\obj\Release\
+C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\
 VTManager
 none
 false
 TRACE
-C:\Users\030\Desktop\VTManager\VTManager\App.xaml
+C:\Users\030\Source\Repos\VT-Manager\VTManager\App.xaml
 21-2111879180
 
 37145645054
-27-336198455
+27-1336408829
 ClientPage.xaml;ClientPages\Client_Charts.xaml;ClientPages\Client_Manage.xaml;ClientPages\Client_Orders.xaml;DeliveryPage.xaml;DeliveryPages\Delivery_Add.xaml;DeliveryPages\Delivery_Deliveries.xaml;DeliveryPages\Delivery_Providers.xaml;ProcessingPages\Processing_Add.xaml;ProcessingPages\Processing_Charts.xaml;ProcessingPages\Processing_Resources.xaml;ProcessingPages\Processing_Search.xaml;ProductionPage.xaml;ProductionPages\Production_Charts.xaml;ProductionPages\Production_Stored.xaml;Styles\Styles.xaml;AuthWindow.xaml;MainMenuWindow.xaml;ProcessingPage.xaml;VTManagerChart.xaml;VTManagerDialog.xaml;
 
 False
