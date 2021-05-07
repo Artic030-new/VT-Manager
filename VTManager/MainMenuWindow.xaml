@@ -48,16 +48,40 @@
         <Button x:Name="minimize_button" Grid.Column="6" Visibility="Hidden" Style="{DynamicResource header_buttons}" Background="Transparent" Content="⧉" FontFamily="Calibri" FontWeight="Regular" FontSize="20" Click="minimize_button_Click"></Button>
         <Button x:Name="close_button" Grid.Column="7" Style="{DynamicResource header_buttons}" Background="Transparent" Content="x" FontFamily="{DynamicResource NunitoLight}" FontSize="20" Margin="0,-4,0,4" Click="close_button_Click"></Button>
         <Label Content="Н А Ч А Л О   Р А Б О Т Ы" Grid.Row="1" Grid.ColumnSpan="8" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="36" Style="{DynamicResource light_label}"></Label>
-        <Border BorderThickness="0" Background="#333d5c" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="10, 25" CornerRadius="4">
+        <Border BorderThickness="0" Background="#FF333D5C" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="10, 25" CornerRadius="4">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
                     <RowDefinition Height="70"/>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="96"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="user_info_textbox" Text="Добро пожаловать, " Background="Transparent" BorderThickness="0" TextWrapping="Wrap" FontFamily="{StaticResource NunitoLight}" FontSize="20" Foreground="White" IsReadOnly="True" TextAlignment="Center" MaxLines="4" IsUndoEnabled="False" UndoLimit="0" Focusable="False" VerticalAlignment="Center" Margin="5,0" />
+                <TextBox x:Name="user_info_textbox" Text="Добро пожаловать, " Background="Transparent" BorderThickness="0" TextWrapping="Wrap" FontFamily="{StaticResource NunitoLight}" FontSize="20" Foreground="White" IsReadOnly="True" TextAlignment="Center" MaxLines="4" IsUndoEnabled="False" UndoLimit="0" Focusable="False" VerticalAlignment="Center" Margin="5,16,5,9" MaxHeight="50" Height="56" />
                 <Border x:Name="line" BorderThickness="0" Background="White" Height="1" MaxHeight="2" VerticalAlignment="Bottom" Margin="20,0"/>
+                <TextBox x:Name="work_time_textbox" Grid.Row="1" Text="Время работы: " Background="Transparent" BorderThickness="0" FontFamily="{StaticResource NunitoLight}" FontSize="18" Foreground="White" IsReadOnly="True" TextAlignment="Center" Focusable="False" VerticalAlignment="Top" Margin="10,10,10,0" Height="22"/>
+                <Label x:Name="current_time_label" Grid.Row="1" Content="00:00:00:00" VerticalAlignment="Bottom" FontFamily="Calibri" FontSize="24" FontWeight="Bold"  Foreground="White" HorizontalContentAlignment="Center" Margin="10,0" Height="37"></Label>
+                <Border x:Name="line2" Grid.Row="1" BorderThickness="0" Background="White" Height="1" MaxHeight="2" VerticalAlignment="Bottom" Margin="20,0"/>
+                <TextBox x:Name="rest_time_textbox" Grid.Row="2" Text="Время отдыха: " Background="Transparent" BorderThickness="0" FontFamily="{StaticResource NunitoLight}" FontSize="18" Foreground="White" IsReadOnly="True" TextAlignment="Center" Focusable="False" VerticalAlignment="Top" Margin="10,10,10,0" Height="22"/>
+                <Label x:Name="rest_time_label" Grid.Row="2" Content="00:00:00:00" VerticalAlignment="Bottom" FontFamily="Calibri" FontSize="24" FontWeight="Bold" Foreground="White" HorizontalContentAlignment="Center" Margin="10,0" Height="37"></Label>
+                <Grid x:Name="working_elements" Grid.Row="3" Margin="10,10,10,-20" Width="auto" Height="auto" RenderTransformOrigin="0.5,0.736">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="57*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="rest1_button" Content="Отдых" Margin="5" Background="White" Click="rest1_button_Click"/>
+                    <Button x:Name="rest2_button" Content="Обед" Grid.Column="1" Margin="5" Background="Beige" Click="rest2_button_Click"/>
+                    <Button x:Name="rest3_button" Content="Отдых" Grid.Column="2" Margin="0,5,5,5" Background="White" Click="rest3_button_Click" HorizontalAlignment="Right" Width="47"/>
+                    <Button x:Name="rest4_button" Content="Отдых" Grid.Row="1" Margin="5" Background="White" Click="rest4_button_Click"/>
+                    <Button x:Name="continue_button" Content="Продолжить" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Background="#b6cce0" Click="continue_button_Click"/>
+
+                </Grid>
             </Grid>
         </Border>
         <!--  <Rectangle Fill="#333d5c" RadiusX="16" RadiusY="16" HorizontalAlignment="center" VerticalAlignment="center" Width="177" Height="181" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="4"/>-->
@@ -68,21 +92,21 @@
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
-        <Button Background="#273049" BorderBrush="#cad5dd" BorderThickness="0,6,6,0" Foreground="#fff" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" Margin="25" FontSize="32" Style="{DynamicResource clients_button}" Click="Button_Click">
+        <Button x:Name="clients_button" Background="#273049" BorderBrush="#cad5dd" BorderThickness="0,6,6,0" Foreground="#fff" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" Margin="25" FontSize="32" Style="{DynamicResource clients_button}" Click="Button_Click">
             <Button.ContentTemplate>
                 <DataTemplate>
                     <Image Source="clients.png" Margin="25"/>
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
-        <Button Background="#274d49" BorderBrush="#bee0da" BorderThickness="6,0,0,6" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3" Margin="25" FontSize="32" Style="{DynamicResource deliveries_button}" Click="Button_Click_1">
+        <Button x:Name="delivery_button" Background="#274d49" BorderBrush="#bee0da" BorderThickness="6,0,0,6" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3" Margin="25" FontSize="32" Style="{DynamicResource deliveries_button}" Click="Button_Click_1">
             <Button.ContentTemplate>
                 <DataTemplate>
                     <Image Source="deliveries.png" Margin="30"/>
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
-        <Button Background="#b6cce0" Grid.Column="3" Grid.Row="3"  Margin="25" FontSize="32" Style="{DynamicResource complete_button}" Click="Button_Click_2">
+        <Button x:Name="vt_button" Background="#b6cce0" Grid.Column="3" Grid.Row="3"  Margin="25" FontSize="32" Style="{DynamicResource complete_button}" Click="Button_Click_2">
             <Button.ContentTemplate>
                 <DataTemplate>
                     <Image Source="complete.png" Margin="10"/>

@@ -14,6 +14,10 @@ namespace VTManager.Interactive
         public string selectCount(String name, String from, String where) {
            return "SELECT count AS " + name + " FROM " + from + " WHERE " + where;
         }
+        public string selectCountAll(string az, string from)
+        {
+            return "SELECT count(*) AS " + az + " FROM " + from;
+        }
 
         public string selectCountInTons(String name, String from, String where) { 
             return "SELECT (count / 1000.00) AS " + name + " FROM " + from + " WHERE " + where;
@@ -29,9 +33,14 @@ namespace VTManager.Interactive
         public string selectSum(String sum_col, String az, String from) {
             return "SELECT Sum(" + sum_col + ") AS " + az + " FROM " + from;
         }
+        public string selectSum(String sum_col, String az, String from, String where)
+        {
+            return "SELECT Sum(" + sum_col + ") AS " + az + " FROM " + from + " WHERE " + where;
+        }
 
-        public string selectJoinSum() {
-            throw new NotImplementedException();
+        public string selectJoinSum(String sum_col, String az, String from, String join, String idColumn, String where) {
+            return "SELECT Sum(" + sum_col + ") AS " + az + " FROM " + from + " JOIN " + join + " ON " + from + ".id = " + join + "." + idColumn + " WHERE " + from + "." + where;
+
         }
 
     }

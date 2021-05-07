@@ -30,15 +30,11 @@ namespace VTManager.ProductionPages
         }
 
         void showStoredVts() {
-            SQLUtils.runQuery(VTChartQueries.selectVt("6К4"), "mk", vt_mark2);
-            SQLUtils.runQuery(VTChartQueries.selectVt("6К7"), "mk", vt_mark3);
-            SQLUtils.runQuery(VTChartQueries.selectVt("6Ж3"), "mk", vt_mark4);
-            SQLUtils.runQuery(VTChartQueries.selectVt("6С1П"), "mk", vt_mark5);
-            SQLUtils.runQuery(VTChartQueries.selectVt("6С2С"), "mk", vt_mark6);
-            SQLUtils.runQuery(VTChartQueries.selectVt("6И1П"), "mk", vt_mark7);
-            SQLUtils.runQuery(VTChartQueries.selectVt("6Х2П"), "mk", vt_mark8);
-            SQLUtils.runQuery(VTChartQueries.selectVt("6Х6С"), "mk", vt_mark9);
-            SQLUtils.runQuery(VTChartQueries.selectVt("6Ц10П"), "mk", vt_mark10);
+            VTManagerChart[] charts = { vt_mark2, vt_mark3, vt_mark4, vt_mark5, vt_mark6, vt_mark7, vt_mark8, vt_mark9, vt_mark10};
+            String[] marks = { "6К4", "6К7", "6Ж3", "6С1П", "6С2С", "6И1П", "6Х2П", "6Х6С", "6Ц10П" };
+            for (int c = 0; c < charts.Length; c++) {
+                SQLUtils.runQuery(VTChartQueries.selectVt(marks[c]), "mk", charts[c]);
+            }
         }
     }
 }

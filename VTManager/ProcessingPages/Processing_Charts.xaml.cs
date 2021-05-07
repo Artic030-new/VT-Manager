@@ -36,6 +36,7 @@ namespace VTManager
             SQLUtils.runQuery(VTChartQueries.totalDoubleDiode, "all_vt", vt_type4);
             SQLUtils.runQuery(VTChartQueries.totalCenotrone, "all_vt", vt_type5);
         }
+       
         private void block1_value_Loaded(object sender, RoutedEventArgs e)
         {
             if (Convert.ToInt32(block1_value.Content) < 499)

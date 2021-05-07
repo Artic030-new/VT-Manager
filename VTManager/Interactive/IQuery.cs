@@ -9,8 +9,10 @@ namespace VTManager.Interactive
     interface IQuery {
         string selectSum(String sum_col, String az, String from);
         string selectCount(String name, String from, String where);
+        string selectCountAll(String az, String from);
         string selectCountInTons(String name, String from, String where);
         string selectCountEntry(String az, String from);
+        string selectJoinSum(String sum_col, String az, String from, String join, String idColumn, String where);
         string selectJoinCount(String name, String from, String join, String idColumn, String where);
         string delete(String name, String from, String where);
     }
