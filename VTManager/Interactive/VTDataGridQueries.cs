@@ -8,6 +8,7 @@ namespace VTManager.Interactive
 {
     class VTDataGridQueries
     {
+        public static VTQuery query = new VTQuery();
         /* Запросы к поискам*/
         public static string processingQuery = "SELECT processing.shift, personal.firstName, vt.mark, processing.date, processing.count, processing.plan, processing.fact, processing.done FROM personal JOIN (vt JOIN processing ON vt.id = processing.vtId) ON personal.id = processing.personalId";
         public static string unsolvedProcessingQuery = "SELECT processing.shift, personal.firstName, vt.mark, processing.date, processing.count, processing.plan FROM personal JOIN (vt JOIN processing ON vt.id = processing.vtId) ON personal.id = processing.personalId WHERE done = 0";
@@ -21,7 +22,8 @@ namespace VTManager.Interactive
         public static string addPlan = "INSERT INTO processing (id, storageId, personalId, vtId, shift, date, count, plan, fact, done) VALUES ";
         public static string addDelivery = "INSERT INTO deliveries (id, providerId, resourceId, personalId, count, price, date, done) VALUES ";
         /*Получить количество всех марок ламп из бд*/
-        public static string totalVtMarks = "SELECT count(*) AS marks_count FROM vt";
+        public static string totalVtMarks = query.selectCountAll("marks_count", "vt");
+
         /*Получить количество всех видов ресурсов из бд*/
         public static string totalResourceTypes = "SELECT count(id) AS resource_count FROM resource";
         /*Получить число всех поставщиков из бд*/
