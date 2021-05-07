@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace VTManager.Interactive
 {
     interface IQuery {
-        string select(String az, String from, params String[] selectors);
+        string select(String selectors, String from);
         string selectAll(String from);
         string selectSum(String sum_col, String az, String from);
         string selectCount(String name, String from, String where);

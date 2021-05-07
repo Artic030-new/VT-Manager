@@ -12,7 +12,9 @@ namespace VTManager.Interactive
         /* Запросы к поискам*/
         public static string processingQuery = "SELECT processing.shift, personal.firstName, vt.mark, processing.date, processing.count, processing.plan, processing.fact, processing.done FROM personal JOIN (vt JOIN processing ON vt.id = processing.vtId) ON personal.id = processing.personalId";
         public static string unsolvedProcessingQuery = "SELECT processing.shift, personal.firstName, vt.mark, processing.date, processing.count, processing.plan FROM personal JOIN (vt JOIN processing ON vt.id = processing.vtId) ON personal.id = processing.personalId WHERE done = 0";
-        public static string clientsQuery = "SELECT name, fullname, email FROM dle_users";
+        public static string clientsQuery = query.select("name, fullname, email", "dle_users");
+
+
         public static string ordersQuery = "SELECT shopcart_vacushop.id, dle_users.fullname, amount, shopcart_vacushop.name, price, date, solved FROM shopcart_vacushop JOIN dle_users ON dle_users.user_id = shopcart_vacushop.userId";
         public static string providersQuery = "SELECT fullName, phone, email FROM providers";
         public static string deliveriesQuery = "SELECT deliveries.id, deliveries.date, providers.fullName, resource.name, deliveries.count, personal.firstName, deliveries.done FROM resource JOIN (providers JOIN deliveries ON providers.id = deliveries.providerId) ON resource.id = deliveries.resourceId JOIN personal ON personal.id = deliveries.personalId";

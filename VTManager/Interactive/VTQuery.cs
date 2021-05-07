@@ -47,9 +47,9 @@ namespace VTManager.Interactive
             return "SELECT * FROM " + from; 
         }
 
-        public string select(string az, string from, params String[] selectors)
+        public string select(string selectors, string from)
         {
-            throw new NotImplementedException();
+            return "SELECT " + selectors + " FROM " + from;
         }
     }
 }
