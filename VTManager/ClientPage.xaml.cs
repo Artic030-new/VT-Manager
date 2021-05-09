@@ -13,13 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VTManager;
+using VTManager.Interactive;
 
 namespace VTManager
 {
     /// <summary>
     /// Логика взаимодействия для ClientPage.xaml
     /// </summary>
-    public partial class ClientPage : Page
+    public partial class ClientPage : Page, IVTPage
     {
         public static Frame ThisFrame;
         public ClientPage()
@@ -27,12 +28,16 @@ namespace VTManager
             InitializeComponent();
             ThisFrame = item_frame;
             /*Таймер. Обновляет страницу каждые 2 минуты*/
+            refresh();
+        }
+        public void refresh()
+        {
             System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
             timer1.Interval = 120000;
             timer1.Tick += t_Tick;
             timer1.Enabled = true;
         }
-        static void navigate(string uri)
+        public void navigate(string uri)
         {
             removeMainComponents();
             ThisFrame.Visibility = Visibility.Visible;
