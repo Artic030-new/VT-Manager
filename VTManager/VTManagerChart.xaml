@@ -15,6 +15,5 @@
         </TextBlock>
         <TextBlock Margin="0,60,0,0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ItemName}" FontSize="16" FontWeight="ExtraLight" Foreground="{Binding TextColor}" TextAlignment="Center">
         </TextBlock>
-
     </Grid>
 </UserControl>

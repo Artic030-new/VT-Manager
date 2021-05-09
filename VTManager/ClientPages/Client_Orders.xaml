@@ -43,8 +43,8 @@
             <xctk:MaskedTextBox x:Name="order_date_field" Grid.Column="1" Grid.Row="0" Margin="8"  Height="45" BorderThickness="0" Background="#adb8d9" Mask="0000-00-00" CaretIndex="0" Foreground="#273049" FontFamily="Calibri" FontWeight="Light" FontSize="18" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Template="{StaticResource rounded_textbox}" GotFocus="order_date_field_GotFocus" />
             <TextBox x:Name="vt_field" Grid.Column="2" Grid.Row="0" Margin="8" Height="45" Background="#adb8d9" Foreground="#273049" Template="{StaticResource rounded_textbox}" Style="{DynamicResource rounded_tb}" GotFocus="vt_field_GotFocus" LostFocus="vt_field_LostFocus" PreviewTextInput="vt_field_PreviewTextInput" />
             <TextBox x:Name="initials_field" Grid.ColumnSpan="2" Grid.Row="1" Margin="8" Height="45" Background="#adb8d9" Foreground="#273049" Template="{StaticResource rounded_textbox}" Style="{DynamicResource rounded_tb}" GotFocus="initials_field_GotFocus" LostFocus="initials_field_LostFocus" PreviewTextInput="initials_field_PreviewTextInput"/>
-            <Button x:Name="search_button" Height="45" Grid.Column="2" Grid.Row="1" Content="Найти" BorderThickness="0" Background="#273049" Foreground="#cecece" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Style="{DynamicResource rounded_button}" Margin="8,9,36,9" Click="search_button_Click" 
-            />
+            <Button x:Name="search_button" Grid.Column="2" Grid.Row="1"  Content="НАЙТИ" Height="42" Click="search_button_Click" BorderThickness="0" Background="#273049" FontFamily="{DynamicResource NunitoBold}" Style="{DynamicResource rounded_button}" Margin="8,8,36,8"/>
+
         </Grid>
         <Grid x:Name="service_items" Grid.Row="4">
             <Grid.RowDefinitions>

@@ -47,7 +47,7 @@ namespace VTManager.Utils
             cmd.CommandText = query;
             reader = cmd.ExecuteReader();
             if (reader.Read()) {
-                bool b = double.TryParse(reader[target_column].ToString(), out double d);
+                bool b = double.TryParse(reader[target_column].ToString(), out _);
                 if (b) source.Value = double.Parse(reader[target_column].ToString());
             }
             cn.Close();
