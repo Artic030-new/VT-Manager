@@ -42,14 +42,16 @@ namespace VTManager.Interactive
             return "SELECT Sum(" + sum_col + ") AS " + az + " FROM " + from + " JOIN " + join + " ON " + from + ".id = " + join + "." + idColumn + " WHERE " + from + "." + where;
 
         }
-        public string selectAll(string from)
+        public string selectAll(String from)
         {
             return "SELECT * FROM " + from; 
         }
-
-        public string select(string selectors, string from)
+        public string select(String selectors, String from)
         {
             return "SELECT " + selectors + " FROM " + from;
+        }
+        public string update(String table, String updateColumn, String where) {
+            return "UPDATE " + table + " SET " + updateColumn + " WHERE " + where;
         }
     }
 }

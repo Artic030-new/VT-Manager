@@ -171,8 +171,12 @@ namespace VTManager
                             bool is_number = int.TryParse(fact, out int n);
                             if (fact != "") {
                                 if (is_number) {
-                                    SQLUtils.runQuery("UPDATE processing SET done = 1 WHERE shift = " + shiftValue);
-                                    SQLUtils.runQuery("UPDATE processing SET fact = " + fact + " WHERE shift = " + shiftValue);
+                                 //   SQLUtils.runQuery("UPDATE processing SET done = 1 WHERE shift = " + shiftValue)
+                                    SQLUtils.runQuery(query.update("processing", "done = 1", "shift = " + shiftValue));
+
+                               //     SQLUtils.runQuery("UPDATE processing SET fact = " + fact + " WHERE shift = " + shiftValue);
+                                    SQLUtils.runQuery(query.update("processing", "fact = " + fact, "shift = " + shiftValue));
+
                                     /*Коллекция со списком коэффициентов затрат для каждого ресурса*/
                                     ArrayList shiftCosts = new ArrayList();
                                     /*Предопределённый нулевой элемент коллекции, так как в базе данных ресурсы считаются с 1*/

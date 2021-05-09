@@ -17,5 +17,6 @@ namespace VTManager.Interactive
         string selectJoinSum(String sum_col, String az, String from, String join, String idColumn, String where);
         string selectJoinCount(String name, String from, String join, String idColumn, String where);
         string delete(String name, String from, String where);
+        string update(String table, String updateColumn, String where);
     }
 }
