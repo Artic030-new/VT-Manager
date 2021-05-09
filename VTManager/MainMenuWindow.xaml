@@ -67,19 +67,16 @@
                 <Label x:Name="rest_time_label" Grid.Row="2" Content="00:00:00:00" VerticalAlignment="Bottom" FontFamily="Calibri" FontSize="24" FontWeight="Bold" Foreground="White" HorizontalContentAlignment="Center" Margin="10,0" Height="37"></Label>
                 <Grid x:Name="working_elements" Grid.Row="3" Margin="10,10,10,-20" Width="auto" Height="auto" RenderTransformOrigin="0.5,0.736">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50*"/>
                         <RowDefinition Height="57*"/>
                     </Grid.RowDefinitions>
                     <Button x:Name="rest1_button" Content="Отдых" Margin="5" Background="White" Click="rest1_button_Click"/>
-                    <Button x:Name="rest2_button" Content="Обед" Grid.Column="1" Margin="5" Background="Beige" Click="rest2_button_Click"/>
-                    <Button x:Name="rest3_button" Content="Отдых" Grid.Column="2" Margin="0,5,5,5" Background="White" Click="rest3_button_Click" HorizontalAlignment="Right" Width="47"/>
-                    <Button x:Name="rest4_button" Content="Отдых" Grid.Row="1" Margin="5" Background="White" Click="rest4_button_Click"/>
-                    <Button x:Name="continue_button" Content="Продолжить" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Background="#b6cce0" Click="continue_button_Click"/>
+                    <Button x:Name="rest2_button" Content="Обед" Grid.Column="1" Margin="5,5" Background="Beige" Click="rest2_button_Click"/>
+                    <Button x:Name="continue_button" Content="Продолжить" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Background="#b6cce0" Click="continue_button_Click"/>
 
                 </Grid>
             </Grid>

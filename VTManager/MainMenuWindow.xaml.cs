@@ -27,6 +27,7 @@ namespace VTManager
         public static Frame ThisFrame;
         public static int _DEFAULT_REST_TIME = 15;
         public static int _DEFAULT_LUNCH_TIME = 60;
+        public static bool hadLunch = false;
         DispatcherTimer dt = new DispatcherTimer();
         Stopwatch sw = new Stopwatch();
         TimeSpan ts;
@@ -39,6 +40,7 @@ namespace VTManager
         {
             InitializeComponent();
             ThisFrame = menu_frame;
+            continue_button.IsEnabled = false;
             dt.Tick += new EventHandler(dt_Tick);
             dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
         }
@@ -124,7 +126,7 @@ namespace VTManager
                 timer.Stop();
                 timer.Dispose();
                 timer = null;
-                working_elements.IsEnabled = true;
+                toggleWorkingElements();
                 rest_time_label.Content = "00:00:00";
             }
 
@@ -162,33 +164,46 @@ namespace VTManager
         private void rest2_button_Click(object sender, RoutedEventArgs e)
         {
             toRest(rest2_button, _DEFAULT_LUNCH_TIME);
-        }
-        private void rest3_button_Click(object sender, RoutedEventArgs e)
-        {
-            toRest(rest3_button, _DEFAULT_REST_TIME);
-        }
-        private void rest4_button_Click(object sender, RoutedEventArgs e)
-        {
-            toRest(rest4_button, _DEFAULT_REST_TIME);
+            hadLunch = true;
         }
 
         private void continue_button_Click(object sender, RoutedEventArgs e)
         {
-
+            togglePanel();
+            sw.Start();
+            dt.Start();
+            timer.Stop();
+            timer.Dispose();
+            rest_time_label.Content = "00:00:00";
+            toggleWorkingElements();
+            continue_button.IsEnabled = false;
         }
         void toRest(System.Windows.Controls.Button toRestButton, int count)
         {
             togglePanel();
             sw.Stop();
             dt.Stop();
+            continue_button.IsEnabled = true;
             ts = TimeSpan.FromMinutes(count);
             timer = new System.Windows.Forms.Timer();
             timer.Tick += Timer_Tick;
             timer.Interval = 1000;
             rest_time_label.Content = String.Format(cd, ts.ToString());
             toRestButton.IsEnabled = false;
-            working_elements.IsEnabled = false;
+            toggleWorkingElements();
             timer.Start();
+        }
+
+        void toggleWorkingElements() {
+            if (rest1_button.IsEnabled || rest2_button.IsEnabled)
+            {
+                rest1_button.IsEnabled = false;
+                rest2_button.IsEnabled = false;
+            }
+            else {
+                rest1_button.IsEnabled = true;
+                if(!hadLunch) rest2_button.IsEnabled = true;
+            }
         }
 
     }
