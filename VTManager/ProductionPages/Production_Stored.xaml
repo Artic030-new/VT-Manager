@@ -37,7 +37,7 @@
             </Grid.RowDefinitions>
             <TextBox x:Name="storage_field" Margin="8" Height="45" BorderThickness="0" Background="#adb8d9" Foreground="#273049" Template="{StaticResource rounded_textbox}" Style="{DynamicResource rounded_tb}" GotFocus="storage_field_GotFocus" LostFocus="storage_field_LostFocus" PreviewTextInput="storage_field_PreviewTextInput" />
             <TextBox x:Name="vt_field" Grid.Column="1" Margin="8" Height="45" BorderThickness="0" Background="#adb8d9" Foreground="#273049" Template="{StaticResource rounded_textbox}" Style="{DynamicResource rounded_tb}" GotFocus="vt_field_GotFocus" LostFocus="vt_field_LostFocus" PreviewTextInput="vt_field_PreviewTextInput"/>
-            <Button x:Name="search_button" Grid.Column="2" Content="Найти" Height="42" Click="search_button_Click" BorderThickness="0" Background="#273049" Foreground="#cecece" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Style="{DynamicResource rounded_button}" Margin="8,10,36,10"/>
+            <Button x:Name="search_button" Grid.Column="2" Grid.Row="1"  Content="НАЙТИ" Height="42" Click="search_button_Click" BorderThickness="0" Background="#273049" FontFamily="{DynamicResource NunitoBold}" Style="{DynamicResource rounded_button}" Margin="8,8,36,8"/>
         </Grid>
         <Grid x:Name="service_items" Grid.Row="4">
             <Grid.RowDefinitions>

@@ -42,7 +42,7 @@
             <TextBox x:Name="resource_field" Grid.Column="2" Margin="8" Height="45" BorderThickness="0" Background="#adb8d9" Foreground="#273049" Template="{StaticResource rounded_textbox}" Style="{DynamicResource rounded_tb}" GotFocus="resource_field_GotFocus" LostFocus="resource_field_LostFocus" PreviewTextInput="resource_field_PreviewTextInput"/>
             <TextBox x:Name="count_field" Grid.Row="1" Margin="8" Height="45" BorderThickness="0" Background="#adb8d9" Foreground="#273049" Template="{StaticResource rounded_textbox}" Style="{DynamicResource rounded_tb}" GotFocus="count_field_GotFocus" LostFocus="count_field_LostFocus" PreviewTextInput="count_field_PreviewTextInput"/>
             <TextBox x:Name="personal_field" Grid.Row="1" Grid.Column="1" Margin="8" Height="45" BorderThickness="0" Background="#adb8d9" Foreground="#273049" Template="{StaticResource rounded_textbox}" Style="{DynamicResource rounded_tb}" GotFocus="personal_field_GotFocus" LostFocus="personal_field_LostFocus" PreviewTextInput="personal_field_PreviewTextInput"/>
-            <Button x:Name="search_button" Grid.Column="2" Grid.Row="1"  Content="Найти" Height="42" BorderThickness="0" Background="#273049" Foreground="#cecece" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Style="{DynamicResource rounded_button}" Margin="8,8,36,8" Click="search_button_Click"/>
+            <Button x:Name="search_button" Grid.Column="2" Grid.Row="1"  Content="НАЙТИ" Height="42" Click="search_button_Click" BorderThickness="0" Background="#273049" FontFamily="{DynamicResource NunitoBold}" Style="{DynamicResource rounded_button}" Margin="8,8,36,8"/>
         </Grid>
         <Grid x:Name="service_items" Grid.Row="4">
             <Grid.RowDefinitions>

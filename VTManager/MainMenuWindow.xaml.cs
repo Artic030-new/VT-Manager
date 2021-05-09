@@ -189,7 +189,6 @@ namespace VTManager
             timer.Tick += Timer_Tick;
             timer.Interval = 1000;
             rest_time_label.Content = String.Format(cd, ts.ToString());
-            toRestButton.IsEnabled = false;
             toggleWorkingElements();
             timer.Start();
         }
