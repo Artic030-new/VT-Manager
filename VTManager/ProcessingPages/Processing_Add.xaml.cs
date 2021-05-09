@@ -40,8 +40,9 @@ namespace VTManager.ProcssingPages
             string markIdValue = t1.Content.ToString();
             string personalIdValue = t2.Content.ToString();
             string insertValues = "(NULL, 1, " + personalIdValue + ", " + markIdValue + ", " + shift_field.Text + ", \'" + theDate.ToString("yyyy-MM-dd") +"\', " + plan_field.Text + ", "+ count_field.Text + ", 0, 0)";
-            if (shift_field.Text != "№ смены..." && plan_field.Text != "раб.план" && count_field.Text != "кол-во"){
+            if (shift_field.Text != "№ смены..." && plan_field.Text != "раб.план" && count_field.Text != "кол-во") {
                 SQLUtils.runQuery(VTDataGridQueries.addPlan + insertValues);
+                SQLUtils.showTable(VTDataGridQueries.unsolvedProcessingQuery, VTManagerConfig.unsolvedCols, unsolved_plans_dg);
                 debug_textbox.Text = "Рабочий план № " + shift_field.Text + " успешно создан.";
             } else debug_textbox.Text = "Заполните все поля!";
         }

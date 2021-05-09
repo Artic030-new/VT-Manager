@@ -165,7 +165,6 @@ C:\Users\030\Source\Repos\VT-Manager\VTManager\bin\Release\ro\Xceed.Wpf.AvalonDo
 C:\Users\030\Source\Repos\VT-Manager\VTManager\bin\Release\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\030\Source\Repos\VT-Manager\VTManager\bin\Release\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\030\Source\Repos\VT-Manager\VTManager\bin\Release\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.csprojAssemblyReference.cache
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.csproj.ResolveComReference.cache
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\Styles\Styles.baml
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\ClientPage.g.cs
@@ -220,3 +219,4 @@ C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.csproj.Core
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.csproj.CopyComplete
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.exe
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.pdb
+C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.csprojAssemblyReference.cache

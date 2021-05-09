@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VTManager.Interactive
 {
-     class VTQuery : IQuery, IChartable {
+     public class VTQuery : IQuery, IChartable {
         public string delete(String from, String where, String value) {
             return "DELETE FROM " + from + " WHERE " + from + "." + where + " = "+ value + "";
         }

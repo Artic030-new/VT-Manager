@@ -29,10 +29,10 @@ namespace VTManager
     public partial class Processing_Search : System.Windows.Controls.Page
     {
         public static VTManagerDialog warn_msg = new VTManagerDialog();
+        public static VTQuery query = new VTQuery();
         public Processing_Search() {
             InitializeComponent();
         }
-
         public System.Windows.Controls.Label t1 = new System.Windows.Controls.Label();
         public System.Windows.Controls.Label t2 = new System.Windows.Controls.Label();
         private void search_button_Click(object sender, RoutedEventArgs e) {
@@ -191,7 +191,9 @@ namespace VTManager
                                     SQLUtils.runQuery("UPDATE vt JOIN processing ON vt.id = processing.vtId JOIN vt_lots ON vt.id = vt_lots.vtId SET vt_lots.count = (vt_lots.count + " + fact + ") WHERE processing.shift = " + shiftValue + " AND vt.mark = " + "\"" + markValue + "\"");
                                     t1.IsEnabled = true;
                                     debug_textbox.Text = "Смена №" + shiftValue + " закрыта.\n";
-                                } else debug_textbox.Text = "Параметр Факт должен быть числом > 0.";
+                                    SQLUtils.showTable(VTDataGridQueries.processingQuery, VTManagerConfig.planCols, processing_scores_dg);
+                                }
+                                else debug_textbox.Text = "Параметр Факт должен быть числом > 0.";
                             } else debug_textbox.Text = "Значение Факт не указано.";
                         } else {
                             warn_msg.dialog_label.Content = "Внимание";
