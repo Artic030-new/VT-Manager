@@ -132,6 +132,7 @@
     <Compile Include="DeliveryPages\Delivery_Providers.xaml.cs">
       <DependentUpon>Delivery_Providers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Interactive\IVTPage.cs" />
     <Compile Include="Interactive\IChartable.cs" />
     <Compile Include="Interactive\IQuery.cs" />
     <Compile Include="Interactive\VTChartQueries.cs" />

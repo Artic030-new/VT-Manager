@@ -47,7 +47,7 @@ namespace VTManager
             item_frame.Visibility = Visibility.Hidden;
             MainMenuWindow.ThisFrame.Visibility = Visibility.Hidden;
         }
-        private void refresh_MouseDown(object sender, MouseButtonEventArgs e)
+        private void refresh_label_MouseDown(object sender, MouseButtonEventArgs e)
         {
             item_frame.Refresh();
         }

@@ -89,7 +89,7 @@
                     </Path.Data>
                 </Path>
             </Label>
-            <Label x:Name="refresh" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" MouseDown="refresh_MouseDown">
+            <Label x:Name="refresh_label" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" MouseDown="refresh_label_MouseDown">
                 <Path Fill="#273049">
                     <Path.Data>
                         <PathGeometry Figures="M50.6,22.9C50,17,47.4,11.3,43.1,7.2C39.1,3.4,33.6,1.1,28,1c-0.4,0-0.7,0-1.1,0C19.6,1.3,13,5.6,9.2,11.8

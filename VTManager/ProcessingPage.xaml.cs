@@ -16,10 +16,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VTManager;
+using VTManager.Interactive;
 
 namespace VTManager
 {
-    public partial class ProcessingPage : Page
+    public partial class ProcessingPage : Page, IVTPage
     {
         public static Frame ThisFrame;
         public ProcessingPage()
@@ -27,18 +28,23 @@ namespace VTManager
             InitializeComponent();
             ThisFrame = item_frame;
             /*Таймер. Обновляет страницу каждые 2 минуты*/
+            refresh();
+
+        }
+        public void refresh()
+        {
             System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
             timer1.Interval = 120000;
             timer1.Tick += t_Tick;
             timer1.Enabled = true;
         }
-        static void navigate(string uri) 
+        public void navigate(string uri) 
         {
             removeMainComponents();
             ThisFrame.Visibility = Visibility.Visible;
             ThisFrame.NavigationService.Navigate(new Uri(uri, UriKind.Relative));
         }
-        static void removeMainComponents()
+        public static void removeMainComponents()
         {
             /*удаляет элементы при переходе с главной стр**/
         }
@@ -58,7 +64,7 @@ namespace VTManager
         {
             navigate("ProcessingPages/Processing_Add.xaml");
         }
-        private void refresh_MouseDown(object sender, MouseButtonEventArgs e)
+        private void refresh_label_MouseDown(object sender, MouseButtonEventArgs e)
         {
             item_frame.Refresh();
         }
