@@ -154,6 +154,9 @@
     <Compile Include="ProductionPages\Production_Stored.xaml.cs">
       <DependentUpon>Production_Stored.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Slider.xaml.cs">
+      <DependentUpon>Slider.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\EncodingUtils.cs" />
     <Compile Include="Utils\ExportUtils.cs" />
     <Compile Include="MainMenuWindow.xaml.cs">
@@ -234,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ProductionPages\Production_Stored.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Slider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
