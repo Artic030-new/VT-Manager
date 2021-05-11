@@ -137,6 +137,9 @@
     <Compile Include="Interactive\IQuery.cs" />
     <Compile Include="Interactive\VTChartQueries.cs" />
     <Compile Include="Interactive\VTDataGridQueries.cs" />
+    <Compile Include="Interactive\VTManagerChart.xaml.cs">
+      <DependentUpon>VTManagerChart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interactive\VTManagerPage.cs" />
     <Compile Include="Interactive\VTManagerStat.xaml.cs">
       <DependentUpon>VTManagerStat.xaml</DependentUpon>
@@ -176,7 +179,7 @@
     </Compile>
     <Compile Include="Utils\SQLUtils.cs" />
     <Compile Include="Utils\WebUtils.cs" />
-    <Compile Include="Interactive\VTManagerChart.xaml.cs">
+    <Compile Include="VTManagerChart.xaml.cs">
       <DependentUpon>VTManagerChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="VTManagerConfig.cs" />
@@ -212,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DeliveryPages\Delivery_Providers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Interactive\VTManagerChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -276,7 +283,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Interactive\VTManagerChart.xaml">
+    <Page Include="VTManagerChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

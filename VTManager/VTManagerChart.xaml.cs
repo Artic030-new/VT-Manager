@@ -14,18 +14,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VTManager.Interactive
+namespace VTManager
 {
     /// <summary>
-    /// Логика взаимодействия для VTManagerChart.xaml
+    /// Interaction logic for VTManagerChart.xaml
     /// </summary>
     public partial class VTManagerChart : UserControl, INotifyPropertyChanged
     {
-        public VTManagerChart()
-        {
-            InitializeComponent();
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(string info)
         {
@@ -94,6 +89,13 @@ namespace VTManager.Interactive
             }
         }
 
+        public VTManagerChart()
+        {
+            InitializeComponent();
+            this.DataContext = this;
+            Color = Brushes.Black;
+        }
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             UpdateBarHeight();
@@ -104,5 +106,4 @@ namespace VTManager.Interactive
             UpdateBarHeight();
         }
     }
-
 }

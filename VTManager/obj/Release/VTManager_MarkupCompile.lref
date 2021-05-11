@@ -1,4 +1,4 @@
-﻿C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\GeneratedInternalTypeHelper.g.cs
+﻿
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\App.xaml;;
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\ClientPage.xaml;;
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\ClientPages\Client_Charts.xaml;;
@@ -8,6 +8,7 @@ FC:\Users\030\Source\Repos\VT-Manager\VTManager\DeliveryPage.xaml;;
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\DeliveryPages\Delivery_Add.xaml;;
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\DeliveryPages\Delivery_Deliveries.xaml;;
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\DeliveryPages\Delivery_Providers.xaml;;
+FC:\Users\030\Source\Repos\VT-Manager\VTManager\Interactive\VTManagerChart.xaml;;
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\Interactive\VTManagerStat.xaml;;
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\ProcessingPages\Processing_Add.xaml;;
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\ProcessingPages\Processing_Charts.xaml;;
@@ -20,6 +21,6 @@ FC:\Users\030\Source\Repos\VT-Manager\VTManager\Slider.xaml;;
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\AuthWindow.xaml;;
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\MainMenuWindow.xaml;;
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\ProcessingPage.xaml;;
-FC:\Users\030\Source\Repos\VT-Manager\VTManager\Interactive\VTManagerChart.xaml;;
+FC:\Users\030\Source\Repos\VT-Manager\VTManager\VTManagerChart.xaml;;
 FC:\Users\030\Source\Repos\VT-Manager\VTManager\VTManagerDialog.xaml;;
 

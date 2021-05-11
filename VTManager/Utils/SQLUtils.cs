@@ -12,7 +12,7 @@ namespace VTManager.Utils
 {
     class SQLUtils
     {
-        public static void runQuery(string query) {
+        public static void runQuery(string query, string v) {
             //Открывает соединение, выполняет запрос к базе и закрывает соединение.
             MySqlConnection cn = new MySqlConnection(VTManagerConfig.data);
             cn.Open();
@@ -36,7 +36,7 @@ namespace VTManager.Utils
             if (reader.Read()) source.Content = reader[target_column].ToString();
             cn.Close();
         }
-        public static void runQuery(string query, string target_column, VTManager.VTManagerChart source) {
+        public static void runQuery(string query, string target_column, VTManager.Interactive.VTManagerChart source) {
             /*Третья перегрузка метода. Тоже самое, что и вторая, но записывает ЧИСЛОВЫЕ данные в контрол рейтинга
              Используется для красивого вывода статистики, например.*/
             MySqlConnection cn = new MySqlConnection(VTManagerConfig.data);
