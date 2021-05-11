@@ -28,8 +28,8 @@ namespace VTManager
         }
         private void processing_charts_page_Loaded(object sender, RoutedEventArgs e)
         {
-            SQLUtils.runQuery(VTChartQueries.totalProductionQuery, "all_vt", block1_value);
-            SQLUtils.runQuery(VTChartQueries.totalLossQuery, "all_vt", block2_value);
+            SQLUtils.runQuery(VTChartQueries.totalProductionQuery, "all_vt", block1.block_value);
+            SQLUtils.runQuery(VTChartQueries.totalLossQuery, "all_vt", block2.block_value);
             SQLUtils.runQuery(VTChartQueries.totalPentode, "all_vt", vt_type1);
             SQLUtils.runQuery(VTChartQueries.totalTriode, "all_vt", vt_type2);
             SQLUtils.runQuery(VTChartQueries.totalTriode2, "all_vt", vt_type3);
@@ -39,13 +39,13 @@ namespace VTManager
        
         private void block1_value_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToInt32(block1_value.Content) < 499)
-                block1_value.Foreground = Brushes.Red;
+            if (Convert.ToInt32(block1.block_value.Content) < 499)
+                block1.block_value.Foreground = Brushes.Red;
         }
         private void block2_value_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToDouble(block1_value.Content) < 5)
-                block2_value.Foreground = Brushes.Red;
+            if (Convert.ToDouble(block2.block_value.Content) < 5)
+                block2.block_value.Foreground = Brushes.Red;
         }
     }
 }

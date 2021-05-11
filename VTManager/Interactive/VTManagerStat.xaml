@@ -8,8 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Border x:Name="stat_block" Background="#273049" CornerRadius="12" MaxWidth="340" MaxHeight="120" Margin="10,0,0,0">
         <StackPanel Orientation="Vertical">
-            <Label x:Name="block1_value" Content="value" Foreground="#fff" FontFamily="Calibri" FontWeight="Bold" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Loaded="block1_value_Loaded"></Label>
-            <Label x:Name="block1_text" Content="Of Something" Foreground="#fff" FontFamily="Calibri" FontWeight="Light" FontSize="18" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+            <Label x:Name="block_value" Content="{Binding Value}"  Foreground="#fff" FontFamily="Calibri" FontWeight="Bold" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+            <Label x:Name="block_target" Content="{Binding Target}" Foreground="#fff" FontFamily="Calibri" FontWeight="Light" FontSize="18" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
         </StackPanel>
     </Border>
 </UserControl>

@@ -219,6 +219,7 @@ C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.exe
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.pdb
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\Slider.g.cs
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\Slider.baml
-C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.csprojAssemblyReference.cache
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\Interactive\VTManagerChart.g.cs
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\Interactive\VTManagerChart.baml
+C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\Interactive\VTManagerStat.g.cs
+C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\Interactive\VTManagerStat.baml

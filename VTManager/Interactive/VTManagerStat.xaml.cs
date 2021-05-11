@@ -26,6 +26,7 @@ namespace VTManager.Interactive
         public VTManagerStat()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
 
         public void NotifyPropertyChanged(string info) {
@@ -33,15 +34,17 @@ namespace VTManager.Interactive
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
         }
 
-        private string _value;
-        public string ItemValue {
+        private string _value = "value";
+        public string Value
+        {
             get { return _value; } 
-            set { _value = value; }
+            set { _value = value; NotifyPropertyChanged("Value"); }
         }
-        private string _target;
-        public string ItemTarget {
+        private string _target = "Of Something";
+        public string Target
+        {
             get { return _target; }
-            set { _target = value; }
+            set { _target = value; NotifyPropertyChanged("Target"); }
         }
     }
 }
