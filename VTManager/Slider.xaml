@@ -10,23 +10,24 @@
 
     <UserControl.Resources>
         <Style x:Key="expandAreaStyle" TargetType="{x:Type Border}">
-            <Setter Property="Margin" Value="0 0 0 600"/>
+            <Setter Property="Margin" Value="0 0 0 645"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsChecked, ElementName=expandButton}" Value="True">
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard Storyboard.TargetProperty="Margin">
-                                <ThicknessAnimation To="0 0 0 0" Duration="0:0:0.2"/>
+                                <ThicknessAnimation To="0 0 0 0" Duration="0:0:0.4"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.EnterActions>
                     <DataTrigger.ExitActions>
                         <BeginStoryboard>
                             <Storyboard Storyboard.TargetProperty="Margin">
-                                <ThicknessAnimation To="0 0 0 600" Duration="0:0:0.2"/>
+                                <ThicknessAnimation To="0 0 0 645" Duration="0:0:0.4"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.ExitActions>
+                    
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -34,19 +35,22 @@
 
     <Border x:Name="expandArea" 
             Style="{DynamicResource expandAreaStyle}"
-            Background="#273049">
+            Background="#333d5c">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="17" ShadowDepth="3" Opacity="0.7"/>
+        </Border.Effect>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!-- The expand menu button -->
             <ToggleButton x:Name="expandButton" Content="v" Grid.Row="0"
                           Width="50" Height="25"
-                          HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                          HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <!-- The content -->
-            <TextBlock Grid.Row="1" Text="123dgfd123dgfdfgfdgssfdg1123dgfd123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg123dgfd123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg123dgfd123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg123dgfd123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfd123dgfdfgfdgssfdg1123dgfd123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg123dgfd123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg123dgfd123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg123dgfd123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg23dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg123dgfd123dgfdfgfdgssfdg1123dgfd123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg123dgfd123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg123dgfd123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg123dgfd123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg23dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdgfgfdgssfdg23dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdg123dgfdfgfdgssfdgfgfdgssfdg" TextWrapping="Wrap"/>
+            <TextBlock Grid.Row="1" Text="" TextWrapping="Wrap"/>
         </Grid>
     </Border>
 </UserControl>
