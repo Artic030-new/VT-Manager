@@ -6,28 +6,28 @@
              xmlns:local="clr-namespace:VTManager"
              mc:Ignorable="d" 
     x:Name="sidePanel"
-             d:DesignHeight="670" d:DesignWidth="390">
+             d:DesignHeight="635" d:DesignWidth="390">
 
     <UserControl.Resources>
         <Style x:Key="expandAreaStyle" TargetType="{x:Type Border}">
-            <Setter Property="Margin" Value="0 0 0 645"/>
+            <Setter Property="Margin" Value="0 0 10 610"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsChecked, ElementName=expandButton}" Value="True">
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard Storyboard.TargetProperty="Margin">
-                                <ThicknessAnimation To="0 0 0 0" Duration="0:0:0.4"/>
+                                <ThicknessAnimation To="0 0 10 0" Duration="0:0:0.4"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.EnterActions>
                     <DataTrigger.ExitActions>
                         <BeginStoryboard>
                             <Storyboard Storyboard.TargetProperty="Margin">
-                                <ThicknessAnimation To="0 0 0 645" Duration="0:0:0.4"/>
+                                <ThicknessAnimation To="0 0 10 610" Duration="0:0:0.4"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.ExitActions>
-                    
+
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -35,7 +35,7 @@
 
     <Border x:Name="expandArea" 
             Style="{DynamicResource expandAreaStyle}"
-            Background="#333d5c">
+            Background="#333d5c" Margin="0, 0, 10, 0">
         <Border.Effect>
             <DropShadowEffect BlurRadius="17" ShadowDepth="3" Opacity="0.7"/>
         </Border.Effect>
@@ -50,7 +50,24 @@
                           Width="50" Height="25"
                           HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <!-- The content -->
-            <TextBlock Grid.Row="1" Text="" TextWrapping="Wrap"/>
+            <Grid x:Name="working_elements" Grid.Row="1" Margin="10,10,10,10" Width="auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0*"/>
+                    <RowDefinition Height="132*"/>
+                    <RowDefinition Height="254*"/>
+                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="99*"/>
+                </Grid.RowDefinitions>
+                <Button Content="Button"  Margin="10" Grid.Row="1" />
+                <Button Content="Button"  Margin="10" Grid.Row="1" Grid.Column="1" />
+                <Button Content="Button"  Margin="10" Grid.Row="2" Grid.ColumnSpan="2" />
+                <Button Content="Button"  Margin="10" Grid.Row="3" Grid.ColumnSpan="2" />
+            </Grid>
+
         </Grid>
     </Border>
 </UserControl>
