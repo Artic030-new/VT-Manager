@@ -30,10 +30,15 @@ namespace VTManager.ClientPages
             SQLUtils.runQuery(VTChartQueries.totalSaledDoubleDiode, "all_vt", vt_type3);
             SQLUtils.runQuery(VTChartQueries.totalSaledCenotrone, "all_vt", vt_type4);
         }
-        private void block1_value_Loaded(object sender, RoutedEventArgs e)
+
+        private void main_costs_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToInt32(block1.block_value.Content) < 499)
+            if(Convert.ToInt32(block1.block_value.Content.ToString()) < block1.Limit)
                 block1.block_value.Foreground = Brushes.Red;
+            if (Convert.ToInt32(block2.block_value.Content.ToString()) < block2.Limit)
+                block2.block_value.Foreground = Brushes.Red;
+            if (Convert.ToInt32(block3.block_value.Content.ToString()) < block3.Limit)
+                block3.block_value.Foreground = Brushes.Red;
         }
     }
 }

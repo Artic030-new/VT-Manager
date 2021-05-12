@@ -34,7 +34,7 @@ namespace VTManager.Interactive
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
         }
 
-        private string _value = "value";
+        private static string _value = "0";
         public string Value
         {
             get { return _value; } 
@@ -45,6 +45,12 @@ namespace VTManager.Interactive
         {
             get { return _target; }
             set { _target = value; NotifyPropertyChanged("Target"); }
+        }
+        private int _limit = 0;
+        public int Limit
+        {
+            get { return _limit; }
+            set { _limit = value; NotifyPropertyChanged("Limit"); }
         }
     }
 }

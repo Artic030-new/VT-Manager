@@ -29,7 +29,7 @@
         <Rectangle Fill="#fff" Grid.RowSpan="8" Grid.ColumnSpan="5"/>
         <Rectangle Fill="#273049" Grid.Row="5" Grid.ColumnSpan="5"/>
         <Label x:Name="page_header" Content="Статистика продаж" Style="{DynamicResource page_header}" Grid.ColumnSpan="2"/>
-        <Grid x:Name="main_costs" Grid.Row="2" Grid.ColumnSpan="5" Grid.RowSpan="2" Margin="0,0,80,0">
+        <Grid x:Name="main_costs" Grid.Row="2" Grid.ColumnSpan="5" Grid.RowSpan="2" Margin="0,0,80,0" Loaded="main_costs_Loaded">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -41,9 +41,9 @@
                 <ColumnDefinition Width="39*"/>
                 <ColumnDefinition Width="235*"/>
             </Grid.ColumnDefinitions>
-            <Interactive:VTManagerStat x:Name="block1" Target="Радиоламп продано"/>
-            <Interactive:VTManagerStat x:Name="block2" Target="Заказов оформлено" Grid.Column="2"/>
-            <Interactive:VTManagerStat x:Name="block3" Target="Клиентов зарегистрировано"  Grid.Column="4"/>
+            <Interactive:VTManagerStat x:Name="block1" Target="Радиоламп продано" Limit="499" Foreground="White"/>
+            <Interactive:VTManagerStat x:Name="block2" Target="Заказов оформлено" Grid.Column="2" Limit="4" Foreground="White"/>
+            <Interactive:VTManagerStat x:Name="block3" Target="Клиентов зарегистрировано"  Grid.Column="4" Limit="1" Foreground="White" />
 
         </Grid>
         <Grid x:Name="chart_items" Grid.Row="4" Grid.ColumnSpan="5">
