@@ -38,8 +38,8 @@
                 <ColumnDefinition Width="50*"/>
                 <ColumnDefinition Width="264*"/>
             </Grid.ColumnDefinitions>
-            <Interactive:VTManagerStat x:Name="block1" Target="Радиоламп изготовлено"/>
-            <Interactive:VTManagerStat x:Name="block2" Target="Коэффициент брака за смену" Grid.Column="2"/>
+            <Interactive:VTManagerStat x:Name="block1" Target="Радиоламп изготовлено" Limit="9999"/>
+            <Interactive:VTManagerStat x:Name="block2" Target="Коэффициент брака за смену" Limit="6" Grid.Column="2"/>
         </Grid>
         <Grid x:Name="chart_items" Grid.Row="4" Grid.ColumnSpan="3">
             <StackPanel Orientation="Horizontal" Height="200" VerticalAlignment="Top"  HorizontalAlignment="Left">
