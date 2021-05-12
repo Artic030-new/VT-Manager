@@ -18,9 +18,9 @@ namespace VTManager.ClientPages
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            SQLUtils.runQuery(VTChartQueries.totalSaled, "all_sales", block1_value);
-            SQLUtils.runQuery(VTChartQueries.totalOrders, "all_orders", block2_value);
-            SQLUtils.runQuery(VTChartQueries.totalClients, "all_clients", block3_value);
+            SQLUtils.runQuery(VTChartQueries.totalSaled, "all_sales", block1.block_value);
+            SQLUtils.runQuery(VTChartQueries.totalOrders, "all_orders", block2.block_value);
+            SQLUtils.runQuery(VTChartQueries.totalClients, "all_clients", block3.block_value);
             SQLUtils.runQuery(VTChartQueries.totalMark1, "all_mk1", vt_mark1);
             SQLUtils.runQuery(VTChartQueries.totalMark2, "all_mk2", vt_mark2);
             SQLUtils.runQuery(VTChartQueries.totalMark3, "all_mk3", vt_mark3);
@@ -32,8 +32,8 @@ namespace VTManager.ClientPages
         }
         private void block1_value_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToInt32(block1_value.Content) < 499)
-                block1_value.Foreground = Brushes.Red;
+            if (Convert.ToInt32(block1.block_value.Content) < 499)
+                block1.block_value.Foreground = Brushes.Red;
         }
     }
 }

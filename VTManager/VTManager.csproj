@@ -179,9 +179,6 @@
     </Compile>
     <Compile Include="Utils\SQLUtils.cs" />
     <Compile Include="Utils\WebUtils.cs" />
-    <Compile Include="VTManagerChart.xaml.cs">
-      <DependentUpon>VTManagerChart.xaml</DependentUpon>
-    </Compile>
     <Compile Include="VTManagerConfig.cs" />
     <Compile Include="VTManagerDialog.xaml.cs">
       <DependentUpon>VTManagerDialog.xaml</DependentUpon>
@@ -280,10 +277,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ProcessingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="VTManagerChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

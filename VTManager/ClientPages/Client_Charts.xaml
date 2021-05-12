@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VTManager"
+      xmlns:Interactive="clr-namespace:VTManager.Interactive"
       mc:Ignorable="d" 
       Width="auto"  Height="auto" 
       Title="Client_Charts" Loaded="Page_Loaded">
@@ -40,24 +41,10 @@
                 <ColumnDefinition Width="39*"/>
                 <ColumnDefinition Width="235*"/>
             </Grid.ColumnDefinitions>
-            <Border x:Name="block1" Background="#273049" CornerRadius="12" MaxWidth="340" MaxHeight="120" Margin="10,0,0,0">
-                <StackPanel Orientation="Vertical">
-                    <Label x:Name="block1_value" Content="---" Foreground="#fff" FontFamily="Calibri" FontWeight="Bold" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Loaded="block1_value_Loaded"></Label>
-                    <Label x:Name="block1_text" Content="Радиоламп продано" Foreground="#fff" FontFamily="Calibri" FontWeight="Light" FontSize="18" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                </StackPanel>
-            </Border>
-            <Border x:Name="block2" Grid.Column="2" Background="#273049" CornerRadius="12" MaxWidth="340" MaxHeight="120" Margin="10,0,0,0" >
-                <StackPanel Orientation="Vertical">
-                    <Label x:Name="block2_value" Content="---" Foreground="#fff" FontFamily="Calibri" FontWeight="Bold" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Loaded="block1_value_Loaded"></Label>
-                    <Label x:Name="block2_text" Content="Заказов оформлено" Foreground="#fff" FontFamily="Calibri" FontWeight="Light" FontSize="18" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                </StackPanel>
-            </Border>
-            <Border x:Name="block3" Grid.Column="4" Background="#273049" CornerRadius="12" MaxWidth="340" MaxHeight="120" Margin="10,0,0,0" >
-                <StackPanel Orientation="Vertical">
-                    <Label x:Name="block3_value" Content="---" Foreground="#fff" FontFamily="Calibri" FontWeight="Bold" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                    <Label x:Name="block3_txt" Content="Клиентов зарегистрировано" Foreground="#fff" FontFamily="Calibri" FontWeight="Light" FontSize="18" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                </StackPanel>
-            </Border>
+            <Interactive:VTManagerStat x:Name="block1" Target="Радиоламп продано"/>
+            <Interactive:VTManagerStat x:Name="block2" Target="Заказов оформлено" Grid.Column="2"/>
+            <Interactive:VTManagerStat x:Name="block3" Target="Клиентов зарегистрировано"  Grid.Column="4"/>
+
         </Grid>
         <Grid x:Name="chart_items" Grid.Row="4" Grid.ColumnSpan="5">
             <Grid.ColumnDefinitions>
@@ -71,20 +58,20 @@
                 <RowDefinition Height="98*"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Height="110" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="265">
-                <local:VTManagerChart x:Name="vt_mark1" ItemName="6К4" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="333" Margin="10" Width="110"/>
-                <local:VTManagerChart x:Name="vt_mark2" ItemName="6К7" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="333" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_mark1" ItemName="6К4" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="333" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_mark2" ItemName="6К7" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="333" Margin="10" Width="110"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="110" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="265" Margin="0,115,0,0" Grid.RowSpan="2">
-                <local:VTManagerChart x:Name="vt_mark3" ItemName="6Ж3" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="333" Margin="10" Width="110"/>
-                <local:VTManagerChart x:Name="vt_mark4" ItemName="6С1П" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="333" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_mark3" ItemName="6Ж3" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="333" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_mark4" ItemName="6С1П" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="333" Margin="10" Width="110"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="2" Height="110" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="265">
-                <local:VTManagerChart x:Name="vt_type1" ItemName="Пентодов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="333" Margin="10" Width="110"/>
-                <local:VTManagerChart x:Name="vt_type2" ItemName="Триодов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="333" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_type1" ItemName="Пентодов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="333" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_type2" ItemName="Триодов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="333" Margin="10" Width="110"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="2" Height="110" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="265" Margin="0,115,0,0" Grid.RowSpan="2">
-                <local:VTManagerChart x:Name="vt_type3" ItemName="Двойных диодов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="0" Margin="10" Width="110"/>
-                <local:VTManagerChart x:Name="vt_type4" ItemName="Кенотронов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="0" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_type3" ItemName="Двойных диодов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="0" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_type4" ItemName="Кенотронов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="0" Margin="10" Width="110"/>
             </StackPanel>
         </Grid>
 
