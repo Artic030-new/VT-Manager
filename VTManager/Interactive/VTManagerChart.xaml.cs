@@ -21,11 +21,6 @@ namespace VTManager.Interactive
     /// </summary>
     public partial class VTManagerChart : UserControl, INotifyPropertyChanged
     {
-        public VTManagerChart()
-        {
-            InitializeComponent();
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(string info)
         {
@@ -103,6 +98,14 @@ namespace VTManager.Interactive
         {
             UpdateBarHeight();
         }
+
+        public VTManagerChart()
+        {
+            InitializeComponent();
+            this.DataContext = this;
+            Color = Brushes.Black;
+        }
+
     }
 
 }

@@ -30,7 +30,7 @@ namespace VTManager.ProductionPages
         }
 
         void showStoredVts() {
-            VTManagerChart[] charts = { vt_mark2, vt_mark3, vt_mark4, vt_mark5, vt_mark6, vt_mark7, vt_mark8, vt_mark9, vt_mark10};
+            Interactive.VTManagerChart[] charts = { vt_mark2, vt_mark3, vt_mark4, vt_mark5, vt_mark6, vt_mark7, vt_mark8, vt_mark9, vt_mark10};
             String[] marks = { "6К4", "6К7", "6Ж3", "6С1П", "6С2С", "6И1П", "6Х2П", "6Х6С", "6Ц10П" };
             for (int c = 0; c < charts.Length; c++) {
                 SQLUtils.runQuery(VTChartQueries.selectVt(marks[c]), "mk", charts[c]);

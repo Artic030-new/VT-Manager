@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VTManager"
+      xmlns:Interactive="clr-namespace:VTManager.Interactive"
       mc:Ignorable="d" 
       Width="auto" Height="auto"
       Title="Processing_Resources" Loaded="Page_Loaded">
@@ -27,17 +28,17 @@
         <Label x:Name="page_header" Content="Ресурсы на складе" Style="{DynamicResource page_header}"/>
         <Grid x:Name="chart_items" Grid.Row="2" Grid.ColumnSpan="3">
             <StackPanel Orientation="Horizontal" Height="175" VerticalAlignment="Top"  HorizontalAlignment="Left">
-                <local:VTManagerChart x:Name="res1" TextColor="Black"  ItemName="Тонн песка" Background="Bisque" Color="Orange" MaxValue="120.00" Value=".00" Margin="10" Width="200"/>
-                <local:VTManagerChart x:Name="res2" TextColor="White"  ItemName="Тонн кремния" Background="#ACA1DC" Color="#312956" MaxValue="60.00" Value=".00" Margin="10" Width="200"/>
+                <Interactive:VTManagerChart x:Name="res1" TextColor="Black"  ItemName="Тонн песка" Background="Bisque" Color="Orange" MaxValue="120.00" Value=".00" Margin="10" Width="200"/>
+                <Interactive:VTManagerChart x:Name="res2" TextColor="White"  ItemName="Тонн кремния" Background="#ACA1DC" Color="#312956" MaxValue="60.00" Value=".00" Margin="10" Width="200"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="chart_items2" Grid.Row="4" Grid.ColumnSpan="3">
             <StackPanel Orientation="Horizontal" Height="200" VerticalAlignment="Top"  HorizontalAlignment="Left">
-                <local:VTManagerChart x:Name="res3" TextColor="White"  ItemName="КГ Графеновой плёнки" Background="#909090" Color="#303030" MaxValue="999.9" Value=".00" Margin="10" />
-                <local:VTManagerChart x:Name="res4" TextColor="White"  ItemName="КГ Боросиликата" Background="#68BB88" Color="#237542" MaxValue="999.9" Value=".00" Margin="10" />
-                <local:VTManagerChart x:Name="res5" TextColor="White"  ItemName="Литров Бисфенола-А" Background="#D5AB6F" Color="#77582B" MaxValue="600.00" Value=".00" Margin="10" />
-                <local:VTManagerChart x:Name="res6" TextColor="White"  ItemName="КГ Эпихлоргидрина" Background="#C1916C" Color="#643A1A" MaxValue="120.00" Value=".00" Margin="10" />
-                <local:VTManagerChart x:Name="res7" TextColor="White"  ItemName="Литров Ацетона" Background="#C48EA9" Color="#734059" MaxValue="600.00" Value=".00" Margin="10"/>
+                <Interactive:VTManagerChart x:Name="res3" TextColor="White"  ItemName="КГ Графеновой плёнки" Background="#909090" Color="#303030" MaxValue="999.9" Value=".00" Margin="10" />
+                <Interactive:VTManagerChart x:Name="res4" TextColor="White"  ItemName="КГ Боросиликата" Background="#68BB88" Color="#237542" MaxValue="999.9" Value=".00" Margin="10" />
+                <Interactive:VTManagerChart x:Name="res5" TextColor="White"  ItemName="Литров Бисфенола-А" Background="#D5AB6F" Color="#77582B" MaxValue="600.00" Value=".00" Margin="10" />
+                <Interactive:VTManagerChart x:Name="res6" TextColor="White"  ItemName="КГ Эпихлоргидрина" Background="#C1916C" Color="#643A1A" MaxValue="120.00" Value=".00" Margin="10" />
+                <Interactive:VTManagerChart x:Name="res7" TextColor="White"  ItemName="Литров Ацетона" Background="#C48EA9" Color="#734059" MaxValue="600.00" Value=".00" Margin="10"/>
             </StackPanel>
         </Grid>
         <Label Content="Сухие смеси" FontFamily="{StaticResource NunitoBold}" FontSize="16" Foreground="#273049" Grid.Row="1" Margin="10,0,0,0"/>
