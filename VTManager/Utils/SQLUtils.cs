@@ -48,6 +48,8 @@ namespace VTManager.Utils
             cn.Close();
         }
 
+
+
         public static void runQuery(string query, string target_column, VTManager.Interactive.VTManagerChart source)
         {
             /*Третья перегрузка метода. Тоже самое, что и вторая, но записывает ЧИСЛОВЫЕ данные в контрол рейтинга

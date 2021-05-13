@@ -150,15 +150,23 @@ namespace VTManager.ClientPages
                     SQLUtils.runQuery("SELECT amount AS amount FROM shopcart_vacushop WHERE id = \"" + id + "\"", "amount", t1);
                     string the_amount = t1.Content.ToString().Trim();
                     SQLUtils.runQuery("SELECT vt.id as id FROM vt WHERE mark = \"" + mark + "\" ", "id", t2);
-                    SQLUtils.runQuery("UPDATE vt_lots SET count = (count - " + the_amount + ") WHERE vtId = " + t2.Content.ToString().Trim() + "; UPDATE shopcart_vacushop SET solved = 1 WHERE id = " + id);
-                    debug_textbox.Text = "Заказ № " + id.Trim() + " успешно завершён.";
-                } else  {
+                    try {
+                        SQLUtils.runQuery("SELECT vt_lots.count as id FROM vt_lots WHERE vtId = " + t2.Content.ToString().Trim(), "id", t1);
+                        if (Convert.ToInt32(t1.Content.ToString()) >= Convert.ToInt32(the_amount)) {
+                            SQLUtils.runQuery("UPDATE vt_lots SET count = (count - " + the_amount + ") WHERE vtId = " + t2.Content.ToString().Trim() + "; UPDATE shopcart_vacushop SET solved = 1 WHERE id = " + id);
+                            debug_textbox.Text = "Заказ № " + id.Trim() + " успешно завершён.";
+                        } else {
+                            debug_textbox.Text = "Недостаточно номенклатуры на складе";
+                        }
+                    }
+                    catch (System.NullReferenceException) { debug_textbox.Text = "Наличие партии не согласовано! Уточните информацию у кладовщика"; }
+                } else {
                     warn_msg = new VTManagerDialog();
                     warn_msg.dialog_label.Content = "Внимание";
                     warn_msg.contained_info.Text = "Заказ уже был завершен";
                     warn_msg.Show();
                 }
-            } catch (System.NullReferenceException) { debug_textbox.Text = "Выберите запись!"; }
+            } catch (System.NullReferenceException) { debug_textbox.Text = "Выберите запись в таблице!"; }
         }
     }
 }
