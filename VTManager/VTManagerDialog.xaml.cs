@@ -24,6 +24,13 @@ namespace VTManager
         {
             InitializeComponent();
         }
+        // Вывод окна на месте
+        public VTManagerDialog(string header, string message) {
+            InitializeComponent();
+            dialog_label.Content = header;
+            contained_info.Text = message;
+            Show();
+        }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

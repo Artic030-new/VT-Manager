@@ -14,7 +14,6 @@ namespace VTManager.ClientPages
     /// </summary>
     public partial class Client_Orders : Page
     {
-        public static VTManagerDialog warn_msg;
         public Client_Orders()
         {
             InitializeComponent();
@@ -131,10 +130,7 @@ namespace VTManager.ClientPages
                     SQLUtils.runQuery("UPDATE dle_users SET money = (money + " + price + ") WHERE fullname = " + "\'" + fullname.Trim() + "\'");
                     debug_textbox.Text = "Заказ № " + id.Trim() + " успешно отменён.";
                 } else {
-                    warn_msg = new VTManagerDialog();
-                    warn_msg.dialog_label.Content = "Внимание";
-                    warn_msg.contained_info.Text = "Завершенный заказ нельзя отменить";
-                    warn_msg.Show();
+                    new VTManagerDialog("Внимание", "Завершенный заказ нельзя отменить");
                 }
             } catch (System.NullReferenceException) { debug_textbox.Text = "Выберите запись в таблице!"; }
         }
@@ -161,10 +157,7 @@ namespace VTManager.ClientPages
                     }
                     catch (System.NullReferenceException) { debug_textbox.Text = "Наличие партии не согласовано! Уточните информацию у кладовщика"; }
                 } else {
-                    warn_msg = new VTManagerDialog();
-                    warn_msg.dialog_label.Content = "Внимание";
-                    warn_msg.contained_info.Text = "Заказ уже был завершен";
-                    warn_msg.Show();
+                   new VTManagerDialog("Внимание", "Заказ уже был завершен");
                 }
             } catch (System.NullReferenceException) { debug_textbox.Text = "Выберите запись в таблице!"; }
         }
