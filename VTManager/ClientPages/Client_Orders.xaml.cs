@@ -130,9 +130,9 @@ namespace VTManager.ClientPages
                     SQLUtils.runQuery("UPDATE dle_users SET money = (money + " + price + ") WHERE fullname = " + "\'" + fullname.Trim() + "\'");
                     debug_textbox.Text = "Заказ № " + id.Trim() + " успешно отменён.";
                 } else {
-                    new VTManagerDialog("Внимание", "Завершенный заказ нельзя отменить");
+                    new VTManagerDialog(Messages._WARNING_MESSAGE, Messages._ATTEMPT_TO_CANCEL_SOLVED);
                 }
-            } catch (System.NullReferenceException) { debug_textbox.Text = "Выберите запись в таблице!"; }
+            } catch (System.NullReferenceException) { debug_textbox.Text = Messages._NO_ENTRY_SELECTED; }
         }
         private void done_button_Click(object sender, RoutedEventArgs e)
         {
@@ -152,14 +152,14 @@ namespace VTManager.ClientPages
                             SQLUtils.runQuery("UPDATE vt_lots SET count = (count - " + the_amount + ") WHERE vtId = " + t2.Content.ToString().Trim() + "; UPDATE shopcart_vacushop SET solved = 1 WHERE id = " + id);
                             debug_textbox.Text = "Заказ № " + id.Trim() + " успешно завершён.";
                         } else {
-                            debug_textbox.Text = "Недостаточно номенклатуры на складе";
+                            debug_textbox.Text = Messages._NOT_ENOUGH_ITEMS;
                         }
                     }
-                    catch (System.NullReferenceException) { debug_textbox.Text = "Наличие партии не согласовано! Уточните информацию у кладовщика"; }
+                    catch (System.NullReferenceException) { debug_textbox.Text = Messages._BRAND_NOT_REGISTERED; }
                 } else {
-                   new VTManagerDialog("Внимание", "Заказ уже был завершен");
+                   new VTManagerDialog(Messages._WARNING_MESSAGE, Messages._ORDER_HAS_BEEN_SOLVED);
                 }
-            } catch (System.NullReferenceException) { debug_textbox.Text = "Выберите запись в таблице!"; }
+            } catch (System.NullReferenceException) { debug_textbox.Text = Messages._NO_ENTRY_SELECTED; }
         }
     }
 }
