@@ -28,15 +28,19 @@ namespace VTManager.ProcssingPages
             InitializeComponent();
         }
         /*Объекты лейблов под выполняемые запросы*/
-        public Label t1 = new Label();
-        public Label t2 = new Label();
+        private Label t1 = new Label();
+        private Label t2 = new Label();
+        private VTQuery query = new VTQuery();
+
         /*Текущее время*/
         readonly DateTime theDate = DateTime.Now;
         private void add_button_Click(object sender, RoutedEventArgs e) {
             string markValue = select_vt_cbox.SelectedItem.ToString();
-            SQLUtils.runQuery("SELECT vt.id AS ids FROM vt WHERE mark = " + "\"" + markValue + "\" ", "ids", t1);
+            SQLUtils.runQuery(query.select("vt.id", "ids", "vt", "mark = " + "\"" + markValue + "\" "), "ids", t1);
+            
             string personalValue = select_personal_cbox.SelectedItem.ToString();
-            SQLUtils.runQuery("SELECT personal.id AS ids FROM personal WHERE firstName = " + "\"" + personalValue + "\" ", "ids", t2);
+            SQLUtils.runQuery(query.select("personal.id", "ids", "personal", "firstName = " + "\"" + personalValue + "\" "), "ids", t2);
+            
             string markIdValue = t1.Content.ToString();
             string personalIdValue = t2.Content.ToString();
             string insertValues = "(NULL, 1, " + personalIdValue + ", " + markIdValue + ", " + shift_field.Text + ", \'" + theDate.ToString("yyyy-MM-dd") +"\', " + plan_field.Text + ", "+ count_field.Text + ", 0, 0)";
@@ -44,7 +48,7 @@ namespace VTManager.ProcssingPages
                 SQLUtils.runQuery(VTDataGridQueries.addPlan + insertValues);
                 SQLUtils.showTable(VTDataGridQueries.unsolvedProcessingQuery, VTManagerConfig.unsolvedCols, unsolved_plans_dg);
                 debug_textbox.Text = "Рабочий план № " + shift_field.Text + " успешно создан.";
-            } else debug_textbox.Text = "Заполните все поля!";
+            } else debug_textbox.Text = Messages._FIELDS_NOT_FILLED;
         }
         private void Page_Loaded(object sender, RoutedEventArgs e) {                            
             /*  Плейсхолдеры    */
@@ -64,7 +68,7 @@ namespace VTManager.ProcssingPages
             select_vt_cbox.SelectedIndex = 0;
             /*Сотрудник выбранный при загрузке формы*/
             select_personal_cbox.SelectedIndex = 0;
-            string vtNames = "SELECT mark AS mark FROM vt WHERE id = ";
+            string vtNames = query.select("mark", "mark", "vt", "id = ");
             /*  Заполняет комбобокс всеми видами ламп из бд. 
                 id в таблице с марками ламп начинаются с 2*/
             SQLUtils.fillCombobox(2, VTDataGridQueries.totalVtMarks, "marks_count", vtNames, "mark", select_vt_cbox);
@@ -74,12 +78,11 @@ namespace VTManager.ProcssingPages
             /*Коллекция с выбранными id специалистов*/
             List<string> personalid = new List<string>();
             /*Разрезает сплошной результат рекурсивного запроса на отдельные записи из БД и записывает в коллекцию ниже */
-            foreach (string s in personalCountStr.Split('&'))
-                personalid.Add(s);
+            foreach (string s in personalCountStr.Split('&')) personalid.Add(s);
             /*Коллекция с фамилиями персонала*/
             ArrayList personal = new ArrayList();
             for (int id = 0; id <= personalid.Count - 2; id++) {
-                SQLUtils.runQuery("SELECT firstName AS name FROM personal WHERE id = " + personalid[id], "name", t1);
+                SQLUtils.runQuery(query.select("firstName", "name", "personal", "id = " + personalid[id]), "name", t1);
                 string namesCountStr = t1.Content.ToString();
                 personal.Add(namesCountStr);
             }

@@ -24,7 +24,6 @@ namespace VTManager.DeliveryPages
     /// </summary>
     public partial class Delivery_Deliveries : Page
     {
-        public static VTManagerDialog warn_msg = new VTManagerDialog();
         public Delivery_Deliveries()
         {
             InitializeComponent();
@@ -147,7 +146,7 @@ namespace VTManager.DeliveryPages
             Label t1 = new Label();
             Label t2 = new Label();
             DataRowView data_row = (DataRowView)deliveries_dg.SelectedItem;
-            string price = Interaction.InputBox("Введите цену в документе: ");
+            string price = Interaction.InputBox(Messages._ENTER_THE_COST);
             try {
                 string id = data_row.Row.ItemArray[0].ToString();
                 string count = data_row.Row.ItemArray[4].ToString();
@@ -162,14 +161,14 @@ namespace VTManager.DeliveryPages
                             string the_count = t2.Content.ToString().Trim();
                             SQLUtils.runQuery("UPDATE storage_contains SET count = (count + " + the_count + ") WHERE resourceId = " + the_id + "; UPDATE deliveries SET done = 1, price = " + price + " WHERE id = " + id + "");
                             debug_textbox.Text = "Поставка №" + id + " успешно завершена.";
-                        } else debug_textbox.Text = "Параметр Цена должен быть числом > 0.";
-                    } else debug_textbox.Text = "Значение Цена не указано.";
+                            SQLUtils.showTable(VTDataGridQueries.deliveriesQuery, VTManagerConfig.deliveriesCols, deliveries_dg);
+                        }
+                        else debug_textbox.Text = Messages._COST_ABOVE_ZERO;
+                    } else debug_textbox.Text = Messages._COST_NOT_SET;
                 } else {
-                    warn_msg.dialog_label.Content = "Внимание";
-                    warn_msg.contained_info.Text = "Заказ уже был завершен";
-                    warn_msg.Show();
+                    new VTManagerDialog(Messages._WARNING_MESSAGE, Messages._ORDER_HAS_BEEN_SOLVED);
                 }
-            } catch (System.NullReferenceException) { debug_textbox.Text = "Выберите запись!"; }
+            } catch (System.NullReferenceException) { debug_textbox.Text = Messages._NO_ENTRY_SELECTED; }
         }
     }
 }

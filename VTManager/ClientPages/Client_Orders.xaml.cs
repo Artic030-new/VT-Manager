@@ -145,9 +145,8 @@ namespace VTManager.ClientPages
                 string mark = data_row.Row.ItemArray[3].ToString();
                 if (!(checkd.Equals("True"))) {
                     SQLUtils.runQuery(query.select("amount", "amount", "shopcart_vacushop", "id = \"" + id + "\""), "amount", t1);
-                   
                     string the_amount = t1.Content.ToString().Trim();
-                    SQLUtils.runQuery("SELECT vt.id as id FROM vt WHERE mark = \"" + mark + "\" ", "id", t2);
+                    SQLUtils.runQuery(query.select("vt.id", "id", "vt", "mark = \"" + mark + "\" "), "id", t2);
                     try {
                         SQLUtils.runQuery("SELECT vt_lots.count as id FROM vt_lots WHERE vtId = " + t2.Content.ToString().Trim(), "id", t1);
                         if (Convert.ToInt32(t1.Content.ToString()) >= Convert.ToInt32(the_amount)) {

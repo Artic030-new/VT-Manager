@@ -150,7 +150,7 @@ namespace VTManager
             /*Закрыть смену, списать использованный ресурс и занести готовые лампы на склад*/
             void solveAndStoreVts() {
                 done_button.Dispatcher.BeginInvoke(new System.Action(delegate () {
-                    string fact = Interaction.InputBox("Введите фактическое кол-во произведённых ламп: ");
+                    string fact = Interaction.InputBox(Messages._PRODUCED_VT_FACT);
                     DataRowView data_row = (DataRowView)processing_scores_dg.SelectedItem;
                     /*Получаем ряд в таблице, содержащий № смены, если он выбран*/
                     try {
@@ -173,7 +173,6 @@ namespace VTManager
                                 if (is_number) {
                                     SQLUtils.runQuery(query.update("processing", "done = 1", "shift = " + shiftValue));
                                     SQLUtils.runQuery(query.update("processing", "fact = " + fact, "shift = " + shiftValue));
-
                                     /*Коллекция со списком коэффициентов затрат для каждого ресурса*/
                                     ArrayList shiftCosts = new ArrayList();
                                     /*Предопределённый нулевой элемент коллекции, так как в базе данных ресурсы считаются с 1*/
@@ -194,19 +193,16 @@ namespace VTManager
                                     debug_textbox.Text = "Смена №" + shiftValue + " закрыта.\n";
                                     SQLUtils.showTable(VTDataGridQueries.processingQuery, VTManagerConfig.planCols, processing_scores_dg);
                                 }
-                                else debug_textbox.Text = "Параметр Факт должен быть числом > 0.";
-                            } else debug_textbox.Text = "Значение Факт не указано.";
+                                else debug_textbox.Text = Messages._FACT_ABOVE_ZERO;
+                            } else debug_textbox.Text = Messages._FACT_NOT_SET;
                         } else {
-                            warn_msg.dialog_label.Content = "Внимание";
-                            warn_msg.contained_info.Text = "Процесс уже был завершен";
-                            warn_msg.Show();
+                            new VTManagerDialog(Messages._WARNING_MESSAGE, Messages._PROCESS_HAS_BEEN_SOLVED);
                         }
-                    } catch (System.NullReferenceException) { debug_textbox.Text = "Выберите запись в таблице!"; }
+                    } catch (System.NullReferenceException) { debug_textbox.Text = Messages._NO_ENTRY_SELECTED; }
                 }));
             }
             t.Name = "Идёт процесс закрытия смены...";
             t.Start();
     }
-
     }
 }

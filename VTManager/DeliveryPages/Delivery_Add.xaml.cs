@@ -24,9 +24,10 @@ namespace VTManager.DeliveryPages
     public partial class Delivery_Add : Page
     {
         /*Объекты лейблов под выполняемые запросы*/
-        public Label t1 = new Label();
-        public Label t2 = new Label();
-        public Label t3 = new Label();
+        private Label t1 = new Label();
+        private Label t2 = new Label();
+        private Label t3 = new Label();
+        private VTQuery query = new VTQuery();
         public Delivery_Add()
         {
             InitializeComponent();
@@ -38,27 +39,25 @@ namespace VTManager.DeliveryPages
                 count_field.Text = "кол-во...";
                 count_field.Foreground = new SolidColorBrush(Color.FromArgb(255, 74, 91, 138));
             }
-
-           
             select_personal_cbox.SelectedIndex = 0;
             select_provider_cbox.SelectedIndex = 0;
             select_resource_cbox.SelectedIndex = 0;
             SQLUtils.runRecursiveQuery(VTDataGridQueries.totalWarehousePersonal, "warehouse_personal", t1);
             string personalCountStr = t1.Content.ToString();
             List<string> personalId = new List<string>();
-            foreach (string s in personalCountStr.Split('&'))
-                personalId.Add(s);
+            foreach (string s in personalCountStr.Split('&')) personalId.Add(s);
             t1.Content = "";
             for (int i = 0; i < personalId.Count-1; ++i)
             {
-                SQLUtils.runQuery("SELECT firstName AS name FROM personal WHERE id = " + personalId[i], "name", t1);
+                SQLUtils.runQuery(query.select("firstName", "name", "personal", "id = " + personalId[i]), "name", t1);
+                
                 string namesCountStr = t1.Content.ToString();
                 select_personal_cbox.Items.Add(namesCountStr);
             }
-            string resourceNames = "SELECT name AS name FROM resource WHERE id = ";
-            string providerNames = "SELECT fullName AS names FROM providers WHERE id = ";
-            /* Метод, возвращающий список каких-либо значений из выполненного запроса в комбобокс.
-                для несложный условий подходит, в остальном работает плохо @see подробнее в самом классе*/
+            string resourceNames = query.select("name", "name", "resource", "id = ");
+            string providerNames = query.select("fullName", "names", "providers", "id = ");
+            /*<summary> Метод, возвращающий список каких-либо значений из выполненного запроса в комбобокс.
+                для несложный условий подходит, в остальном работает плохо @see подробнее в самом классе </summary>*/
             SQLUtils.fillCombobox(1, VTDataGridQueries.totalResourceTypes, "resource_count", resourceNames, "name", select_resource_cbox);
             SQLUtils.fillCombobox(1, VTDataGridQueries.totalProviders, "provider_count", providerNames, "names", select_provider_cbox);
             t1.Content = "";
@@ -69,9 +68,9 @@ namespace VTManager.DeliveryPages
             string providerValue = select_provider_cbox.SelectedItem.ToString();
             string resourceValue = select_resource_cbox.SelectedItem.ToString();
             string personalValue = select_personal_cbox.SelectedItem.ToString();
-            SQLUtils.runQuery("SELECT providers.id AS ids FROM providers WHERE fullName = " + "\"" + providerValue + "\" ", "ids", t1);
-            SQLUtils.runQuery("SELECT resource.id AS ids FROM resource WHERE name = " + "\"" + resourceValue + "\" ", "ids", t2);
-            SQLUtils.runQuery("SELECT personal.id AS ids FROM personal WHERE firstName = " + "\"" + personalValue + "\" ", "ids", t3);
+            SQLUtils.runQuery(query.select("providers.id", "ids", "providers", "fullName = " + "\"" + providerValue + "\" "), "ids", t1);
+            SQLUtils.runQuery(query.select("resource.id", "ids", "resource", "name = " + "\"" + resourceValue + "\" "), "ids", t2);
+            SQLUtils.runQuery(query.select("personal.id", "ids", "personal", "firstName = " + "\"" + personalValue + "\" "), "ids", t3);
             string providerIdValue = t1.Content.ToString();
             string resourceIdValue = t2.Content.ToString();
             string personalIdValue = t3.Content.ToString();

@@ -162,7 +162,7 @@ namespace VTManager.ClientPages
             }
             catch (System.NullReferenceException)
             {
-                debug_textbox.Text = "Клиент не выбран.";
+                debug_textbox.Text = Messages._CLIENT_NOT_SELECTED;
             }
         }
         private void ban_button_Click(object sender, RoutedEventArgs e) {
@@ -179,7 +179,7 @@ namespace VTManager.ClientPages
                 }
 
             }
-            catch (System.NullReferenceException) { debug_textbox.Text = "Клиент не выбран.";}
+            catch (System.NullReferenceException) { debug_textbox.Text = Messages._CLIENT_NOT_SELECTED; }
         }
     }
 }
