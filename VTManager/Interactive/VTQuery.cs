@@ -50,6 +50,9 @@ namespace VTManager.Interactive
         {
             return "SELECT " + selectors + " FROM " + from;
         }
+        public string select(String selector, String az, String from, String where) {
+            return "SELECT " + selector + " AS " + az + " FROM " + from + " WHERE " + where;
+        }
         public string update(String table, String updateColumn, String where) {
             return "UPDATE " + table + " SET " + updateColumn + " WHERE " + where;
         }

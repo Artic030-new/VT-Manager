@@ -14,6 +14,7 @@ namespace VTManager.ClientPages
     /// </summary>
     public partial class Client_Orders : Page
     {
+        private VTQuery query = new VTQuery();
         public Client_Orders()
         {
             InitializeComponent();
@@ -126,7 +127,7 @@ namespace VTManager.ClientPages
             string price = data_row.Row.ItemArray[4].ToString();
             try {
                 if (!(checkd.Equals("True"))) {
-                    SQLUtils.runQuery("DELETE FROM shopcart_vacushop WHERE id = " + id.Trim());
+                    SQLUtils.runQuery(query.delete("shopcart_vacushop", "id", id.Trim()));
                     SQLUtils.runQuery("UPDATE dle_users SET money = (money + " + price + ") WHERE fullname = " + "\'" + fullname.Trim() + "\'");
                     debug_textbox.Text = "Заказ № " + id.Trim() + " успешно отменён.";
                 } else {
@@ -143,7 +144,8 @@ namespace VTManager.ClientPages
                 string id = data_row.Row.ItemArray[0].ToString();
                 string mark = data_row.Row.ItemArray[3].ToString();
                 if (!(checkd.Equals("True"))) {
-                    SQLUtils.runQuery("SELECT amount AS amount FROM shopcart_vacushop WHERE id = \"" + id + "\"", "amount", t1);
+                    SQLUtils.runQuery(query.select("amount", "amount", "shopcart_vacushop", "id = \"" + id + "\""), "amount", t1);
+                   
                     string the_amount = t1.Content.ToString().Trim();
                     SQLUtils.runQuery("SELECT vt.id as id FROM vt WHERE mark = \"" + mark + "\" ", "id", t2);
                     try {
