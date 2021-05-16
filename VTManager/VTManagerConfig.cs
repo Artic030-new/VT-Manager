@@ -35,6 +35,9 @@ namespace VTManager
                     new XElement("steelCost", "-"),
                     new XElement("orcglassCost", "-"),
                     new XElement("ptpfCost", "-")
+                    ),
+                new XElement("VTSettings",
+                    new XElement("callTimeout", "900")
                     )
                 );
         /*Загрузка созданного XML-файла*/

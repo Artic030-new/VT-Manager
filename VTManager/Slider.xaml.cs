@@ -39,12 +39,12 @@ namespace VTManager
 
         #region ПАРАМЕТРЫ
 
-        private List<string> items;
+        private List<string> _items;
         public List<string> Items
         {
             get
             {
-                items = new List<string> { 
+                _items = new List<string> {
                     VTManagerConfig.xmldata.Descendants("lossRatio").First().Value,
                     VTManagerConfig.xmldata.Descendants("sandCost").First().Value,
                     VTManagerConfig.xmldata.Descendants("siliconeCost").First().Value,
@@ -52,9 +52,13 @@ namespace VTManager
                     VTManagerConfig.xmldata.Descendants("orcglassCost").First().Value,
                     VTManagerConfig.xmldata.Descendants("ptpfCost").First().Value,
                 };
-                return items;
+                return _items;
             }
         }
+
+        private int _timeout;
+        public int Timeout { get { _timeout = Convert.ToInt32(VTManagerConfig.xmldata.Descendants("callTimeout").First().Value); return _timeout; } }
+
         #endregion
     }
 
