@@ -25,6 +25,7 @@ namespace VTManager.ClientPages
     /// </summary>
     public partial class Client_Manage : Page
     {
+        public static VTQuery query = new VTQuery();
         public Client_Manage()
         {
             InitializeComponent();
@@ -155,10 +156,9 @@ namespace VTManager.ClientPages
             try
             {
                 string selected_name = data_row.Row.ItemArray[0].ToString();
-                    SQLUtils.runQuery("SELECT phone AS phone FROM dle_users WHERE name = " + "\"" + selected_name + "\"", "phone", res1);
-                    SQLUtils.runQuery("SELECT land AS land FROM dle_users WHERE name = " + "\"" + selected_name + "\"", "land", res2);
-                    debug_textbox.Text = "Моб. телефон клиента " + selected_name + " : " + res1.Content.ToString() + "\n" + "Адрес клиента " + selected_name + " : " + res2.Content.ToString();
-                
+                SQLUtils.runQuery(query.select("phone", "phone", "dle_users", "name = " + "\"" + selected_name + "\""), "phone", res1);
+                SQLUtils.runQuery(query.select("land", "land", "dle_users", "name = " + "\"" + selected_name + "\""), "land", res2);
+                debug_textbox.Text = "Моб. телефон клиента " + selected_name + " : " + res1.Content.ToString() + "\n" + "Адрес клиента " + selected_name + " : " + res2.Content.ToString();
             }
             catch (System.NullReferenceException)
             {
@@ -171,9 +171,10 @@ namespace VTManager.ClientPages
             DataRowView data_row = (DataRowView)clients_dg.SelectedItem;
             try {
                 string selected_name = data_row.Row.ItemArray[0].ToString();
-                SQLUtils.runQuery("SELECT user_id AS id FROM dle_users WHERE name = " + "\"" + selected_name + "\"", "id", res1);
+                SQLUtils.runQuery(query.select("user_id", "id", "dle_users", "name = " + "\"" + selected_name + "\""), "id", res1);
                 if (selected_name.Length > 0) {
-                    SQLUtils.runQuery("UPDATE dle_users SET banned = \'yes\' WHERE name = " + "\"" + selected_name + "\"");
+                    
+                    SQLUtils.runQuery(query.update("dle_users", "banned = \'yes\'", "name = " + "\"" + selected_name + "\""));
                     reason = Interaction.InputBox("Введите причину блокировки: ");
                     SQLUtils.runQuery(VTDataGridQueries.clientsBanReasonAndDays + "(NULL, '" + res1.Content.ToString() + "', '" + reason + "', '0', '0', '')");
                 }
