@@ -20,9 +20,25 @@ namespace VTManager
         /* Название файла конфигурации базы данных*/
         public static string db_config_file = "vtmanager.xml";
         /* Схема XML-файла, создаваемого при первом запуске, для конфигурации БД по умолчанию*/
-        public static XElement xml = new XElement("VTDatabase", new XElement("host", "-"), new XElement("user", "-"), new XElement("password", "-"), new XElement("database", "-"));
+        public static XElement xml = 
+            new XElement("VTManager",
+                new XElement("VTDatabase",
+                    new XElement("host", "-"), 
+                    new XElement("user", "-"), 
+                    new XElement("password", "-"), 
+                    new XElement("database", "-")
+                    ),
+                new XElement("VTStandarts",
+                    new XElement("lossRatio", "-"),
+                    new XElement("sandCost", "-"),
+                    new XElement("siliconeCost", "-"),
+                    new XElement("steelCost", "-"),
+                    new XElement("orcglassCost", "-"),
+                    new XElement("ptpfCost", "-")
+                    )
+                );
         /*Загрузка созданного XML-файла*/
-        public static XDocument xmldata = XDocument.Load(config + db_config_file);
+           public static XDocument xmldata = XDocument.Load(config + db_config_file);
         /*/********************     Данные для подключения к БД     **********************/
         public static string host = xmldata.Descendants("host").First().Value;
         public static string user = xmldata.Descendants("user").First().Value;

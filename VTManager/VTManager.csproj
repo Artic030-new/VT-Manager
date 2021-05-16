@@ -136,7 +136,9 @@
     <Compile Include="Interactive\IChartable.cs" />
     <Compile Include="Interactive\IQuery.cs" />
     <Compile Include="Interactive\Messages.cs" />
+    <Compile Include="Interactive\SliderViewModel.cs" />
     <Compile Include="Interactive\VTChartQueries.cs" />
+    <Compile Include="Interactive\VTCommands.cs" />
     <Compile Include="Interactive\VTDataGridQueries.cs" />
     <Compile Include="Interactive\VTManagerChart.xaml.cs">
       <DependentUpon>VTManagerChart.xaml</DependentUpon>

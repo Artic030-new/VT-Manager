@@ -10,7 +10,7 @@
 
     <UserControl.Resources>
         <Style x:Key="expandAreaStyle" TargetType="{x:Type Border}">
-            <Setter Property="Margin" Value="0 0 10 610"/>
+            <Setter Property="Margin" Value="0 0 10 0"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsChecked, ElementName=expandButton}" Value="True">
                     <DataTrigger.EnterActions>
@@ -48,7 +48,7 @@
             <!-- The expand menu button -->
             <ToggleButton x:Name="expandButton" Content="v" Grid.Row="0"
                           Width="50" Height="25"
-                          HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                          HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding AddCommand, Mode=OneWay}"/>
             <!-- The content -->
             <Grid x:Name="working_elements" Grid.Row="1" Margin="10,10,10,10" Width="auto">
                 <Grid.ColumnDefinitions>
@@ -79,8 +79,8 @@
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <Label x:Name="loss_label" Content="Коэффициент брака" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource NunitoLight}" FontSize="18" Foreground="White"/>
-                        <TextBox x:Name="loss_value" Grid.Column="1" Grid.Row="0" Margin="10, 10, 10, 10"/>
+                        <Label x:Name="loss_label" Content="Коэффициент брака" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource NunitoLight}" FontSize="18" Foreground="White" />
+                        <xctk:MaskedTextBox x:Name="loss_value" Mask="###.######" Grid.Column="1" Grid.Row="0" Margin="10, 10, 10, 10" Padding="2, 3, 0, 0" Text="{Binding Path=Items[0], Mode=OneWay}"/>
                         <Label x:Name="loss_labes_Copy" Content="Материальные расходы (на 1 ед. продукции в г.):" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" FontFamily="{StaticResource NunitoLight}" FontSize="18" Foreground="White" Margin="0,10,0,1"/>
                         <Grid x:Name="res_sp1" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
                             <Grid.ColumnDefinitions>
@@ -94,7 +94,7 @@
                                     <ColumnDefinition Width="6*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label x:Name="sand_label" Content="Песок" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="{StaticResource NunitoLight}" FontSize="18" Foreground="White" Margin="0,6" Height="34" Width="60"/>
-                                <TextBox x:Name="sand_value" Grid.Column="1" Grid.Row="0" Margin="10,10,13,10" />
+                                <TextBox x:Name="sand_value" Grid.Column="1" Grid.Row="0" Margin="10,10,13,10" MaxLength="4" Padding="2, 3, 0, 0"/>
                             </Grid>
                             <Grid x:Name="res_grid2" Grid.Column="1" Grid.Row="0">
                                 <Grid.ColumnDefinitions>
@@ -102,7 +102,7 @@
                                     <ColumnDefinition Width="52*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label x:Name="silicone_labe" Content="Кремний" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="{StaticResource NunitoLight}" FontSize="18" Foreground="White" Height="34" Margin="0,6" Width="83"  />
-                                <TextBox x:Name="silicone_value" Grid.Column="1" Grid.Row="0" Margin="10,10,13,10" />
+                                <TextBox x:Name="silicone_value" Grid.Column="1" Grid.Row="0" Margin="10,10,5,10" MaxLength="4" Padding="2, 3, 0, 0"/>
                             </Grid>
                             <Grid x:Name="res_grid3" Grid.Column="2" Grid.Row="0">
                                 <Grid.ColumnDefinitions>
@@ -110,7 +110,7 @@
                                     <ColumnDefinition Width="33*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label x:Name="steel_labe" Content="Сталь" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="{StaticResource NunitoLight}" FontSize="18" Foreground="White" Margin="0,6"/>
-                                <TextBox x:Name="steel_value" Grid.Column="1" Grid.Row="0" Margin="10,10,13,10" />
+                                <TextBox x:Name="steel_value" Grid.Column="1" Grid.Row="0" Margin="10,10,13,10" MaxLength="4" Padding="2, 3, 0, 0"/>
                             </Grid>
                         </Grid>
                         <Grid x:Name="res_sp2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3">
@@ -125,7 +125,7 @@
                                     <ColumnDefinition Width="11*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label x:Name="orcglass_label" Content="Боросиликат" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="{StaticResource NunitoLight}" FontSize="18" Foreground="White" Margin="0,6" Height="34" Width="120"/>
-                                <TextBox x:Name="orcglass_value" Grid.Column="1" Grid.Row="0" Margin="10,10,13,10" />
+                                <TextBox x:Name="orcglass_value" Grid.Column="1" Grid.Row="0" Margin="10,10,13,10" MaxLength="4" Padding="2, 3, 0, 0"/>
                             </Grid>
                             <Grid x:Name="res_grid22" Grid.Column="2" Grid.Row="0">
                                 <Grid.ColumnDefinitions>
@@ -133,7 +133,7 @@
                                     <ColumnDefinition Width="33*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label x:Name="ptpf_labe" Content="Тефлон" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="{StaticResource NunitoLight}" FontSize="18" Foreground="White" Margin="0,6"/>
-                                <TextBox x:Name="ptpf_value" Grid.Column="1" Grid.Row="0" Margin="10,10,13,10" />
+                                <TextBox x:Name="ptpf_value" Grid.Column="1" Grid.Row="0" Margin="10,10,13,10" MaxLength="4" Padding="2, 3, 0, 0"/>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -172,7 +172,8 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition Height="3*"/>
                         </Grid.RowDefinitions>
-                        <Button x:Name="to_dir_buttom" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"  Content="Проверка" Height="40" BorderThickness="0" Background="#5e759c" FontFamily="{StaticResource NunitoLight}" Style="{DynamicResource slider_button}" Margin="12, 0, 40, 0"/>
+                        <Button x:Name="unlogin_button" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="Выйти" Height="40" BorderThickness="0" Background="#5e759c" FontFamily="{StaticResource NunitoLight}" Style="{DynamicResource slider_button}" Margin="12, 0, 40, 0"/>
+                        <Button x:Name="to_dir_button" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"  Content="Папка программы" Height="40" BorderThickness="0" Background="#5e759c" FontFamily="{StaticResource NunitoLight}" Style="{DynamicResource slider_button}" Margin="12, 0, 40, 0"/>
                         <Button x:Name="save_button" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"  Content="Сохранить" BorderBrush="White" Height="40" BorderThickness="1" Background="#5e759c" FontFamily="{StaticResource NunitoLight}" Style="{DynamicResource slider_button}" Margin="12, 0, 40, 0"/>
                     </Grid>
                 </Grid>
