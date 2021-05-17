@@ -44,10 +44,10 @@
             <Rectangle Fill="#273049"/>
             <Label Content="VT Manager"  Grid.ColumnSpan="8" VerticalContentAlignment="Center" Style="{DynamicResource light_label}"/>
         </Grid>
-        <Button x:Name="hide_button" Grid.Column="5" Style="{DynamicResource header_buttons}" Background="Transparent" Content="—" Click="hide_button_Click"/>
-        <Button x:Name="maximize_button" Grid.Column="6" Visibility="Visible" Style="{DynamicResource header_buttons}" Background="Transparent" Content="□" FontFamily="Calibri" FontWeight="Regular" FontSize="24" Margin="0,-4,0,4" Click="maximize_button_Click"/>
-        <Button x:Name="minimize_button" Grid.Column="6" Visibility="Hidden" Style="{DynamicResource header_buttons}" Background="Transparent" Content="⧉" FontFamily="Calibri" FontWeight="Regular" FontSize="20" Click="minimize_button_Click"/>
-        <Button x:Name="close_button" Grid.Column="7" Style="{DynamicResource header_buttons}" Background="Transparent" Content="x" FontFamily="{DynamicResource NunitoLight}" FontSize="20" Margin="0,-4,0,4" Click="close_button_Click"/>
+        <Button x:Name="hide_button" Grid.Column="5" Style="{DynamicResource header_buttons}" Background="Transparent" Content="—" Command="{Binding Path=HideApplicationCmd}"/>
+        <Button x:Name="maximize_button" Grid.Column="6" Visibility="Visible" Style="{DynamicResource header_buttons}" Background="Transparent" Content="□" FontFamily="Calibri" FontWeight="Regular" FontSize="24" Margin="0,-4,0,4" Command="{Binding Path=MaximizeApplicationCmd}"/>
+        <Button x:Name="minimize_button" Grid.Column="6" Visibility="Hidden" Style="{DynamicResource header_buttons}" Background="Transparent" Content="⧉" FontFamily="Calibri" FontWeight="Regular" FontSize="20" Command="{Binding Path=MinimizeApplicationCmd}"/>
+        <Button x:Name="close_button" Grid.Column="7" Style="{DynamicResource header_buttons}" Background="Transparent" Content="x" FontFamily="{DynamicResource NunitoLight}" FontSize="20" Margin="0,-4,0,4" Command="{Binding Path=CloseApplicationCmd}"/>
         <Label Foreground="#fff" Content="Н А Ч А Л О    Р А Б О Т Ы" Grid.Row="1" Grid.ColumnSpan="8" HorizontalContentAlignment="Center" FontFamily="{DynamicResource NunitoLight}" FontSize="36"
                VerticalContentAlignment="Center" FontWeight="Regular" FontStretch="Condensed">
 

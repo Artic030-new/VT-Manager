@@ -11,7 +11,8 @@ namespace VTManager.Interactive
 
         private readonly Action<object> _execute;
         private readonly Func<object, bool> _canExecute;
-        VTActionCommand(Action<object> execute, Func<object, bool> canExecute = null) {
+
+        public VTActionCommand(Action<object> execute, Func<object, bool> canExecute = null) {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
 

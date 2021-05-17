@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using VTManager.Interactive;
 
 namespace VTManager
 {
@@ -40,35 +41,47 @@ namespace VTManager
         {
             InitializeComponent();
             ThisFrame = menu_frame;
+            #region =========   КОМАНДЫ    =========
+            CloseApplicationCmd = new VTActionCommand(OnCloseApplicationCmdExecute, CanCloseApplicationCmdExecuted);
+            MaximizeApplicationCmd = new VTActionCommand(OnMaximizeApplicationCmdExecute, CanMaximizeApplicationCmdExecuted);
+            MinimizeApplicationCmd = new VTActionCommand(OnMinimizeApplicationCmdExecute, CanMinimizeApplicationCmdExecuted);
+            HideApplicationCmd = new VTActionCommand(OnHideApplicationCmdExecute, CanHideApplicationCmdExecuted);
+            #endregion =========   КОМАНДЫ    =========
             continue_button.IsEnabled = false;
             dt.Tick += new EventHandler(dt_Tick);
             dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            this.DataContext = this;
         }
 
-        private void hide_button_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        private void maximize_button_Click(object sender, RoutedEventArgs e)
-        {
+        #region =========   КОМАНДЫ    =========
+        /// <summary> Завершение работы приложения </summary>
+        public ICommand CloseApplicationCmd { get; }
+        private void OnCloseApplicationCmdExecute(object o) => Application.Current.Shutdown(0);
+        private bool CanCloseApplicationCmdExecuted(object o) => true;
+        /// <summary> Развернуть приложение в полный экран </summary>
+        public ICommand MaximizeApplicationCmd { get; }
+        private void OnMaximizeApplicationCmdExecute(object o) {
             if (WindowState == WindowState.Normal)
                 WindowState = WindowState.Maximized;
             maximize_button.Visibility = Visibility.Hidden;
             minimize_button.Visibility = Visibility.Visible;
-
         }
-        private void minimize_button_Click(object sender, RoutedEventArgs e)
+        private bool CanMaximizeApplicationCmdExecuted(object o) => true;
+        /// <summary> Свернуть приложение в оконный режим </summary>
+        public ICommand MinimizeApplicationCmd { get; }
+        private void OnMinimizeApplicationCmdExecute(object o)
         {
             minimize_button.Visibility = Visibility.Hidden;
             if (WindowState == WindowState.Maximized)
                 WindowState = WindowState.Normal;
             maximize_button.Visibility = Visibility.Visible;
         }
-        private void close_button_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown(0);
-        }
+        private bool CanMinimizeApplicationCmdExecuted(object o) => true;
+        /// <summary> Сворачивание приложения </summary>
+        public ICommand HideApplicationCmd { get; }
+        private void OnHideApplicationCmdExecute(object o) => WindowState = WindowState.Minimized;
+        private bool CanHideApplicationCmdExecuted(object o) => true;
+        #endregion =========   КОМАНДЫ    =========
         private void processing_button_Click(object sender, RoutedEventArgs e)
         {
             menu_frame.Visibility = Visibility.Visible;
