@@ -7,11 +7,8 @@ using System.Windows.Input;
 
 namespace VTManager.Interactive
 {
-    internal abstract class VTCommands : ICommand
+    internal abstract class VTCommand : ICommand
     {
-        private Action<object> execute;
-        private Func<object, bool> canExecute;
-
         public event EventHandler CanExecuteChanged
         {
             add => CommandManager.RequerySuggested += value; 
