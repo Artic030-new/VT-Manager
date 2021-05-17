@@ -65,17 +65,15 @@ WindowStartupLocation="CenterScreen" Title="VT Manager | Авторизация"
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
             <Label x:Name="header_label" HorizontalAlignment="center" VerticalAlignment="center" Width="96" Height="30" Content="VT Manager" Style="{DynamicResource light_label}" Margin="2,2,2,1"/>
-            <Button x:Name="close_button" Content="x" Width="22" Background="Transparent" Foreground="White" Style="{DynamicResource header_buttons}" FontFamily="{DynamicResource NunitoLight}" FontSize="20" Grid.Column ="3" Margin="0,-2,4,3" HorizontalAlignment="Right" Click="close_button_Click"/>
-            <Button x:Name="hide_button" Content="—"  Background="Transparent" Foreground="White" Style="{DynamicResource header_buttons}" Grid.Column="2" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5" Height="33" VerticalAlignment="Bottom" Click="hide_button_Click" Margin="0,0,24,0">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="180"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
+            <Button x:Name="close_button" Content="x" Background="Transparent" BorderBrush="Transparent" Foreground="White" Style="{DynamicResource close_buttons}" FontFamily="{DynamicResource NunitoLight}" FontSize="20" Grid.Column ="3" Padding="0, 0, 0, 4" Click="close_button_Click">
+                <Button.Resources>
+                    <Style x:Key="close_button">
+                        
+                    </Style>
+                </Button.Resources>
             </Button>
+            <Button x:Name="hide_button" Content="—" Background="Transparent" BorderBrush="Transparent" Foreground="White"  Grid.Column="2" Click="hide_button_Click"/>
+
         </Grid>
     </Grid>
 </Window>
