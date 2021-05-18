@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using System.Xml;
 using System.Xml.Linq;
 using VTManager.Interactive;
+using VTManager.Utils;
 
 namespace VTManager
 {
@@ -28,6 +29,7 @@ namespace VTManager
     public partial class Slider : UserControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private static VTQuery query = new VTQuery();
         public Slider() {
             InitializeComponent();
             #region =========   КОМАНДЫ    =========
@@ -76,6 +78,7 @@ namespace VTManager
             t.Root.Element("VTStandarts").Element("orcglassCost").SetValue(OrcglassCost);
             t.Root.Element("VTStandarts").Element("ptpfCost").SetValue(PtpfCost);
             t.Root.Element("VTSettings").Element("callTimeout").SetValue(Timeout);
+            updateStats();
             t.Save(VTManagerConfig.config + VTManagerConfig.db_config_file);
         }
         #endregion =========   КОМАНДЫ    =========
@@ -89,7 +92,22 @@ namespace VTManager
         public string PtpfCost { get; set; }
         public int Timeout { get; set; }
         #endregion =========   ПАРАМЕТРЫ   =========
+
+        #region =========   МЕТОДЫ   =========
+        void updateStats() {
+            Dictionary<Int32, String> resources = new Dictionary<Int32, String> {
+                { 1, SandCost },
+                { 2, SiliconeCost },
+                { 9, SteelCost },
+                { 4, OrcglassCost },
+                { 7, PtpfCost },
+            };
+            foreach (var resource in resources) 
+                SQLUtils.runQuery(query.update("resource", "costPerShift = " + resource.Value.Trim(new char[] { ' ', ';' }).Replace(",", "."), "resource.id = " + resource.Key + ""));
+        }
+        #endregion =========   МЕТОДЫ   =========
+
     }
-    
+
 }
 

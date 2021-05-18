@@ -29,7 +29,8 @@ namespace VTManager.Interactive
 
         /* Запросы к диаграммам сделанных ламп*/
         public static string totalProductionQuery = query.selectSum("fact", "all_vt", "processing");
-        public static string totalLossQuery = "SELECT fact, SUM((fact) * 0.1 / 125.349577464324) AS all_vt FROM processing"; /*Отлов брака*/
+        public static string totalLossQuery = "SELECT fact, SUM((fact) * 0.1 / " + VTManagerConfig.xmldata.Descendants("lossRatio").First().Value.Replace(",", ".") + ") AS all_vt FROM processing"; /*Отлов брака*/
+        
 
         public static string totalPentode = query.selectJoinSum("fact", "all_vt", "vt", "processing", "vtId", "vtType = \"Пентод\"");
         public static string totalTriode = query.selectJoinSum("fact", "all_vt", "vt", "processing", "vtId", "vtType = \"Триод\"");

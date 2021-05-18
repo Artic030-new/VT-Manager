@@ -10,7 +10,7 @@
 
     <UserControl.Resources>
         <Style x:Key="expandAreaStyle" TargetType="{x:Type Border}">
-            <Setter Property="Margin" Value="0 0 10 0"/>
+            <Setter Property="Margin" Value="0 0 10 610"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsChecked, ElementName=expandButton}" Value="True">
                     <DataTrigger.EnterActions>
@@ -35,7 +35,7 @@
 
     <Border x:Name="expandArea" 
             Style="{DynamicResource expandAreaStyle}"
-            Background="#333d5c" Margin="0, 0, 10, 0">
+            Background="#333d5c" Margin="0, 0, 10, 610">
         <Border.Effect>
             <DropShadowEffect BlurRadius="17" ShadowDepth="3" Opacity="0.7"/>
         </Border.Effect>
