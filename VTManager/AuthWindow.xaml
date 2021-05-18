@@ -47,7 +47,7 @@ WindowStartupLocation="CenterScreen" Title="VT Manager | Авторизация"
             <Border BorderThickness="1" BorderBrush="Transparent" CornerRadius="6" Padding="4" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" Background="#273049" Margin="4,3" Height="42" Width="154" Grid.ColumnSpan="2">
                 <PasswordBox x:Name="password_field" Width="144" Height="32" VerticalAlignment="center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" Background="#273049" Foreground="#cecece" FontFamily="{DynamicResource NunitoBold}" FontSize="18" Margin="0,1,0,-1"/>
             </Border>
-            <Button x:Name="login_button" Content="ВОЙТИ" Height="45" VerticalAlignment="bottom"  Click="login_button_Click" Grid.Column="0"  Grid.Row="3"  Grid.ColumnSpan="3" Margin="72,0,80,-16" Padding="0,0,-2,-3" FontFamily="{DynamicResource NunitoBold}" Style="{DynamicResource rounded_button}"/>
+            <Button x:Name="login_button" IsDefault="True" Content="ВОЙТИ" Height="45" VerticalAlignment="bottom" Grid.Column="0"  Grid.Row="3"  Grid.ColumnSpan="3" Margin="72,0,80,-16" Padding="0,0,-2,-3" FontFamily="{DynamicResource NunitoBold}" Style="{DynamicResource rounded_button}" Command="{Binding LoginCmd}"/>
             <Border x:Name="Border" Width="28" Height="28" Background="#273049" CornerRadius="4" HorizontalAlignment="Left" Margin="4,2,0,2" VerticalAlignment="Center" BorderThickness="1" Grid.Column="1" Grid.Row="2"/>
             <CheckBox  
                 x:Name="keep" Content="" HorizontalAlignment="Left" Grid.Column="1"  Grid.Row="2" VerticalAlignment="Top" Style="{DynamicResource auth_checkbox}">
@@ -57,22 +57,25 @@ WindowStartupLocation="CenterScreen" Title="VT Manager | Авторизация"
             </CheckBox>
             <Label Grid.Column="2" Grid.Row="2" Content="Запомнить вход" VerticalContentAlignment="Center" Style="{StaticResource light_label}" Margin="0,2,0,36" Grid.RowSpan="2"/>
         </Grid>
-        <Grid x:Name="header" HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="460" Background="#273049" MouseLeftButtonDown="header_MouseLeftButtonDown">
+        <Grid x:Name="header" HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="460" Background="#273049">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="58*"/>
                 <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
+            <Grid.InputBindings>
+                <MouseBinding Command="{Binding Path=DragApplicationCmd}" MouseAction="LeftClick"/>
+            </Grid.InputBindings>
             <Label x:Name="header_label" HorizontalAlignment="center" VerticalAlignment="center" Width="96" Height="30" Content="VT Manager" Style="{DynamicResource light_label}" Margin="2,2,2,1"/>
-            <Button x:Name="close_button" Content="x" Background="Transparent" BorderBrush="Transparent" Foreground="White" Style="{DynamicResource close_buttons}" FontFamily="{DynamicResource NunitoLight}" FontSize="20" Grid.Column ="3" Padding="0, 0, 0, 4" Click="close_button_Click">
+            <Button x:Name="close_button" Content="x" Background="Transparent" BorderBrush="Transparent" Foreground="White" Style="{DynamicResource close_buttons}" FontFamily="{DynamicResource NunitoLight}" FontSize="20" Grid.Column ="3" Padding="0, 0, 0, 4" Command="{Binding Path=CloseApplicationCmd}">
                 <Button.Resources>
                     <Style x:Key="close_button">
                         
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button x:Name="hide_button" Content="—" Background="Transparent" BorderBrush="Transparent" Foreground="White"  Grid.Column="2" Click="hide_button_Click"/>
+            <Button x:Name="hide_button" Content="—" Background="Transparent" BorderBrush="Transparent" Foreground="White"  Grid.Column="2" Command="{Binding Path=HideApplicationCmd}"/>
 
         </Grid>
     </Grid>

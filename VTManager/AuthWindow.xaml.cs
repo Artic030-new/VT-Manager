@@ -1,22 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Data;
 using System.IO;
-using MySql.Data.MySqlClient;
 using System.Threading;
 using VTManager.Utils;
+using VTManager.Interactive;
 
 namespace VTManager
 {
@@ -34,17 +23,41 @@ namespace VTManager
         public AuthWindow() {
             InitializeComponent();
             ThisWindow = this;
+            #region =========   КОМАНДЫ    =========
+            CloseApplicationCmd = new VTActionCommand(OnCloseApplicationCmdExecute, CanCloseApplicationCmdExecuted);
+            HideApplicationCmd = new VTActionCommand(OnHideApplicationCmdExecute, CanHideApplicationCmdExecuted);
+            DragApplicationCmd = new VTActionCommand(OnDragApplicationCmdExecute, CanDragApplicationCmdExecuted);
+            LoginCmd = new VTActionCommand(OnLoginCmdExecute, CanLoginCmdExecuted);
+            #endregion =========   КОМАНДЫ    =========
+            this.DataContext = this;
         }
-        private void login_button_Click(object sender, RoutedEventArgs e)
-        {
+
+        #region =========   КОМАНДЫ    =========
+        /// <summary> Завершение работы приложения </summary>
+        public ICommand CloseApplicationCmd { get; }
+        private void OnCloseApplicationCmdExecute(object o) => Application.Current.Shutdown(0);
+        private bool CanCloseApplicationCmdExecuted(object o) => true;
+        /// <summary> Сворачивание приложения </summary>
+        public ICommand HideApplicationCmd { get; }
+        private void OnHideApplicationCmdExecute(object o) => WindowState = WindowState.Minimized;
+        private bool CanHideApplicationCmdExecuted(object o) => true;
+        /// <summary> Перемещение окна мышью </summary>
+        public ICommand DragApplicationCmd { get; }
+        private void OnDragApplicationCmdExecute(object o) => this.DragMove();
+        private bool CanDragApplicationCmdExecuted(object o) => true;
+        /// <summary> Команда авторизации сотрудника </summary>
+        public ICommand LoginCmd { get; }
+        private void OnLoginCmdExecute(object o) {
             loginUsr = login_field.Text;
             passUsr = password_field.Password;
             WebUtils.login(loginUsr, passUsr);
             if ((bool)keep.IsChecked) DataStreamUtils.writeData(loginUsr, passUsr, keep.IsChecked.ToString());
+            else DataStreamUtils.writeData(loginUsr, "", keep.IsChecked.ToString());
             System.IO.FileInfo file = new System.IO.FileInfo(db_config_file);
-            if (file.Length < 1) VTManagerConfig.xml.Save(db_config_file);
+            if (file.Length < 1) VTManagerConfig.xml.Save(db_config_file); 
         }
-        private void header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { this.DragMove(); }
+        private bool CanLoginCmdExecuted(object o) => true;
+        #endregion =========   КОМАНДЫ    =========
         private void Window_Activated(object sender, EventArgs e)
         {
             DirectoryInfo di = new DirectoryInfo(VTManagerConfig.config);
@@ -63,8 +76,6 @@ namespace VTManager
                         password_field.Password = Encoding.UTF8.GetString(Convert.FromBase64String(reader.ReadLine()));
                         if (reader.ReadLine() == "True")
                             keep.IsChecked = true;
-                        else if (!((bool)keep.IsChecked))
-                            DataStreamUtils.deactivateKeep();
                     }
                 }
             }
@@ -74,8 +85,6 @@ namespace VTManager
             }
             header_label.Content = "VT Manager";
         }
-        private void close_button_Click(object sender, RoutedEventArgs e) { Application.Current.Shutdown(0); }
-        private void hide_button_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
         private void Window_Closed(object sender, EventArgs e) {}
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

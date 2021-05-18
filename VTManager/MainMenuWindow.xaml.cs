@@ -26,6 +26,7 @@ namespace VTManager
     public partial class MainMenuWindow : Window
     {
         public static Frame ThisFrame;
+        public static Window ThisWindow;
         public static int _DEFAULT_REST_TIME = 15;
         public static int _DEFAULT_LUNCH_TIME = 60;
         public static bool hadLunch = false;
@@ -41,6 +42,7 @@ namespace VTManager
         {
             InitializeComponent();
             ThisFrame = menu_frame;
+            ThisWindow = this;
             #region =========   КОМАНДЫ    =========
             CloseApplicationCmd = new VTActionCommand(OnCloseApplicationCmdExecute, CanCloseApplicationCmdExecuted);
             MaximizeApplicationCmd = new VTActionCommand(OnMaximizeApplicationCmdExecute, CanMaximizeApplicationCmdExecuted);
