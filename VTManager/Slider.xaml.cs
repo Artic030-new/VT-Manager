@@ -36,6 +36,13 @@ namespace VTManager
             OpenConfDirCmd = new VTActionCommand(OnOpenConfDirCmdExecute, CanOpenConfDirCmdExecuted);
             SaveStandartsCmd = new VTActionCommand(OnSaveStandartsExecute, CanSaveStandartsExecuted);
             #endregion =========   КОМАНДЫ    =========
+
+            #region =========   ПАРАМЕТРЫ   =========
+            LossRatio = VTManagerConfig.xmldata.Descendants("lossRatio").First().Value; 
+            SandCost = VTManagerConfig.xmldata.Descendants("sandCost").First().Value;
+
+            Timeout = Convert.ToInt32(VTManagerConfig.xmldata.Descendants("callTimeout").First().Value);
+            #endregion =========   ПАРАМЕТРЫ   =========
             this.DataContext = this;
         }
         #region =========   КОМАНДЫ    =========
@@ -60,15 +67,16 @@ namespace VTManager
         private void OnSaveStandartsExecute(object o) {
          //   loss_value.Text = VTManagerConfig.xmldata.Element("VTStandarts").Value;
             //    VTManagerConfig.xmldata.Element("VTStandarts").SetAttributeValue("lossRatio", "999,349577464111");
-
+             
        
               
 
 
             XDocument t = XDocument.Load(VTManagerConfig.config + VTManagerConfig.db_config_file);
 
+            
 
-            t.Root.Element("VTStandarts").Element("lossRatio").SetValue(loss_value.Text);
+            t.Root.Element("VTStandarts").Element("lossRatio").SetValue(LossRatio);
 
 
             t.Save(VTManagerConfig.config + VTManagerConfig.db_config_file);
@@ -93,22 +101,16 @@ namespace VTManager
 
         #region =========   ПАРАМЕТРЫ   =========
 
-        private int _timeout;
-        public int Timeout { get { _timeout = Convert.ToInt32(VTManagerConfig.xmldata.Descendants("callTimeout").First().Value); return _timeout; } }
-
-        private string _lossRatio;
-        public string LossRatio { 
-            get { _lossRatio = VTManagerConfig.xmldata.Descendants("lossRatio").First().Value; return _lossRatio; }
-        }
-
-        private string _sandCost;
-        public string SandCost { get { _sandCost = VTManagerConfig.xmldata.Descendants("sandCost").First().Value; return _sandCost; } }
+        public int Timeout { get; set; }
+        public string LossRatio { get; set; }
+        public string SandCost { get; set; }
         private string _siliconeCost;
         public string SiliconeCost { get { _siliconeCost = VTManagerConfig.xmldata.Descendants("siliconeCost").First().Value; return _siliconeCost; } }
         private string _steelCost;
         public string SteelCost { 
             get { _steelCost = VTManagerConfig.xmldata.Descendants("steelCost").First().Value; return _steelCost; }
         }
+
         #endregion =========   ПАРАМЕТРЫ   =========
     }
     
