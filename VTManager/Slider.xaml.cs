@@ -37,6 +37,7 @@ namespace VTManager
             OpenConfDirCmd = new VTActionCommand(OnOpenConfDirCmdExecute, CanOpenConfDirCmdExecuted);
             SaveStandartsCmd = new VTActionCommand(OnSaveStandartsExecute, CanSaveStandartsExecuted);
             CheckConnectCmd = new VTActionCommand(OnCheckConnectCmdExecute, CanCheckConnectCmdExecuted);
+            OpenConfCmd = new VTActionCommand(OnOpenConfCmdExecute, CanOpenConfCmdExecuted);
             #endregion =========   КОМАНДЫ    =========
 
             #region =========   ПАРАМЕТРЫ   =========
@@ -87,13 +88,13 @@ namespace VTManager
         public ICommand CheckConnectCmd { get; }
         private bool CanCheckConnectCmdExecuted(object o) => true;
         private void OnCheckConnectCmdExecute(object o) {
-            try {
-                SQLUtils.ping();
-                new VTManagerDialog(Messages._OK_MESSAGE, Messages._CONNECTION_IS_DONE);
-            } catch (Exception) {
-                new VTManagerDialog(Messages._ERROR_MESSAGE, Messages._CONNECTION_IS_LOST);
-            }
+            try { SQLUtils.ping(); new VTManagerDialog(Messages._OK_MESSAGE, Messages._CONNECTION_IS_DONE); }
+            catch (Exception) { new VTManagerDialog(Messages._ERROR_MESSAGE, Messages._CONNECTION_IS_LOST); }
         }
+        /// <summary> Открыть конфигурацию приложения </summary>
+        public ICommand OpenConfCmd { get; }
+        private bool CanOpenConfCmdExecuted(object o) => true;
+        private void OnOpenConfCmdExecute(object o) => Process.Start(VTManagerConfig.config + VTManagerConfig.db_config_file);
         #endregion =========   КОМАНДЫ    =========
 
         #region =========   ПАРАМЕТРЫ   =========
