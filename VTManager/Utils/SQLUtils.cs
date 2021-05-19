@@ -13,6 +13,14 @@ namespace VTManager.Utils
 {
     class SQLUtils
     {
+        public static void ping()
+        { //Проверка соединения
+            MySqlConnection cn = new MySqlConnection(VTManagerConfig.data);
+            cn.Open();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = cn;
+            cn.Close();
+        }
         public static void runQuery(string query) {
             //Открывает соединение, выполняет запрос к базе и закрывает соединение.
             MySqlConnection cn = new MySqlConnection(VTManagerConfig.data);

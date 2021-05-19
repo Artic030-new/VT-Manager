@@ -36,6 +36,7 @@ namespace VTManager
             UnloginCmd = new VTActionCommand(OnUnloginCmdExecute, CanUnloginCmdExecuted);
             OpenConfDirCmd = new VTActionCommand(OnOpenConfDirCmdExecute, CanOpenConfDirCmdExecuted);
             SaveStandartsCmd = new VTActionCommand(OnSaveStandartsExecute, CanSaveStandartsExecuted);
+            CheckConnectCmd = new VTActionCommand(OnCheckConnectCmdExecute, CanCheckConnectCmdExecuted);
             #endregion =========   КОМАНДЫ    =========
 
             #region =========   ПАРАМЕТРЫ   =========
@@ -46,6 +47,7 @@ namespace VTManager
             OrcglassCost = VTManagerConfig.xmldata.Descendants("orcglassCost").First().Value;
             PtpfCost = VTManagerConfig.xmldata.Descendants("ptpfCost").First().Value;
             Timeout = Convert.ToInt32(VTManagerConfig.xmldata.Descendants("callTimeout").First().Value);
+
             #endregion =========   ПАРАМЕТРЫ   =========
             this.DataContext = this;
         }
@@ -81,6 +83,17 @@ namespace VTManager
             updateStats();
             t.Save(VTManagerConfig.config + VTManagerConfig.db_config_file);
         }
+        /// <summary> Проверить соединение с сервером  </summary>
+        public ICommand CheckConnectCmd { get; }
+        private bool CanCheckConnectCmdExecuted(object o) => true;
+        private void OnCheckConnectCmdExecute(object o) {
+            try {
+                SQLUtils.ping();
+                new VTManagerDialog(Messages._OK_MESSAGE, Messages._CONNECTION_IS_DONE);
+            } catch (Exception) {
+                new VTManagerDialog(Messages._ERROR_MESSAGE, Messages._CONNECTION_IS_LOST);
+            }
+        }
         #endregion =========   КОМАНДЫ    =========
 
         #region =========   ПАРАМЕТРЫ   =========
@@ -91,6 +104,8 @@ namespace VTManager
         public string OrcglassCost { get; set; }
         public string PtpfCost { get; set; }
         public int Timeout { get; set; }
+
+        public string Text { get; set; }
         #endregion =========   ПАРАМЕТРЫ   =========
 
         #region =========   МЕТОДЫ   =========

@@ -10,6 +10,7 @@ namespace VTManager.Interactive
         public const string
             _WARNING_MESSAGE = "Внимание",
             _ERROR_MESSAGE = "Ошибка",
+            _OK_MESSAGE = "Успешно",
 
             _NO_ENTRY_SELECTED = "Выберите запись в таблице!",
             _NOT_ENOUGH_ITEMS = "Недостаточно номенклатуры на складе",
@@ -24,7 +25,10 @@ namespace VTManager.Interactive
             _FACT_NOT_SET = "Значение Факт не указано",
             _ENTER_THE_COST = "Введите цену в документе: ",
             _FIELDS_NOT_FILLED = "Заполните все поля!",
-            _PRODUCED_VT_FACT = "Введите фактическое кол-во произведённых ламп: "
-            ;
+            _PRODUCED_VT_FACT = "Введите фактическое кол-во произведённых ламп: ",
+            _CONNECTION_IS_DONE = "Соединение установлено!",
+            _CONNECTION_IS_LOST = "Соединение потеряно",
+            _MUTEX_IS_DUPLICATED = "Приложение уже запущено";
+            
     }
 }

@@ -35,18 +35,19 @@ namespace VTManager
         #region =========   КОМАНДЫ    =========
         /// <summary> Завершение работы приложения </summary>
         public ICommand CloseApplicationCmd { get; }
-        private void OnCloseApplicationCmdExecute(object o) => Application.Current.Shutdown(0);
         private bool CanCloseApplicationCmdExecuted(object o) => true;
+        private void OnCloseApplicationCmdExecute(object o) => Application.Current.Shutdown(0);
         /// <summary> Сворачивание приложения </summary>
         public ICommand HideApplicationCmd { get; }
-        private void OnHideApplicationCmdExecute(object o) => WindowState = WindowState.Minimized;
         private bool CanHideApplicationCmdExecuted(object o) => true;
+        private void OnHideApplicationCmdExecute(object o) => WindowState = WindowState.Minimized;
         /// <summary> Перемещение окна мышью </summary>
         public ICommand DragApplicationCmd { get; }
-        private void OnDragApplicationCmdExecute(object o) => this.DragMove();
         private bool CanDragApplicationCmdExecuted(object o) => true;
+        private void OnDragApplicationCmdExecute(object o) => this.DragMove();
         /// <summary> Команда авторизации сотрудника </summary>
         public ICommand LoginCmd { get; }
+        private bool CanLoginCmdExecuted(object o) => true;
         private void OnLoginCmdExecute(object o) {
             loginUsr = login_field.Text;
             passUsr = password_field.Password;
@@ -56,7 +57,6 @@ namespace VTManager
             System.IO.FileInfo file = new System.IO.FileInfo(db_config_file);
             if (file.Length < 1) VTManagerConfig.xml.Save(db_config_file); 
         }
-        private bool CanLoginCmdExecuted(object o) => true;
         #endregion =========   КОМАНДЫ    =========
         private void Window_Activated(object sender, EventArgs e)
         {
@@ -91,8 +91,8 @@ namespace VTManager
         {
             if (!mutex.WaitOne(500, false)) {
                 this.Close();
-                error_msg.dialog_label.Content = "Ошибка";
-                error_msg.contained_info.Text = "Приложение уже запущено";
+                error_msg.dialog_label.Content = Messages._ERROR_MESSAGE;
+                error_msg.contained_info.Text = Messages._MUTEX_IS_DUPLICATED;
                 error_msg.Show();
                 Thread.Sleep(3000);
                 Application.Current.Shutdown(0);
