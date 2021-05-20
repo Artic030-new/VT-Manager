@@ -30,6 +30,7 @@ namespace VTManager
         public static Frame ThisFrame;
         public static Window ThisWindow;
         private VTQuery query = new VTQuery();
+        Label l1 = new Label(), l2 = new Label(), l3 = new Label();
         /// <summary>
         /// === Фиксирование времени ===
         /// </summary> ///
@@ -52,10 +53,9 @@ namespace VTManager
         public static bool hadLunch = false;
         // Накопитель времени отдыха
         public static TimeSpan timeRestCollector;
-
         // Временные показатели сотрудника за текущую сессию (смену)
-        public static string sessionWorkTime = "";
-        public static string sessionRestTime = "";
+        public static string sessionWorkTime = string.Empty;
+        public static string sessionRestTime = string.Empty;
 
         public static MainMenuWindow Instance { get; private set; }
         public MainMenuWindow()
@@ -63,7 +63,23 @@ namespace VTManager
             InitializeComponent();
             ThisFrame = menu_frame;
             ThisWindow = this;
-            // Получить время последней сессии сотрудника и добавить к таймеру (продолжение при случайном закрытии программы)
+            // Получить показатели за текущую сессию
+
+           //  Получить время последней сессии сотрудника и добавить к таймеру (продолжение при случайном закрытии программы)
+            try
+            {
+                string selectUserId = query.select("id", "id", "personal", "login = \"" + AuthWindow.loginUsr + "\"");
+                SQLUtils.runQuery(selectUserId, "id", l1);
+                string selectLastUserWt = query.select("workTime", "wt", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
+                string selectLastUserRt = query.select("restTime", "rt", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
+                SQLUtils.runQuery(selectLastUserWt, "wt", l2);
+                SQLUtils.runQuery(selectLastUserRt, "rt", l3);
+                sessionWorkTime = l2.Content.ToString();
+                sessionRestTime = l3.Content.ToString();
+                test.Text = sessionWorkTime + " | " + timeRestCollector.ToString()  + " | " + l3.Content.ToString();
+
+                l1.Content = string.Empty; l2.Content = string.Empty; l3.Content = string.Empty;
+            } catch (Exception) {  /*Some problems*/  test.Text = "ex" + l3.Content.ToString(); }
             #region =========   КОМАНДЫ    =========
             CloseApplicationCmd = new VTActionCommand(OnCloseApplicationCmdExecute, CanCloseApplicationCmdExecuted);
             MaximizeApplicationCmd = new VTActionCommand(OnMaximizeApplicationCmdExecute, CanMaximizeApplicationCmdExecuted);
@@ -148,6 +164,11 @@ namespace VTManager
             if (sw.IsRunning)
             {
                 TimeSpan ts = sw.Elapsed;
+                String[] workSess = sessionWorkTime.Split(':');
+                int sessWrHr = Convert.ToInt32(workSess[0].ElementAt(0) == '0' ? workSess[0].ElementAt(1).ToString() : workSess[0]);
+                int sessWrMin = Convert.ToInt32(workSess[1].ElementAt(0) == '0' ? workSess[1].ElementAt(1).ToString() : workSess[1]);
+                int sessWrSec = Convert.ToInt32(workSess[2].ElementAt(0) == '0' ? workSess[2].ElementAt(1).ToString() : workSess[2]);
+                ts = ts.Add(TimeSpan.FromHours(sessWrHr)); ts = ts.Add(TimeSpan.FromMinutes(sessWrMin)); ts = ts.Add(TimeSpan.FromSeconds(sessWrSec));
                 currentTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}",
                 ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
                 current_time_label.Content = currentTime;
@@ -168,7 +189,6 @@ namespace VTManager
                 toggleWorkingElements();
                 rest_time_label.Content = "00:00:00";
             }
-
         }
 
         void togglePanel()
@@ -230,6 +250,11 @@ namespace VTManager
             sw.Stop();
             dt.Stop();
             continue_button.IsEnabled = true;
+            String[] restSess = sessionRestTime.Split(':');
+            int sessWrHr = Convert.ToInt32(restSess[0].ElementAt(0) == '0' ? restSess[0].ElementAt(1).ToString() : restSess[0]);
+            int sessWrMin = Convert.ToInt32(restSess[1].ElementAt(0) == '0' ? restSess[1].ElementAt(1).ToString() : restSess[1]);
+            int sessWrSec = Convert.ToInt32(restSess[2].ElementAt(0) == '0' ? restSess[2].ElementAt(1).ToString() : restSess[2]);
+            timeRestCollector = TimeSpan.FromHours(sessWrHr); timeRestCollector = TimeSpan.FromMinutes(sessWrMin); timeRestCollector = TimeSpan.FromSeconds(sessWrSec);
             ts = TimeSpan.FromMinutes(count);
             maxUnitTime = count;
             timer = new System.Windows.Forms.Timer();
@@ -254,9 +279,7 @@ namespace VTManager
         }
         void keepTime()
         {
-            Label l1 = new Label();
-            Label l2 = new Label();
-            Label l3 = new Label();
+            
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             try
             {
