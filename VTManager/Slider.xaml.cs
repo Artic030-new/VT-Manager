@@ -32,6 +32,7 @@ namespace VTManager
         private static VTQuery query = new VTQuery();
         public Slider() {
             InitializeComponent();
+            
             #region =========   КОМАНДЫ    =========
             UnloginCmd = new VTActionCommand(OnUnloginCmdExecute, CanUnloginCmdExecuted);
             OpenConfDirCmd = new VTActionCommand(OnOpenConfDirCmdExecute, CanOpenConfDirCmdExecuted);
@@ -68,7 +69,7 @@ namespace VTManager
         /// <summary> Открыть папку конфигурации </summary>
         public ICommand OpenConfDirCmd { get; }
         private bool CanOpenConfDirCmdExecuted(object o) => true;
-        private void OnOpenConfDirCmdExecute(object o) => Process.Start(VTManagerConfig.config);
+        private void OnOpenConfDirCmdExecute(object o) =>  Process.Start(VTManagerConfig.config);
         /// <summary> Сохранить нормативную информацию по сырью в БД и конфиг </summary>
         public ICommand SaveStandartsCmd { get; }
         private bool CanSaveStandartsExecuted(object o) => true;

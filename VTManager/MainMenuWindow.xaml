@@ -136,5 +136,6 @@
         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="6" Grid.ColumnSpan="3" TextWrapping="Wrap" Foreground="#fff" Text="© ООО &quot;VT-Energistics&quot;, 2020 Все права защищены  |  АРМ-клиент VT Manager, Версия: 0.3.0 " FontFamily="{StaticResource NunitoLight}" FontSize="12" Margin="20,0,0,0"/>
         <local:Slider x:Name="d" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" VerticalAlignment="Top" Height="635" Width="auto"/>
         <Frame x:Name="menu_frame" Content="Frame!" NavigationUIVisibility="Hidden" Visibility="Hidden" Background="AliceBlue" Grid.RowSpan="6" Grid.ColumnSpan="8" Grid.Row="1"/>
+        <TextBox x:Name="test" HorizontalAlignment="Left" Height="23" Margin="10,88,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="1064" Grid.ColumnSpan="5"/>
     </Grid>
 </Window>

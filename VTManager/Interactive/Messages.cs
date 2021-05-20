@@ -28,6 +28,7 @@ namespace VTManager.Interactive
             _PRODUCED_VT_FACT = "Введите фактическое кол-во произведённых ламп: ",
             _CONNECTION_IS_DONE = "Соединение установлено!",
             _CONNECTION_IS_LOST = "Соединение потеряно",
+            _USER_IS_NULL = "Пользователя не существует",
             _MUTEX_IS_DUPLICATED = "Приложение уже запущено";
             
     }

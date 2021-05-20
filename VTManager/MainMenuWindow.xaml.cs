@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -17,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using VTManager.Interactive;
+using VTManager.Utils;
 
 namespace VTManager
 {
@@ -27,16 +29,29 @@ namespace VTManager
     {
         public static Frame ThisFrame;
         public static Window ThisWindow;
-        public static int _DEFAULT_REST_TIME = 15;
-        public static int _DEFAULT_LUNCH_TIME = 60;
-        public static bool hadLunch = false;
+        private VTQuery query = new VTQuery();
+        /// <summary>
+        /// === Фиксирование времени ===
+        /// </summary> ///
         DispatcherTimer dt = new DispatcherTimer();
         Stopwatch sw = new Stopwatch();
         TimeSpan ts;
         string cd = "{0}";
         System.Windows.Forms.Timer timer;
-        string currentTime = string.Empty;
-        string currentTime2 = string.Empty;
+        // Текущее отработанное время, выведенное на экране
+        public static string currentTime = string.Empty;
+        // Текущее время отдыха, выведенное на экране
+        public static string currentTimeRest = string.Empty;
+        // Определяет максимальное время отдыха, в зависимости от типа (ОБЕД, ОТДЫХ)
+        public static double maxUnitTime = .0D;
+        // Время отдыха по умолчанию (мин)
+        public static int _DEFAULT_REST_TIME = 15;
+        // Время обеда по умолчанию (мин)
+        public static int _DEFAULT_LUNCH_TIME = 60;
+        // Определяет обедал ли сотрудник в данный рабочий день
+        public static bool hadLunch = false;
+        // Накопитель времени отдыха
+        public static TimeSpan timeRestCollector;
         public static MainMenuWindow Instance { get; private set; }
         public MainMenuWindow()
         {
@@ -58,7 +73,10 @@ namespace VTManager
         #region =========   КОМАНДЫ    =========
         /// <summary> Завершение работы приложения </summary>
         public ICommand CloseApplicationCmd { get; }
-        private void OnCloseApplicationCmdExecute(object o) => Application.Current.Shutdown(0);
+        private void OnCloseApplicationCmdExecute(object o)  {
+            
+            Application.Current.Shutdown(0);
+        }
         private bool CanCloseApplicationCmdExecuted(object o) => true;
         /// <summary> Развернуть приложение в полный экран </summary>
         public ICommand MaximizeApplicationCmd { get; }
@@ -73,6 +91,7 @@ namespace VTManager
         public ICommand MinimizeApplicationCmd { get; }
         private void OnMinimizeApplicationCmdExecute(object o)
         {
+            
             minimize_button.Visibility = Visibility.Hidden;
             if (WindowState == WindowState.Maximized)
                 WindowState = WindowState.Normal;
@@ -81,7 +100,7 @@ namespace VTManager
         private bool CanMinimizeApplicationCmdExecuted(object o) => true;
         /// <summary> Сворачивание приложения </summary>
         public ICommand HideApplicationCmd { get; }
-        private void OnHideApplicationCmdExecute(object o) => WindowState = WindowState.Minimized;
+        private void OnHideApplicationCmdExecute(object o) { WindowState = WindowState.Minimized; keepTime(); }
         private bool CanHideApplicationCmdExecuted(object o) => true;
         #endregion =========   КОМАНДЫ    =========
         private void processing_button_Click(object sender, RoutedEventArgs e)
@@ -132,7 +151,6 @@ namespace VTManager
         {
             ts = ts.Add(TimeSpan.FromSeconds(-1));
             rest_time_label.Content = String.Format(cd, ts.ToString());
-
             if (ts == TimeSpan.Zero)
             {
                 togglePanel();
@@ -189,6 +207,13 @@ namespace VTManager
             dt.Start();
             timer.Stop();
             timer.Dispose();
+            currentTimeRest = rest_time_label.Content.ToString();
+            if (DateTime.TryParseExact(currentTimeRest, "HH:mm:ss", null, DateTimeStyles.None, out _)) {
+                TimeSpan ts2 = TimeSpan.FromMinutes(maxUnitTime);
+                TimeSpan currentTime = -(ts - ts2); 
+                timeRestCollector += currentTime;
+                user_info_textbox.Text = timeRestCollector.ToString();
+            } else return;
             rest_time_label.Content = "00:00:00";
             toggleWorkingElements();
             continue_button.IsEnabled = false;
@@ -200,6 +225,7 @@ namespace VTManager
             dt.Stop();
             continue_button.IsEnabled = true;
             ts = TimeSpan.FromMinutes(count);
+            maxUnitTime = count;
             timer = new System.Windows.Forms.Timer();
             timer.Tick += Timer_Tick;
             timer.Interval = 1000;
@@ -214,12 +240,57 @@ namespace VTManager
                 rest1_button.IsEnabled = false;
                 rest2_button.IsEnabled = false;
             }
-            else {
+            else 
+            {
                 rest1_button.IsEnabled = true;
                 if(!hadLunch) rest2_button.IsEnabled = true;
             }
         }
+        void keepTime()
+        {
+            Label l1 = new Label();
+            Label l2 = new Label();
+            Label l3 = new Label();
+            string date = DateTime.Now.ToString("yyyy-MM-dd");
 
-     
+            //      DateTime now = DateTime.ParseExact(DateTime.Now.Date.ToString().Substring(0,8), dateFormat, provider);
+            try {
+                string selectUserId = query.select("id", "id", "personal", "login = \"" + AuthWindow.loginUsr + "\"");
+                //SELECT * FROM `personal` WHERE login = 'Admin' ORDER BY `id` DEsC LIMIT 1
+
+                SQLUtils.runQuery(selectUserId, "id", l1);
+                //   l1.Content = "1";
+                if (l1.Content.ToString().Length > 0)
+                {
+                    string selectLastUserSessionId = query.select("id", "id", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
+                    SQLUtils.runQuery(selectLastUserSessionId, "id", l2);
+                   // l2.Content = "123213213";
+                    if (l2.Content.ToString().Length > 0)
+                    {
+                        string updateLastUserSessionDate = query.update("sessions", "workTime = \'" + currentTime.Substring(0, 8).Trim() + "\'", "sessions.id = " + l2.Content.ToString().Trim());
+                        string updateLastUserSessionDate2 = query.update("sessions", "restTime = \'" + timeRestCollector.ToString().Trim() + "\'", "sessions.id = " + l2.Content.ToString().Trim());
+                        SQLUtils.runQuery(updateLastUserSessionDate);
+                        SQLUtils.runQuery(updateLastUserSessionDate2);
+
+                        test.Text = date;
+                    }
+                }
+
+                //   SQLUtils.runQuery(selectLastUserSessionId);
+                // UPDATE `sessions` SET `workTime` = '16:05:16' WHERE `sessions`.`id` = 904;
+
+            } catch(Exception e) {
+                string insertSession = "INSERT INTO sessions (id, personalId, sip, date, workTime, restTime)";
+                //Получить IP-адрес компьютера сотрудника
+                string ip = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName()).AddressList[0].ToString();
+                string sessionValues = "VALUES (NULL, \"" + l1.Content.ToString().Trim() + "\", \'" + ip + "\', " + "\'"+ date + "\'" + ", \'" + currentTime.Substring(0, 8).Trim() + "\', \'" + timeRestCollector.ToString().Trim() + "\')";
+                test.Text = sessionValues;
+                SQLUtils.runQuery(insertSession + sessionValues);
+
+              //  new VTManagerDialog(Messages._ERROR_MESSAGE, Messages._USER_IS_NULL); 
+            }
+
+          //  DateTime result = DateTime.ParseExact(l2.Content.ToString(), dateFormat, provider);
+        }
     }
 }
