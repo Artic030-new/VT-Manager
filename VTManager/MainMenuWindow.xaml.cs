@@ -81,6 +81,10 @@ namespace VTManager
             MaximizeApplicationCmd = new VTActionCommand(OnMaximizeApplicationCmdExecute, CanMaximizeApplicationCmdExecuted);
             MinimizeApplicationCmd = new VTActionCommand(OnMinimizeApplicationCmdExecute, CanMinimizeApplicationCmdExecuted);
             HideApplicationCmd = new VTActionCommand(OnHideApplicationCmdExecute, CanHideApplicationCmdExecuted);
+            ToProcessingCmd = new VTActionCommand(OnToProcessingCmdExecute, CanToProcessingCmdExecuted);
+            ToClientsCmd = new VTActionCommand(OnToClientsCmdExecute, CanToClientsCmdExecuted);
+            ToDeliveryCmd = new VTActionCommand(OnToDeliveryCmdExecute, CanToDeliveryCmdExecuted);
+            ToProductionCmd = new VTActionCommand(OnToProductionCmdExecute, CanToProductionCmdExecuted);
             #endregion =========   КОМАНДЫ    =========
             continue_button.IsEnabled = false;
             dt.Tick += new EventHandler(dt_Tick);
@@ -91,62 +95,66 @@ namespace VTManager
         #region =========   КОМАНДЫ    =========
         /// <summary> Завершение работы приложения </summary>
         public ICommand CloseApplicationCmd { get; }
-        private void OnCloseApplicationCmdExecute(object o)  {
-            
-            Application.Current.Shutdown(0);
-        }
         private bool CanCloseApplicationCmdExecuted(object o) => true;
+        private void OnCloseApplicationCmdExecute(object o)  { keepTime(); Application.Current.Shutdown(0); }
         /// <summary> Развернуть приложение в полный экран </summary>
         public ICommand MaximizeApplicationCmd { get; }
+        private bool CanMaximizeApplicationCmdExecuted(object o) => true;
         private void OnMaximizeApplicationCmdExecute(object o) {
             if (WindowState == WindowState.Normal)
                 WindowState = WindowState.Maximized;
             maximize_button.Visibility = Visibility.Hidden;
             minimize_button.Visibility = Visibility.Visible;
         }
-        private bool CanMaximizeApplicationCmdExecuted(object o) => true;
+        
         /// <summary> Свернуть приложение в оконный режим </summary>
         public ICommand MinimizeApplicationCmd { get; }
+        private bool CanMinimizeApplicationCmdExecuted(object o) => true;
         private void OnMinimizeApplicationCmdExecute(object o)
         {
-            
             minimize_button.Visibility = Visibility.Hidden;
             if (WindowState == WindowState.Maximized)
                 WindowState = WindowState.Normal;
             maximize_button.Visibility = Visibility.Visible;
         }
-        private bool CanMinimizeApplicationCmdExecuted(object o) => true;
+       
         /// <summary> Сворачивание приложения </summary>
         public ICommand HideApplicationCmd { get; }
-        private void OnHideApplicationCmdExecute(object o) { WindowState = WindowState.Minimized; keepTime(); }
         private bool CanHideApplicationCmdExecuted(object o) => true;
-        #endregion =========   КОМАНДЫ    =========
-        private void processing_button_Click(object sender, RoutedEventArgs e)
-        {
+        private void OnHideApplicationCmdExecute(object o) => WindowState = WindowState.Minimized;  
+        /// <summary> В раздел Производство </summary>
+        public ICommand ToProcessingCmd { get; }
+        private bool CanToProcessingCmdExecuted(object o) => true;
+        private void OnToProcessingCmdExecute(object o) {
             menu_frame.Visibility = Visibility.Visible;
             menu_frame.NavigationService.Navigate(new Uri("ProcessingPage.xaml", UriKind.Relative));
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary> В раздел Работа с клиентами </summary>
+        public ICommand ToClientsCmd { get; }
+        private bool CanToClientsCmdExecuted(object o) => true;
+        private void OnToClientsCmdExecute(object o)
         {
             menu_frame.Visibility = Visibility.Visible;
             menu_frame.NavigationService.Navigate(new Uri("ClientPage.xaml", UriKind.Relative));
         }
-        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        /// <summary> В раздел Поставки </summary>
+        public ICommand ToDeliveryCmd { get; }
+        private bool CanToDeliveryCmdExecuted(object o) => true;
+        private void OnToDeliveryCmdExecute(object o)
         {
             menu_frame.Visibility = Visibility.Visible;
             menu_frame.NavigationService.Navigate(new Uri("DeliveryPage.xaml", UriKind.Relative));
         }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        /// <summary> В раздел Готовая продукция </summary>
+        public ICommand ToProductionCmd { get; }
+        private bool CanToProductionCmdExecuted(object o) => true;
+        private void OnToProductionCmdExecute(object o)
         {
             menu_frame.Visibility = Visibility.Visible;
             menu_frame.NavigationService.Navigate(new Uri("ProductionPage.xaml", UriKind.Relative));
         }
+
+        #endregion =========   КОМАНДЫ    =========
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -156,7 +164,7 @@ namespace VTManager
         }
 
         void dt_Tick(object sender, EventArgs e)
-        {
+        { ///<summary> Отображает текущее время работы в правой панели главного меню </summary>///
             if (sw.IsRunning)
             {
                 TimeSpan ts = sw.Elapsed;
@@ -167,11 +175,11 @@ namespace VTManager
             }
         }
         private void Timer_Tick(object sender, EventArgs e)
-        {
+        { ///<summary> Отображает отчёт времени перерыва в правой панели главного меню </summary>///
             ts = ts.Add(TimeSpan.FromSeconds(-1));
             rest_time_label.Content = String.Format(cd, ts.ToString());
             if (ts == TimeSpan.Zero)
-            {
+            { // Приостановить ход рабочего времени и заблокировать рабочие элементы пока время перерыва не иссякло
                 togglePanel();
                 sw.Start();
                 dt.Start();
@@ -215,7 +223,7 @@ namespace VTManager
         private void rest2_button_Click(object sender, RoutedEventArgs e)
         {
             toRest(rest2_button, _DEFAULT_LUNCH_TIME);
-            hadLunch = true;
+            hadLunch = true; //После установки данного флага уйти в обед повторно невозможно
         }
 
         private void continue_button_Click(object sender, RoutedEventArgs e)
@@ -228,9 +236,11 @@ namespace VTManager
             currentTimeRest = rest_time_label.Content.ToString();
             if (DateTime.TryParseExact(currentTimeRest, "HH:mm:ss", null, DateTimeStyles.None, out _)) {
                 TimeSpan ts2 = TimeSpan.FromMinutes(maxUnitTime);
+                ///<summary> Получить разницу между максимальным временем перерыва (15 или 60) и оставшемся 
+                ///Пример: Сотрудник отошёл на 7 минут и 30 секунд, затем продолжил работу => (00:15:00 - 00:12:30) = 00:07:30  </summary>
                 TimeSpan currentTime = -(ts - ts2); 
+                // Прибавить к накопителю зафиксированное время
                 timeRestCollector += currentTime;
-                user_info_textbox.Text = timeRestCollector.ToString();
             } else return;
             rest_time_label.Content = "00:00:00";
             toggleWorkingElements();
@@ -265,11 +275,18 @@ namespace VTManager
                 if(!hadLunch) rest2_button.IsEnabled = true;
             }
         }
+
+        private void menu_header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
         void keepTime()
         {
+            //Получить строку текущей даты в типичном для mysql базы данных формате
             string date = DateTime.Now.ToString("yyyy-MM-dd");
-            try
-            {
+            try // Выбрать последнюю сессию рабочего времени и перерыва сотрудника, если получится
+            { 
                 string selectUserId = query.select("id", "id", "personal", "login = \"" + AuthWindow.loginUsr + "\"");
                 SQLUtils.runQuery(selectUserId, "id", l1);
                 if (l1.Content.ToString().Length > 0)
@@ -278,26 +295,27 @@ namespace VTManager
                     string selectLastUserSessionDate = query.select("date", "date", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
                     SQLUtils.runQuery(selectLastUserSessionId, "id", l2);
                     SQLUtils.runQuery(selectLastUserSessionDate, "date", l3);
-                    if (l2.Content.ToString().Length > 0)
+                    if (l2.Content.ToString().Length > 0) //Подготовить текущую дату в формате mysql, если выбранный сотрудник найден
                     {
                         string updateLastUserSessionDate = query.update("sessions", "workTime = \'" + currentTime.Substring(0, 8).Trim() + "\'", "sessions.id = " + l2.Content.ToString().Trim());
                         string updateLastUserSessionDate2 = query.update("sessions", "restTime = \'" + timeRestCollector.ToString().Trim() + "\'", "sessions.id = " + l2.Content.ToString().Trim());
                         DateTime datesql = DateTime.ParseExact(l3.Content.ToString().Substring(0, 10).Trim(), "dd.MM.yyyy", CultureInfo.InvariantCulture);
                         if (date.ToString().Equals(datesql.ToString("yyyy-MM-dd").Substring(0, 10).Trim()))
-                        {
+                        { // Выполнить запросы на обновление сессии рабочего времени, если дата запуска приложения сегодняшняя
                             SQLUtils.runQuery(updateLastUserSessionDate);
                             SQLUtils.runQuery(updateLastUserSessionDate2);
                         }
                         else
-                        {
+                        { // Выполнить запросы на добавление новой сесии, если дата запуска приложения отличается от сегодняшней (Вчерашняя и т.д. сессия)
                             string insertSession = "INSERT INTO sessions (id, personalId, sip, date, workTime, restTime)";
+                            //Получить IP-адрес компьютера сотрудника
                             string ip = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName()).AddressList[0].ToString();
                             string sessionValues = "VALUES (NULL, \"" + l1.Content.ToString().Trim() + "\", \'" + ip + "\', " + "\'" + date + "\'" + ", \'" + currentTime.Substring(0, 8).Trim() + "\', \'" + timeRestCollector.ToString().Trim() + "\')";
                             SQLUtils.runQuery(insertSession + sessionValues);
                         }
                     }
                 }
-            } catch(Exception e) {
+            } catch(Exception e) { // Вставить новую сессию для сотрудника, если он не был найден
                 string insertSession = "INSERT INTO sessions (id, personalId, sip, date, workTime, restTime)";
                 //Получить IP-адрес компьютера сотрудника
                 string ip = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName()).AddressList[0].ToString();
@@ -306,7 +324,7 @@ namespace VTManager
             } 
         }
         public static void addSqlTime(String timeStamp, ref TimeSpan timer)
-        {
+        {   // Разбивает данные в виде полученного времени работы сотрудника на часы, минуты и секунды, и добавляет их к текущему таймеру
             String[] workSess = timeStamp.Split(':');
             int sessWrHr = Convert.ToInt32(workSess[0].ElementAt(0) == '0' ? workSess[0].ElementAt(1).ToString() : workSess[0]);
             int sessWrMin = Convert.ToInt32(workSess[1].ElementAt(0) == '0' ? workSess[1].ElementAt(1).ToString() : workSess[1]);

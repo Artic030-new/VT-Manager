@@ -20,7 +20,7 @@
             <Setter Property="Foreground" Value="#EDEDED"/>
         </Style>
     </Window.Resources>
-    <Grid Background="#3e486e" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+    <Grid Background="#3e486e">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="167*"/>
             <ColumnDefinition Width="226*"/>
@@ -40,7 +40,7 @@
             <RowDefinition Height="1"/>
             <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="menu_header" Grid.ColumnSpan="8">
+        <Grid x:Name="menu_header" Grid.ColumnSpan="8" MouseLeftButtonDown="menu_header_MouseLeftButtonDown">
             <Rectangle Fill="#273049"/>
             <Label Content="VT Manager"  Grid.ColumnSpan="8" VerticalContentAlignment="Center" Style="{DynamicResource light_label}"/>
         </Grid>
@@ -84,28 +84,28 @@
             </Grid>
         </Border>
         <!--  <Rectangle Fill="#333d5c" RadiusX="16" RadiusY="16" HorizontalAlignment="center" VerticalAlignment="center" Width="177" Height="181" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="4"/>-->
-        <Button x:Name="processing_button" Background="#bee0da" Grid.Column="1" Grid.Row="2" Foreground="#20443e" FontSize="24" Style="{DynamicResource processing_button}" Click="processing_button_Click">
+        <Button x:Name="processing_button" Background="#bee0da" Grid.Column="1" Grid.Row="2" Foreground="#20443e" FontSize="24" Style="{DynamicResource processing_button}" Command="{Binding ToProcessingCmd}">
             <Button.ContentTemplate>
                 <DataTemplate>
                     <Image Source="processing.png" Margin="25"/>
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
-        <Button x:Name="clients_button" Background="#273049" BorderBrush="#cad5dd" BorderThickness="0,6,6,0" Foreground="#fff" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" Margin="25" FontSize="32" Style="{DynamicResource clients_button}" Click="Button_Click">
+        <Button x:Name="clients_button" Background="#273049" BorderBrush="#cad5dd" BorderThickness="0,6,6,0" Foreground="#fff" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" Margin="25" FontSize="32" Style="{DynamicResource clients_button}" Command="{Binding ToClientsCmd}">
             <Button.ContentTemplate>
                 <DataTemplate>
                     <Image Source="clients.png" Margin="25"/>
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
-        <Button x:Name="delivery_button" Background="#274d49" BorderBrush="#bee0da" BorderThickness="6,0,0,6" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3" Margin="25" FontSize="32" Style="{DynamicResource deliveries_button}" Click="Button_Click_1">
+        <Button x:Name="delivery_button" Background="#274d49" BorderBrush="#bee0da" BorderThickness="6,0,0,6" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3" Margin="25" FontSize="32" Style="{DynamicResource deliveries_button}" Command="{Binding ToDeliveryCmd}">
             <Button.ContentTemplate>
                 <DataTemplate>
                     <Image Source="deliveries.png" Margin="30"/>
                 </DataTemplate>
             </Button.ContentTemplate>
         </Button>
-        <Button x:Name="vt_button" Background="#b6cce0" Grid.Column="3" Grid.Row="3"  Margin="25" FontSize="32" Style="{DynamicResource complete_button}" Click="Button_Click_2">
+        <Button x:Name="vt_button" Background="#b6cce0" Grid.Column="3" Grid.Row="3"  Margin="25" FontSize="32" Style="{DynamicResource complete_button}" Command="{Binding ToProductionCmd}">
             <Button.ContentTemplate>
                 <DataTemplate>
                     <Image Source="complete.png" Margin="10"/>
