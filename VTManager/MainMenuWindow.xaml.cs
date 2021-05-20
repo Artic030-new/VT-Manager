@@ -52,12 +52,18 @@ namespace VTManager
         public static bool hadLunch = false;
         // Накопитель времени отдыха
         public static TimeSpan timeRestCollector;
+
+        // Временные показатели сотрудника за текущую сессию (смену)
+        public static string sessionWorkTime = "";
+        public static string sessionRestTime = "";
+
         public static MainMenuWindow Instance { get; private set; }
         public MainMenuWindow()
         {
             InitializeComponent();
             ThisFrame = menu_frame;
             ThisWindow = this;
+            // Получить время последней сессии сотрудника и добавить к таймеру (продолжение при случайном закрытии программы)
             #region =========   КОМАНДЫ    =========
             CloseApplicationCmd = new VTActionCommand(OnCloseApplicationCmdExecute, CanCloseApplicationCmdExecuted);
             MaximizeApplicationCmd = new VTActionCommand(OnMaximizeApplicationCmdExecute, CanMaximizeApplicationCmdExecuted);
@@ -252,45 +258,42 @@ namespace VTManager
             Label l2 = new Label();
             Label l3 = new Label();
             string date = DateTime.Now.ToString("yyyy-MM-dd");
-
-            //      DateTime now = DateTime.ParseExact(DateTime.Now.Date.ToString().Substring(0,8), dateFormat, provider);
-            try {
+            try
+            {
                 string selectUserId = query.select("id", "id", "personal", "login = \"" + AuthWindow.loginUsr + "\"");
-                //SELECT * FROM `personal` WHERE login = 'Admin' ORDER BY `id` DEsC LIMIT 1
-
                 SQLUtils.runQuery(selectUserId, "id", l1);
-                //   l1.Content = "1";
                 if (l1.Content.ToString().Length > 0)
                 {
                     string selectLastUserSessionId = query.select("id", "id", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
+                    string selectLastUserSessionDate = query.select("date", "date", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
                     SQLUtils.runQuery(selectLastUserSessionId, "id", l2);
-                   // l2.Content = "123213213";
+                    SQLUtils.runQuery(selectLastUserSessionDate, "date", l3);
                     if (l2.Content.ToString().Length > 0)
                     {
                         string updateLastUserSessionDate = query.update("sessions", "workTime = \'" + currentTime.Substring(0, 8).Trim() + "\'", "sessions.id = " + l2.Content.ToString().Trim());
                         string updateLastUserSessionDate2 = query.update("sessions", "restTime = \'" + timeRestCollector.ToString().Trim() + "\'", "sessions.id = " + l2.Content.ToString().Trim());
-                        SQLUtils.runQuery(updateLastUserSessionDate);
-                        SQLUtils.runQuery(updateLastUserSessionDate2);
-
-                        test.Text = date;
+                        DateTime datesql = DateTime.ParseExact(l3.Content.ToString().Substring(0, 10).Trim(), "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                        if (date.ToString().Equals(datesql.ToString("yyyy-MM-dd").Substring(0, 10).Trim()))
+                        {
+                            SQLUtils.runQuery(updateLastUserSessionDate);
+                            SQLUtils.runQuery(updateLastUserSessionDate2);
+                        }
+                        else
+                        {
+                            string insertSession = "INSERT INTO sessions (id, personalId, sip, date, workTime, restTime)";
+                            string ip = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName()).AddressList[0].ToString();
+                            string sessionValues = "VALUES (NULL, \"" + l1.Content.ToString().Trim() + "\", \'" + ip + "\', " + "\'" + date + "\'" + ", \'" + currentTime.Substring(0, 8).Trim() + "\', \'" + timeRestCollector.ToString().Trim() + "\')";
+                            SQLUtils.runQuery(insertSession + sessionValues);
+                        }
                     }
                 }
-
-                //   SQLUtils.runQuery(selectLastUserSessionId);
-                // UPDATE `sessions` SET `workTime` = '16:05:16' WHERE `sessions`.`id` = 904;
-
             } catch(Exception e) {
                 string insertSession = "INSERT INTO sessions (id, personalId, sip, date, workTime, restTime)";
                 //Получить IP-адрес компьютера сотрудника
                 string ip = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName()).AddressList[0].ToString();
                 string sessionValues = "VALUES (NULL, \"" + l1.Content.ToString().Trim() + "\", \'" + ip + "\', " + "\'"+ date + "\'" + ", \'" + currentTime.Substring(0, 8).Trim() + "\', \'" + timeRestCollector.ToString().Trim() + "\')";
-                test.Text = sessionValues;
                 SQLUtils.runQuery(insertSession + sessionValues);
-
-              //  new VTManagerDialog(Messages._ERROR_MESSAGE, Messages._USER_IS_NULL); 
             }
-
-          //  DateTime result = DateTime.ParseExact(l2.Content.ToString(), dateFormat, provider);
         }
     }
 }
