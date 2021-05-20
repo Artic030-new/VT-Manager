@@ -63,9 +63,7 @@ namespace VTManager
             InitializeComponent();
             ThisFrame = menu_frame;
             ThisWindow = this;
-            // Получить показатели за текущую сессию
-
-           //  Получить время последней сессии сотрудника и добавить к таймеру (продолжение при случайном закрытии программы)
+           //  Получить время последней сессии сотрудника и добавить к таймеру (продолжение при случайном или намеренном закрытии программы)
             try
             {
                 string selectUserId = query.select("id", "id", "personal", "login = \"" + AuthWindow.loginUsr + "\"");
@@ -76,10 +74,8 @@ namespace VTManager
                 SQLUtils.runQuery(selectLastUserRt, "rt", l3);
                 sessionWorkTime = l2.Content.ToString();
                 sessionRestTime = l3.Content.ToString();
-                test.Text = sessionWorkTime + " | " + timeRestCollector.ToString()  + " | " + l3.Content.ToString();
-
                 l1.Content = string.Empty; l2.Content = string.Empty; l3.Content = string.Empty;
-            } catch (Exception) {  /*Some problems*/  test.Text = "ex" + l3.Content.ToString(); }
+            } catch (Exception) {  /*Some problems*/  }
             #region =========   КОМАНДЫ    =========
             CloseApplicationCmd = new VTActionCommand(OnCloseApplicationCmdExecute, CanCloseApplicationCmdExecuted);
             MaximizeApplicationCmd = new VTActionCommand(OnMaximizeApplicationCmdExecute, CanMaximizeApplicationCmdExecuted);
@@ -164,11 +160,7 @@ namespace VTManager
             if (sw.IsRunning)
             {
                 TimeSpan ts = sw.Elapsed;
-                String[] workSess = sessionWorkTime.Split(':');
-                int sessWrHr = Convert.ToInt32(workSess[0].ElementAt(0) == '0' ? workSess[0].ElementAt(1).ToString() : workSess[0]);
-                int sessWrMin = Convert.ToInt32(workSess[1].ElementAt(0) == '0' ? workSess[1].ElementAt(1).ToString() : workSess[1]);
-                int sessWrSec = Convert.ToInt32(workSess[2].ElementAt(0) == '0' ? workSess[2].ElementAt(1).ToString() : workSess[2]);
-                ts = ts.Add(TimeSpan.FromHours(sessWrHr)); ts = ts.Add(TimeSpan.FromMinutes(sessWrMin)); ts = ts.Add(TimeSpan.FromSeconds(sessWrSec));
+                addSqlTime(sessionWorkTime, ref ts);
                 currentTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}",
                 ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
                 current_time_label.Content = currentTime;
@@ -250,11 +242,7 @@ namespace VTManager
             sw.Stop();
             dt.Stop();
             continue_button.IsEnabled = true;
-            String[] restSess = sessionRestTime.Split(':');
-            int sessWrHr = Convert.ToInt32(restSess[0].ElementAt(0) == '0' ? restSess[0].ElementAt(1).ToString() : restSess[0]);
-            int sessWrMin = Convert.ToInt32(restSess[1].ElementAt(0) == '0' ? restSess[1].ElementAt(1).ToString() : restSess[1]);
-            int sessWrSec = Convert.ToInt32(restSess[2].ElementAt(0) == '0' ? restSess[2].ElementAt(1).ToString() : restSess[2]);
-            timeRestCollector = TimeSpan.FromHours(sessWrHr); timeRestCollector = TimeSpan.FromMinutes(sessWrMin); timeRestCollector = TimeSpan.FromSeconds(sessWrSec);
+            addSqlTime(sessionRestTime, ref timeRestCollector);
             ts = TimeSpan.FromMinutes(count);
             maxUnitTime = count;
             timer = new System.Windows.Forms.Timer();
@@ -279,7 +267,6 @@ namespace VTManager
         }
         void keepTime()
         {
-            
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             try
             {
@@ -316,7 +303,17 @@ namespace VTManager
                 string ip = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName()).AddressList[0].ToString();
                 string sessionValues = "VALUES (NULL, \"" + l1.Content.ToString().Trim() + "\", \'" + ip + "\', " + "\'"+ date + "\'" + ", \'" + currentTime.Substring(0, 8).Trim() + "\', \'" + timeRestCollector.ToString().Trim() + "\')";
                 SQLUtils.runQuery(insertSession + sessionValues);
-            }
+            } 
+        }
+        public static void addSqlTime(String timeStamp, ref TimeSpan timer)
+        {
+            String[] workSess = timeStamp.Split(':');
+            int sessWrHr = Convert.ToInt32(workSess[0].ElementAt(0) == '0' ? workSess[0].ElementAt(1).ToString() : workSess[0]);
+            int sessWrMin = Convert.ToInt32(workSess[1].ElementAt(0) == '0' ? workSess[1].ElementAt(1).ToString() : workSess[1]);
+            int sessWrSec = Convert.ToInt32(workSess[2].ElementAt(0) == '0' ? workSess[2].ElementAt(1).ToString() : workSess[2]);
+            timer = timer.Add(TimeSpan.FromHours(sessWrHr)); 
+            timer = timer.Add(TimeSpan.FromMinutes(sessWrMin));
+            timer = timer.Add(TimeSpan.FromSeconds(sessWrSec));
         }
     }
 }
