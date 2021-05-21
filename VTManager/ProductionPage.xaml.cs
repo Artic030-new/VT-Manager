@@ -26,16 +26,41 @@ namespace VTManager
         {
             InitializeComponent();
             ThisFrame = item_frame;
+            #region =========   КОМАНДЫ    =========
+            ToHomeCmd = new VTActionCommand(OnToHomeCmdExecute, CanToHomeCmdExecuted);
+            RefreshCmd = new VTActionCommand(OnRefreshCmdExecute, CanRefreshCmdExecuted);
+            Item1Cmd = new VTActionCommand(OnItem1CmdExecute, CanItem1CmdExecuted);
+            Item2Cmd = new VTActionCommand(OnItem2CmdExecute, CanItem2CmdExecuted);
+            #endregion =========   КОМАНДЫ    =========
             /*Таймер. Обновляет страницу каждые 2 минуты*/
             refresh();
+            this.DataContext = this;
         }
-        public void refresh()
-        {
-            System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
-            timer1.Interval = 120000;
-            timer1.Tick += t_Tick;
-            timer1.Enabled = true;
+        #region =========   КОМАНДЫ    =========
+        /// <summary> Возврат в главное меню </summary>
+        public ICommand ToHomeCmd { get; }
+        private bool CanToHomeCmdExecuted(object o) => true;
+        private void OnToHomeCmdExecute(object o) {
+            removeMainComponents();
+            item_frame.Visibility = Visibility.Hidden;
+            MainMenuWindow.ThisFrame.Visibility = Visibility.Hidden;
         }
+        /// <summary> Обновить страницу </summary>
+        public ICommand RefreshCmd { get; }
+        private bool CanRefreshCmdExecuted(object o) => true;
+        private void OnRefreshCmdExecute(object o) => item_frame.Refresh();
+        /// <summary> К разделу 1 </summary>
+        public ICommand Item1Cmd { get; }
+        private bool CanItem1CmdExecuted(object o) => true;
+        private void OnItem1CmdExecute(object o) => navigate("ProductionPages/Production_Stored.xaml");
+        /// <summary> К разделу 2 </summary>
+        public ICommand Item2Cmd { get; }
+        private bool CanItem2CmdExecuted(object o) => true;
+        private void OnItem2CmdExecute(object o) => navigate("ProductionPages/Production_Charts.xaml");
+        
+        #endregion =========   КОМАНДЫ    =========
+
+        private void t_Tick(object sender, EventArgs e) => item_frame.Refresh();   
         public void navigate(string uri)
         {
             removeMainComponents();
@@ -46,33 +71,12 @@ namespace VTManager
         {
             /*удаляет элементы при переходе с главной стр*/
         }
-        private void home_MouseDown(object sender, MouseButtonEventArgs e)
+        public void refresh()
         {
-            removeMainComponents();
-            item_frame.Visibility = Visibility.Hidden;
-            MainMenuWindow.ThisFrame.Visibility = Visibility.Hidden;
-        }
-        private void refresh_label_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            item_frame.Refresh();
-        }
-        private void t_Tick(object sender, EventArgs e)
-        {
-            item_frame.Refresh();
-        }
-     /*   private void item1_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            navigate("ProductionPages/Production_Stored.xaml");
-        }*/
-
-        private void item1_MouseDown_1(object sender, MouseButtonEventArgs e)
-        {
-            navigate("ProductionPages/Production_Stored.xaml");
-        }
-
-        private void item2_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            navigate("ProductionPages/Production_Charts.xaml"); 
+            System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
+            timer1.Interval = 120000;
+            timer1.Tick += t_Tick;
+            timer1.Enabled = true;
         }
     }
 }
