@@ -29,9 +29,21 @@
             <ColumnDefinition Width="361*"/>
         </Grid.ColumnDefinitions>
         <Rectangle Fill="#adb8d9" Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="3"/>
-        <Label x:Name="item1" Content="Управление клиентами" Grid.Row="1" Grid.Column="2" Style="{DynamicResource hovered_label}" FontFamily="{StaticResource NunitoLight}" MouseDown="item1_MouseDown" />
-        <Label x:Name="item2" Content="Заказы клиентов" Grid.Row="2" Grid.Column="2" Style="{DynamicResource hovered_label}" FontFamily="{StaticResource NunitoLight}" MouseDown="item2_MouseDown"/>
-        <Label x:Name="item3" Content="Топ продаж" Grid.Row="3" Grid.Column="2" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource hovered_label}" FontFamily="{StaticResource NunitoLight}" MouseDown="item3_MouseDown" />
+        <Label x:Name="item1" Content="Управление клиентами" Grid.Row="1" Grid.Column="2" Style="{DynamicResource hovered_label}" FontFamily="{StaticResource NunitoLight}">
+            <Label.InputBindings>
+                <MouseBinding Command="{Binding Path=Item1Cmd}" MouseAction="LeftClick"/>
+            </Label.InputBindings>
+        </Label>
+        <Label x:Name="item2" Content="Заказы клиентов" Grid.Row="2" Grid.Column="2" Style="{DynamicResource hovered_label}" FontFamily="{StaticResource NunitoLight}">
+            <Label.InputBindings>
+                <MouseBinding Command="{Binding Path=Item2Cmd}" MouseAction="LeftClick"/>
+            </Label.InputBindings>
+        </Label>
+        <Label x:Name="item3" Content="Топ продаж" Grid.Row="3" Grid.Column="2" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource hovered_label}" FontFamily="{StaticResource NunitoLight}">
+            <Label.InputBindings>
+                <MouseBinding Command="{Binding Path=Item3Cmd}" MouseAction="LeftClick"/>
+            </Label.InputBindings>
+        </Label>
         <Label Grid.Row="1" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="16" FontWeight="Light" Foreground="#273049">
             <Path Fill="#273049">
                 <Path.Data>
@@ -73,7 +85,7 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Rectangle Fill="#273049" Grid.ColumnSpan="2"/>
-            <Label x:Name="home" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1" MouseDown="home_MouseDown">
+            <Label x:Name="home" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1">
                 <Path Fill="#273049">
                     <Path.Data>
                         <PathGeometry Figures="M46.3,22.1c-0.2-0.5-0.6-1-0.9-1.4l-0.2-0.2c-0.1-0.1-0.2-0.3-0.4-0.4c-0.1-0.2-0.3-0.3-0.4-0.5L30.4,5.4
@@ -86,8 +98,11 @@
 		c-3.2,0-3.2,2.9-3.2,3.8v9.9c0,2.5,0.6,4,3.5,4h23.3c2.3,0,3.4-1.1,3.4-3.3l0-11C41,30.4,40.8,29.5,40.3,28.9z"/>
                     </Path.Data>
                 </Path>
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding Path=ToHomeCmd}" MouseAction="LeftClick"/>
+                </Label.InputBindings>
             </Label>
-            <Label x:Name="refresh_label" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" MouseDown="refresh_label_MouseDown">
+            <Label x:Name="refresh_label" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1">
                 <Path Fill="#273049">
                     <Path.Data>
                         <PathGeometry Figures="M50.6,22.9C50,17,47.4,11.3,43.1,7.2C39.1,3.4,33.6,1.1,28,1c-0.4,0-0.7,0-1.1,0C19.6,1.3,13,5.6,9.2,11.8
@@ -97,6 +112,9 @@
 	C48.2,38.6,51.2,30.6,50.6,22.9z"/>
                     </Path.Data>
                 </Path>
+                <Label.InputBindings>
+                    <MouseBinding Command="{Binding Path=RefreshCmd}" MouseAction="LeftClick"/>
+                </Label.InputBindings>
             </Label>
         </Grid>
     </Grid>

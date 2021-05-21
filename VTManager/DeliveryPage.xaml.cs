@@ -27,9 +27,44 @@ namespace VTManager
         {
             InitializeComponent();
             ThisFrame = item_frame;
+            #region =========   КОМАНДЫ    =========
+            ToHomeCmd = new VTActionCommand(OnToHomeCmdExecute, CanToHomeCmdExecuted);
+            RefreshCmd = new VTActionCommand(OnRefreshCmdExecute, CanRefreshCmdExecuted);
+            Item1Cmd = new VTActionCommand(OnItem1CmdExecute, CanItem1CmdExecuted);
+            Item2Cmd = new VTActionCommand(OnItem2CmdExecute, CanItem2CmdExecuted);
+            Item3Cmd = new VTActionCommand(OnItem3CmdExecute, CanItem3CmdExecuted);
+            #endregion =========   КОМАНДЫ    =========
             /*Таймер. Обновляет страницу каждые 2 минуты*/
             refresh();
+            this.DataContext = this;
         }
+        #region =========   КОМАНДЫ    =========
+        /// <summary> Возврат в главное меню </summary>
+        public ICommand ToHomeCmd { get; }
+        private bool CanToHomeCmdExecuted(object o) => true;
+        private void OnToHomeCmdExecute(object o)
+        {
+            removeMainComponents();
+            item_frame.Visibility = Visibility.Hidden;
+            MainMenuWindow.ThisFrame.Visibility = Visibility.Hidden;
+        }
+        /// <summary> Обновить страницу </summary>
+        public ICommand RefreshCmd { get; }
+        private bool CanRefreshCmdExecuted(object o) => true;
+        private void OnRefreshCmdExecute(object o) => item_frame.Refresh();
+        /// <summary> К разделу 1 </summary>
+        public ICommand Item1Cmd { get; }
+        private bool CanItem1CmdExecuted(object o) => true;
+        private void OnItem1CmdExecute(object o) => navigate("DeliveryPages/Delivery_Providers.xaml");
+        /// <summary> К разделу 2 </summary>
+        public ICommand Item2Cmd { get; }
+        private bool CanItem2CmdExecuted(object o) => true;
+        private void OnItem2CmdExecute(object o) => navigate("DeliveryPages/Delivery_Deliveries.xaml");
+        /// <summary> К разделу 3 </summary>
+        public ICommand Item3Cmd { get; }
+        private bool CanItem3CmdExecuted(object o) => true;
+        private void OnItem3CmdExecute(object o) => navigate("DeliveryPages/Delivery_Add.xaml");
+        #endregion =========   КОМАНДЫ    =========
         public void refresh()
         {
             System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
@@ -47,31 +82,6 @@ namespace VTManager
         {
             /*удаляет элементы при переходе с главной стр*/
         }
-        private void home_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            removeMainComponents();
-            item_frame.Visibility = Visibility.Hidden;
-            MainMenuWindow.ThisFrame.Visibility = Visibility.Hidden;
-        }
-        private void refresh_label_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            item_frame.Refresh();
-        }
-        private void t_Tick(object sender, EventArgs e)
-        {
-            item_frame.Refresh();
-        }
-        private void item1_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            navigate("DeliveryPages/Delivery_Providers.xaml");
-        }
-        private void item2_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            navigate("DeliveryPages/Delivery_Deliveries.xaml");
-        }
-        private void item3_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            navigate("DeliveryPages/Delivery_Add.xaml");
-        }
+        private void t_Tick(object sender, EventArgs e) => item_frame.Refresh();
     }
 }

@@ -34,7 +34,6 @@ namespace VTManager
             Item2Cmd = new VTActionCommand(OnItem2CmdExecute, CanItem2CmdExecuted);
             Item3Cmd = new VTActionCommand(OnItem3CmdExecute, CanItem3CmdExecuted);
             Item4Cmd = new VTActionCommand(OnItem4CmdExecute, CanItem4CmdExecuted);
-
             #endregion =========   КОМАНДЫ    =========
             /*Таймер. Обновляет страницу каждые 2 минуты*/
             refresh();

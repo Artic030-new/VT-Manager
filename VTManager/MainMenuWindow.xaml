@@ -79,7 +79,7 @@
                         <RowDefinition Height="50*"/>
                         <RowDefinition Height="57*"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="rest1_button" Margin="5" Background="White" Click="rest1_button_Click">
+                    <Button x:Name="rest1_button" Margin="5" Background="White" Command="{Binding ToRestCmd}">
                         <StackPanel Orientation="Horizontal">
                             <Path Fill="#273049" HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <Path.Data>
@@ -96,7 +96,7 @@
                             <Label Content="Отдых" FontSize="12" Foreground="#273049" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button x:Name="rest2_button" Grid.Column="1" Margin="5,5" Background="Beige" Click="rest2_button_Click">
+                    <Button x:Name="rest2_button" Grid.Column="1" Margin="5,5" Background="Beige" Command="{Binding ToLunchCmd}">
                         <StackPanel Orientation="Horizontal">
                             <Path Fill="#273049" HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <Path.Data>
@@ -114,7 +114,7 @@
                             <Label Content="Обед" FontSize="12" Foreground="#273049" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="continue_button" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Background="#b6cce0" Click="continue_button_Click">
+                    <Button x:Name="continue_button" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Background="#b6cce0" Command="{Binding ResumeCmd}">
                         <StackPanel Orientation="Horizontal">
                             <Path Fill="#273049" HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <Path.Data>

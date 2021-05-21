@@ -30,6 +30,7 @@ namespace VTManager
         public static Frame ThisFrame;
         public static Window ThisWindow;
         private static VTQuery query = new VTQuery();
+        //Буфер результатов запросов
         private static Label l1 = new Label(), l2 = new Label(), l3 = new Label();
         /// <summary>
         /// === Фиксирование времени ===
@@ -56,7 +57,6 @@ namespace VTManager
         // Временные показатели сотрудника за текущую сессию (смену)
         public static string sessionWorkTime = string.Empty;
         public static string sessionRestTime = string.Empty;
-
         public static MainMenuWindow Instance { get; private set; }
         public MainMenuWindow()
         {
@@ -74,13 +74,15 @@ namespace VTManager
             ToClientsCmd = new VTActionCommand(OnToClientsCmdExecute, CanToClientsCmdExecuted);
             ToDeliveryCmd = new VTActionCommand(OnToDeliveryCmdExecute, CanToDeliveryCmdExecuted);
             ToProductionCmd = new VTActionCommand(OnToProductionCmdExecute, CanToProductionCmdExecuted);
+            ToRestCmd = new VTActionCommand(OnToRestCmdExecute, CanToRestCmdExecuted);
+            ToLunchCmd = new VTActionCommand(OnToLunchCmdExecute, CanToLunchCmdExecuted);
+            ResumeCmd = new VTActionCommand(OnResumeCmdExecute, CanResumeCmdExecuted);
             #endregion =========   КОМАНДЫ    =========
             continue_button.IsEnabled = false;
             dt.Tick += new EventHandler(dt_Tick);
             dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
             this.DataContext = this;
         }
-
         #region =========   КОМАНДЫ    =========
         /// <summary> Завершение работы приложения </summary>
         public ICommand CloseApplicationCmd { get; }
@@ -106,7 +108,6 @@ namespace VTManager
                 WindowState = WindowState.Normal;
             maximize_button.Visibility = Visibility.Visible;
         }
-       
         /// <summary> Сворачивание приложения </summary>
         public ICommand HideApplicationCmd { get; }
         private bool CanHideApplicationCmdExecuted(object o) => true;
@@ -146,16 +147,45 @@ namespace VTManager
             menu_frame.Visibility = Visibility.Visible;
             menu_frame.NavigationService.Navigate(new Uri("ProductionPage.xaml", UriKind.Relative));
         }
-
+        /// <summary> Взять перерыв </summary>
+        public ICommand ToRestCmd { get; }
+        private bool CanToRestCmdExecuted(object o) => true;
+        private void OnToRestCmdExecute(object o) => toRest(rest1_button, _DEFAULT_REST_TIME);
+        /// <summary> Взять обед </summary>
+        public ICommand ToLunchCmd { get; }
+        private bool CanToLunchCmdExecuted(object o) => true;
+        private void OnToLunchCmdExecute(object o) { toRest(rest2_button, _DEFAULT_LUNCH_TIME); hadLunch = true; /*После установки данного флага уйти в обед повторно невозможно*/ }
+        /// <summary> Продолжить работу, разблокировать рабочую область и зафиксировать время отсутствия </summary>
+        public ICommand ResumeCmd { get; }
+        private bool CanResumeCmdExecuted(object o) => true;
+        private void OnResumeCmdExecute(object o) {
+            togglePanel();
+            sw.Start();
+            dt.Start();
+            timer.Stop();
+            timer.Dispose();
+            currentTimeRest = rest_time_label.Content.ToString();
+            if (DateTime.TryParseExact(currentTimeRest, "HH:mm:ss", null, DateTimeStyles.None, out _))
+            {
+                TimeSpan ts2 = TimeSpan.FromMinutes(maxUnitTime);
+                ///<summary> Получить разницу между максимальным временем перерыва (15 или 60) и оставшемся 
+                ///Пример: Сотрудник отошёл на 7 минут и 30 секунд, затем продолжил работу => (00:15:00 - 00:12:30) = 00:07:30  </summary>
+                TimeSpan currentTime = -(ts - ts2);
+                // Прибавить к накопителю зафиксированное время
+                timeRestCollector += currentTime;
+            }
+            else return;
+            rest_time_label.Content = "00:00:00";
+            toggleWorkingElements();
+            continue_button.IsEnabled = false;
+        }
         #endregion =========   КОМАНДЫ    =========
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             sw.Start();
             dt.Start();
             user_info_textbox.Text += AuthWindow.loginUsr + "!";
         }
-
         void dt_Tick(object sender, EventArgs e)
         { ///<summary> Отображает текущее время работы в правой панели главного меню </summary>///
             if (sw.IsRunning)
@@ -183,7 +213,6 @@ namespace VTManager
                 rest_time_label.Content = "00:00:00";
             }
         }
-
         void togglePanel()
         {
             if (processing_button.IsEnabled || vt_button.IsEnabled || delivery_button.IsEnabled || clients_button.IsEnabled)
@@ -209,36 +238,7 @@ namespace VTManager
                 delivery_button.Opacity = 1.0;
             }
         }
-        private void rest1_button_Click(object sender, RoutedEventArgs e)
-        {
-            toRest(rest1_button, _DEFAULT_REST_TIME);
-        }
-        private void rest2_button_Click(object sender, RoutedEventArgs e)
-        {
-            toRest(rest2_button, _DEFAULT_LUNCH_TIME);
-            hadLunch = true; //После установки данного флага уйти в обед повторно невозможно
-        }
-
-        private void continue_button_Click(object sender, RoutedEventArgs e)
-        {
-            togglePanel();
-            sw.Start();
-            dt.Start();
-            timer.Stop();
-            timer.Dispose();
-            currentTimeRest = rest_time_label.Content.ToString();
-            if (DateTime.TryParseExact(currentTimeRest, "HH:mm:ss", null, DateTimeStyles.None, out _)) {
-                TimeSpan ts2 = TimeSpan.FromMinutes(maxUnitTime);
-                ///<summary> Получить разницу между максимальным временем перерыва (15 или 60) и оставшемся 
-                ///Пример: Сотрудник отошёл на 7 минут и 30 секунд, затем продолжил работу => (00:15:00 - 00:12:30) = 00:07:30  </summary>
-                TimeSpan currentTime = -(ts - ts2); 
-                // Прибавить к накопителю зафиксированное время
-                timeRestCollector += currentTime;
-            } else return;
-            rest_time_label.Content = "00:00:00";
-            toggleWorkingElements();
-            continue_button.IsEnabled = false;
-        }
+        /// <summary> Выйти в перерыв, заблокировав рабочую область и запустить отчёт времени перерыва </summary> 
         void toRest(System.Windows.Controls.Button toRestButton, int count)
         {
             togglePanel();
@@ -255,7 +255,6 @@ namespace VTManager
             toggleWorkingElements();
             timer.Start();
         }
-
         void toggleWorkingElements() {
             if (rest1_button.IsEnabled || rest2_button.IsEnabled)
             {
