@@ -29,8 +29,8 @@ namespace VTManager
     {
         public static Frame ThisFrame;
         public static Window ThisWindow;
-        private VTQuery query = new VTQuery();
-        Label l1 = new Label(), l2 = new Label(), l3 = new Label();
+        private static VTQuery query = new VTQuery();
+        private static Label l1 = new Label(), l2 = new Label(), l3 = new Label();
         /// <summary>
         /// === Фиксирование времени ===
         /// </summary> ///
@@ -63,19 +63,7 @@ namespace VTManager
             InitializeComponent();
             ThisFrame = menu_frame;
             ThisWindow = this;
-           //  Получить время последней сессии сотрудника и добавить к таймеру (продолжение при случайном или намеренном закрытии программы)
-            try
-            {
-                string selectUserId = query.select("id", "id", "personal", "login = \"" + AuthWindow.loginUsr + "\"");
-                SQLUtils.runQuery(selectUserId, "id", l1);
-                string selectLastUserWt = query.select("workTime", "wt", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
-                string selectLastUserRt = query.select("restTime", "rt", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
-                SQLUtils.runQuery(selectLastUserWt, "wt", l2);
-                SQLUtils.runQuery(selectLastUserRt, "rt", l3);
-                sessionWorkTime = l2.Content.ToString();
-                sessionRestTime = l3.Content.ToString();
-                l1.Content = string.Empty; l2.Content = string.Empty; l3.Content = string.Empty;
-            } catch (Exception) {  /*Some problems*/  }
+            addSqlTime();
             #region =========   КОМАНДЫ    =========
             CloseApplicationCmd = new VTActionCommand(OnCloseApplicationCmdExecute, CanCloseApplicationCmdExecuted);
             MaximizeApplicationCmd = new VTActionCommand(OnMaximizeApplicationCmdExecute, CanMaximizeApplicationCmdExecuted);
@@ -168,7 +156,7 @@ namespace VTManager
             if (sw.IsRunning)
             {
                 TimeSpan ts = sw.Elapsed;
-                addSqlTime(sessionWorkTime, ref ts);
+                parseSqlTime(sessionWorkTime, ref ts);
                 currentTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}",
                 ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
                 current_time_label.Content = currentTime;
@@ -252,7 +240,7 @@ namespace VTManager
             sw.Stop();
             dt.Stop();
             continue_button.IsEnabled = true;
-            addSqlTime(sessionRestTime, ref timeRestCollector);
+            parseSqlTime(sessionRestTime, ref timeRestCollector);
             ts = TimeSpan.FromMinutes(count);
             maxUnitTime = count;
             timer = new System.Windows.Forms.Timer();
@@ -323,7 +311,7 @@ namespace VTManager
                 SQLUtils.runQuery(insertSession + sessionValues);
             } 
         }
-        public static void addSqlTime(String timeStamp, ref TimeSpan timer)
+        public static void parseSqlTime(String timeStamp, ref TimeSpan timer)
         {   // Разбивает данные в виде полученного времени работы сотрудника на часы, минуты и секунды, и добавляет их к текущему таймеру
             String[] workSess = timeStamp.Split(':');
             int sessWrHr = Convert.ToInt32(workSess[0].ElementAt(0) == '0' ? workSess[0].ElementAt(1).ToString() : workSess[0]);
@@ -332,6 +320,21 @@ namespace VTManager
             timer = timer.Add(TimeSpan.FromHours(sessWrHr)); 
             timer = timer.Add(TimeSpan.FromMinutes(sessWrMin));
             timer = timer.Add(TimeSpan.FromSeconds(sessWrSec));
+        }
+        public static void addSqlTime() {
+            try
+            { //  Получить время последней сессии сотрудника и добавить к таймеру (продолжение при случайном или намеренном закрытии программы)
+                string selectUserId = query.select("id", "id", "personal", "login = \"" + AuthWindow.loginUsr + "\"");
+                SQLUtils.runQuery(selectUserId, "id", l1);
+                string selectLastUserWt = query.select("workTime", "wt", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
+                string selectLastUserRt = query.select("restTime", "rt", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
+                SQLUtils.runQuery(selectLastUserWt, "wt", l2);
+                SQLUtils.runQuery(selectLastUserRt, "rt", l3);
+                sessionWorkTime = l2.Content.ToString();
+                sessionRestTime = l3.Content.ToString();
+                l1.Content = string.Empty; l2.Content = string.Empty; l3.Content = string.Empty;
+            }
+            catch (Exception) {  /*Some problems*/  }
         }
     }
 }
