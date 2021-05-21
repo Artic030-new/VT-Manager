@@ -15,7 +15,7 @@ namespace VTManager
     public partial class AuthWindow : Window
     {
         public static Window ThisWindow;
-        public static VTManagerDialog error_msg = new VTManagerDialog();
+   //     public static VTManagerDialog error_msg = new VTManagerDialog();
         public static string loginUsr;
         public static string passUsr;
         private string db_config_file = VTManagerConfig.config + VTManagerConfig.db_config_file;
@@ -91,9 +91,7 @@ namespace VTManager
         {
             if (!mutex.WaitOne(500, false)) {
                 this.Close();
-                error_msg.dialog_label.Content = Messages._ERROR_MESSAGE;
-                error_msg.contained_info.Text = Messages._MUTEX_IS_DUPLICATED;
-                error_msg.Show();
+                new VTManagerDialog(Messages._ERROR_MESSAGE, Messages._MUTEX_IS_DUPLICATED);
                 Thread.Sleep(3000);
                 Application.Current.Shutdown(0);
             }

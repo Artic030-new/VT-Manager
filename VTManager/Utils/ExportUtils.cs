@@ -16,7 +16,6 @@ namespace VTManager
         public static Excel.Application runExcel() {
            return new Excel.Application();
         }
-
         public static void exportToExcel(System.Windows.Controls.DataGrid dg, string table_name, string last_excel_row) {
             try {
                 Excel.Application xcel = runExcel();
@@ -46,8 +45,7 @@ namespace VTManager
                         wb.SaveAs(openDlg.FileName);
                         xcel.Visible = true;
                     }
-            }
-            catch (Exception){}
+            } catch (Exception){}
         }
     }
 }

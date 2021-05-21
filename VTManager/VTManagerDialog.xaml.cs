@@ -33,9 +33,14 @@ namespace VTManager
         // Вывод окна на месте
         public VTManagerDialog(string header, string message) {
             InitializeComponent();
+            #region =========   КОМАНДЫ    =========
+            DragApplicationCmd = new VTActionCommand(OnDragApplicationCmdExecute, CanDragApplicationCmdExecuted);
+            OkCmd = new VTActionCommand(OnOkCmdExecute, CanOkCmdExecuted);
+            #endregion =========   КОМАНДЫ    =========
             dialog_label.Content = header;
             contained_info.Text = message;
             Show();
+            this.DataContext = this;
         }
         #region =========   КОМАНДЫ    =========
         /// <summary> Перемещение окна мышью </summary>

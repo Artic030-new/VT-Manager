@@ -17,7 +17,6 @@ namespace VTManager.Utils
                 hash.Append(b.ToString("x2"));
             return hash.ToString();
         }
-
         public static string encodeDle(string s)
         {
             var crypt = new SHA256Managed();

@@ -26,7 +26,6 @@ namespace VTManager
 {
     public class DataStreamUtils
     {
-
         public static void writeData(string k) {
             using (var writer = new StreamWriter(VTManagerConfig.config + VTManagerConfig.config_file)) {
                 writer.WriteLine(k);
@@ -39,8 +38,6 @@ namespace VTManager
                 writer.WriteLine(k);
             }
         }
-        /* Метод, читающий данные для входа из файла */
-     
         /* Метод, записывающий состояние чекбокса "запомнить пароль" */
         public static string deactivateKeep() {
             using (var reader = new StreamReader(VTManagerConfig.config + VTManagerConfig.config_file))

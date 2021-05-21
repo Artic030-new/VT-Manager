@@ -6,13 +6,13 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using VTManager;
+using VTManager.Interactive;
 
 namespace VTManager.Utils
 {
     class WebUtils
     {
         public static VTManagerDialog error_msg = new VTManagerDialog();
-
         public static HttpWebRequest runHttp(string script) {
             var request = (HttpWebRequest)WebRequest.Create(StringUtils.buildFileUrl(script));
             request.Method = "POST";
@@ -38,13 +38,13 @@ namespace VTManager.Utils
                     MainMenuWindow mmw = new MainMenuWindow();
                     mmw.Show();
                 } else {
-                    error_msg.dialog_label.Content = "Ошибка";
-                    error_msg.contained_info.Text = "Неверные данные (Логин/Пароль)";
+                    error_msg.dialog_label.Content = Messages._ERROR_MESSAGE;
+                    error_msg.contained_info.Text = Messages._LOGIN_ERROR;
                     error_msg.Show();
                 }
             } catch (WebException) {
-                error_msg.dialog_label.Content = "Ошибка";
-                error_msg.contained_info.Text = "Сервер не отвечает";
+                error_msg.dialog_label.Content = Messages._ERROR_MESSAGE;
+                error_msg.contained_info.Text = Messages._CONNECTION_TIMEOUT;
                 error_msg.Show();
             }
         }

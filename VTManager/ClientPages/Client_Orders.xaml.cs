@@ -158,7 +158,7 @@ namespace VTManager.ClientPages
                     }
                     catch (System.NullReferenceException) { debug_textbox.Text = Messages._BRAND_NOT_REGISTERED; }
                 } else {
-                   new VTManagerDialog(Messages._WARNING_MESSAGE, Messages._ORDER_HAS_BEEN_SOLVED);
+                  new VTManagerDialog(Messages._WARNING_MESSAGE, Messages._ORDER_HAS_BEEN_SOLVED);
                 }
             } catch (System.NullReferenceException) { debug_textbox.Text = Messages._NO_ENTRY_SELECTED; }
         }
