@@ -40,9 +40,12 @@
             <RowDefinition Height="1"/>
             <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="menu_header" Grid.ColumnSpan="8" MouseLeftButtonDown="menu_header_MouseLeftButtonDown">
+        <Grid x:Name="menu_header" Grid.ColumnSpan="8">
             <Rectangle Fill="#273049"/>
             <Label Content="VT Manager"  Grid.ColumnSpan="8" VerticalContentAlignment="Center" Style="{DynamicResource light_label}"/>
+            <Grid.InputBindings>
+                <MouseBinding Command="{Binding Path=DragApplicationCmd}" MouseAction="LeftClick"/>
+            </Grid.InputBindings>
         </Grid>
         <Button x:Name="hide_button" Grid.Column="5" Style="{DynamicResource header_buttons}" Background="Transparent" Content="—" Command="{Binding Path=HideApplicationCmd}"/>
         <Button x:Name="maximize_button" Grid.Column="6" Visibility="Visible" Style="{DynamicResource header_buttons}" Background="Transparent" Content="□" FontFamily="Calibri" FontWeight="Regular" FontSize="24" Padding="0, 0, 0, 4"  Command="{Binding Path=MaximizeApplicationCmd}"/>
@@ -175,7 +178,7 @@
             </Label>
         </Grid>
         <Rectangle Fill="#fff"  Grid.Row="5" Grid.ColumnSpan="8"/>
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="6" Grid.ColumnSpan="3" TextWrapping="Wrap" Foreground="#fff" Text="© ООО &quot;VT-Energistics&quot;, 2020 Все права защищены  |  АРМ-клиент VT Manager, Версия: 0.3.0 " FontFamily="{StaticResource NunitoLight}" FontSize="12" Margin="20,0,0,0"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="6" Grid.ColumnSpan="3" TextWrapping="Wrap" Foreground="#fff" Text="© ООО &quot;VT-Energistics&quot;, 2020 Все права защищены  |  АРМ-клиент VT Manager by Artic030, Версия: 0.3.0 " FontFamily="{StaticResource NunitoLight}" FontSize="12" Margin="20,0,0,0"/>
         <local:Slider x:Name="d" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" VerticalAlignment="Top" Height="635" Width="auto"/>
         <Frame x:Name="menu_frame" Content="Frame!" NavigationUIVisibility="Hidden" Visibility="Hidden" Background="AliceBlue" Grid.RowSpan="6" Grid.ColumnSpan="8" Grid.Row="1"/>
     </Grid>

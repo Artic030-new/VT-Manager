@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VTManager.Interactive;
 
 namespace VTManager
 {
@@ -23,6 +24,11 @@ namespace VTManager
         public VTManagerDialog()
         {
             InitializeComponent();
+            #region =========   КОМАНДЫ    =========
+            DragApplicationCmd = new VTActionCommand(OnDragApplicationCmdExecute, CanDragApplicationCmdExecuted);
+            OkCmd = new VTActionCommand(OnOkCmdExecute, CanOkCmdExecuted);
+            #endregion =========   КОМАНДЫ    =========
+            this.DataContext = this;
         }
         // Вывод окна на месте
         public VTManagerDialog(string header, string message) {
@@ -31,15 +37,15 @@ namespace VTManager
             contained_info.Text = message;
             Show();
         }
-
-        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        #region =========   КОМАНДЫ    =========
+        /// <summary> Перемещение окна мышью </summary>
+        public ICommand DragApplicationCmd { get; }
+        private bool CanDragApplicationCmdExecuted(object o) => true;
+        private void OnDragApplicationCmdExecute(object o) => this.DragMove();
+        /// <summary> Перемещение окна мышью </summary>
+        public ICommand OkCmd { get; }
+        private bool CanOkCmdExecuted(object o) => true;
+        private void OnOkCmdExecute(object o) => this.Close();
+        #endregion =========   КОМАНДЫ    =========
     }
 }

@@ -69,6 +69,7 @@ namespace VTManager
             MaximizeApplicationCmd = new VTActionCommand(OnMaximizeApplicationCmdExecute, CanMaximizeApplicationCmdExecuted);
             MinimizeApplicationCmd = new VTActionCommand(OnMinimizeApplicationCmdExecute, CanMinimizeApplicationCmdExecuted);
             HideApplicationCmd = new VTActionCommand(OnHideApplicationCmdExecute, CanHideApplicationCmdExecuted);
+            DragApplicationCmd = new VTActionCommand(OnDragApplicationCmdExecute, CanDragApplicationCmdExecuted);
             ToProcessingCmd = new VTActionCommand(OnToProcessingCmdExecute, CanToProcessingCmdExecuted);
             ToClientsCmd = new VTActionCommand(OnToClientsCmdExecute, CanToClientsCmdExecuted);
             ToDeliveryCmd = new VTActionCommand(OnToDeliveryCmdExecute, CanToDeliveryCmdExecuted);
@@ -109,7 +110,11 @@ namespace VTManager
         /// <summary> Сворачивание приложения </summary>
         public ICommand HideApplicationCmd { get; }
         private bool CanHideApplicationCmdExecuted(object o) => true;
-        private void OnHideApplicationCmdExecute(object o) => WindowState = WindowState.Minimized;  
+        private void OnHideApplicationCmdExecute(object o) => WindowState = WindowState.Minimized;
+        /// <summary> Перемещение окна </summary>
+        public ICommand DragApplicationCmd { get; }
+        private bool CanDragApplicationCmdExecuted(object o) => true;
+        private void OnDragApplicationCmdExecute(object o) => this.DragMove();
         /// <summary> В раздел Производство </summary>
         public ICommand ToProcessingCmd { get; }
         private bool CanToProcessingCmdExecuted(object o) => true;
@@ -263,12 +268,6 @@ namespace VTManager
                 if(!hadLunch) rest2_button.IsEnabled = true;
             }
         }
-
-        private void menu_header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
-        }
-
         void keepTime()
         {
             //Получить строку текущей даты в типичном для mysql базы данных формате

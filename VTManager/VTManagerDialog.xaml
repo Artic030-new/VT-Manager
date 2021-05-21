@@ -66,60 +66,20 @@
             </Setter>
         </Style>
     </Window.Resources>
-
-
-
-
-
     <Grid Background="#3c486c">
         <Grid.RowDefinitions>
             <RowDefinition Height="35*"/>
             <RowDefinition Height="84*"/>
             <RowDefinition Height="41*"/>
         </Grid.RowDefinitions>
-        <Grid HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="250" Background="#273049" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-            <Label 
-                x:Name="dialog_label"
-                Content="Label" 
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top" 
-                Width="110" 
-                FontSize="16"
-                FontWeight="Bold" Margin="0,4,0,0" Foreground="#FFCECECE"
-                />
+        <Grid HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="250" Background="#273049">
+            <Label  x:Name="dialog_label" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="110"  FontSize="16" FontWeight="Bold" Margin="0,4,0,0" Foreground="#FFF" />
+            <Grid.InputBindings>
+            <MouseBinding Command="{Binding Path=DragApplicationCmd}" MouseAction="LeftClick"/>
+            </Grid.InputBindings>
         </Grid>
-        <Button 
-            Content="OK" 
-            HorizontalAlignment="Left" 
-            Margin="93,10,0,0" 
-            Grid.Row="2" 
-            VerticalAlignment="Top" 
-            Width="32" Height="22"
-            Style="{DynamicResource rounded_button}"
-            Background="#273049"
-            Foreground="#cecece"
-            FontWeight="Bold" 
-            FontSize="14" Click="Button_Click" 
-        />
-        <TextBox 
-            x:Name="contained_info"
-
-            HorizontalAlignment="center"
-            VerticalAlignment="center" 
-            Height="48"
-            TextWrapping="Wrap" 
-            Text="TextBox" 
-            Width="188" 
-            FontWeight="Bold" 
-            FontSize="16" 
-            BorderThickness="0" 
-            IsReadOnly="True" 
-            IsUndoEnabled="False" 
-            TextAlignment="Center"
-            Background="Transparent"
-            Foreground="#cecece"
-            Grid.Row="1" Margin="32,29,30,7"
-        />
-
+        <TextBox  x:Name="contained_info" HorizontalAlignment="center" VerticalAlignment="center" Height="48" TextWrapping="Wrap" Text="TextBox" Width="188" FontWeight="Bold" FontSize="16" BorderThickness="0" IsReadOnly="True" IsUndoEnabled="False" TextAlignment="Center" Background="Transparent" Foreground="#FFF" Grid.Row="1" Margin="32,29,30,7"/>
+        <Button Content="OK"  HorizontalAlignment="Left" Margin="93,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="32" Height="22" Background="#273049" Foreground="#fff" FontWeight="Bold"  FontSize="14" Style="{DynamicResource rounded_button}" Command="{Binding OkCmd}"/>
+        <Border Background="#fff" Grid.Column="0" Grid.Row="2" Height="1" VerticalAlignment="Bottom"></Border>
     </Grid>
 </Window>
