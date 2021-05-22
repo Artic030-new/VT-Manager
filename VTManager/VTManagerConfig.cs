@@ -41,7 +41,9 @@ namespace VTManager
                     )
                 );
         /*Загрузка созданного XML-файла*/
-           public static XDocument xmldata = XDocument.Load(config + db_config_file);
+        private static bool confExists = File.Exists(db_config_file);
+        public static XDocument xmldata = XDocument.Load(config + db_config_file);
+
         /*/********************     Данные для подключения к БД     **********************/
         public static string host = xmldata.Descendants("host").First().Value;
         public static string user = xmldata.Descendants("user").First().Value;

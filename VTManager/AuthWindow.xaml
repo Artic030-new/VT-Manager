@@ -5,7 +5,7 @@ xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 xmlns:local="clr-namespace:VTManager"
 mc:Ignorable="d"
-WindowStartupLocation="CenterScreen" Title="VT Manager | Авторизация" Height="340" Width="460" ResizeMode="NoResize" WindowStyle="None" Activated="Window_Activated" Closed="Window_Closed" Icon="vt.png" Loaded="Window_Loaded">
+WindowStartupLocation="CenterScreen" Title="VT Manager | Авторизация" Height="340" Width="460" ResizeMode="NoResize" WindowStyle="None" Activated="Window_Activated" Icon="vt.png" Loaded="Window_Loaded">
     <Window.Resources>
         <!-- ************************* Надписи ************************** -->
         <Style x:Key="bold_label" TargetType="{x:Type Label}">
@@ -76,7 +76,6 @@ WindowStartupLocation="CenterScreen" Title="VT Manager | Авторизация"
                 </Button.Resources>
             </Button>
             <Button x:Name="hide_button" Content="—" Background="Transparent" BorderBrush="Transparent" Foreground="White"  Grid.Column="2" Command="{Binding Path=HideApplicationCmd}"/>
-
         </Grid>
     </Grid>
 </Window>

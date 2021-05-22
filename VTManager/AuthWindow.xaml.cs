@@ -15,7 +15,6 @@ namespace VTManager
     public partial class AuthWindow : Window
     {
         public static Window ThisWindow;
-   //     public static VTManagerDialog error_msg = new VTManagerDialog();
         public static string loginUsr;
         public static string passUsr;
         private string db_config_file = VTManagerConfig.config + VTManagerConfig.db_config_file;
@@ -85,8 +84,6 @@ namespace VTManager
             }
             header_label.Content = "VT Manager";
         }
-        private void Window_Closed(object sender, EventArgs e) {}
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (!mutex.WaitOne(500, false)) {

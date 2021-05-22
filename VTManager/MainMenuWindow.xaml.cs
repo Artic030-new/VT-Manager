@@ -301,7 +301,7 @@ namespace VTManager
                         }
                     }
                 }
-            } catch(Exception e) { // Вставить новую сессию для сотрудника, если он не был найден
+            } catch(Exception) { // Вставить новую сессию для сотрудника, если он не был найден
                 string insertSession = "INSERT INTO sessions (id, personalId, sip, date, workTime, restTime)";
                 //Получить IP-адрес компьютера сотрудника
                 string ip = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName()).AddressList[0].ToString();
@@ -311,13 +311,21 @@ namespace VTManager
         }
         public static void parseSqlTime(String timeStamp, ref TimeSpan timer)
         {   // Разбивает данные в виде полученного времени работы сотрудника на часы, минуты и секунды, и добавляет их к текущему таймеру
-            String[] workSess = timeStamp.Split(':');
-            int sessWrHr = Convert.ToInt32(workSess[0].ElementAt(0) == '0' ? workSess[0].ElementAt(1).ToString() : workSess[0]);
-            int sessWrMin = Convert.ToInt32(workSess[1].ElementAt(0) == '0' ? workSess[1].ElementAt(1).ToString() : workSess[1]);
-            int sessWrSec = Convert.ToInt32(workSess[2].ElementAt(0) == '0' ? workSess[2].ElementAt(1).ToString() : workSess[2]);
-            timer = timer.Add(TimeSpan.FromHours(sessWrHr)); 
-            timer = timer.Add(TimeSpan.FromMinutes(sessWrMin));
-            timer = timer.Add(TimeSpan.FromSeconds(sessWrSec));
+            try
+            {
+                String[] workSess = timeStamp.Split(':');
+                int sessWrHr = Convert.ToInt32(workSess[0].ElementAt(0) == '0' ? workSess[0].ElementAt(1).ToString() : workSess[0]);
+                int sessWrMin = Convert.ToInt32(workSess[1].ElementAt(0) == '0' ? workSess[1].ElementAt(1).ToString() : workSess[1]);
+                int sessWrSec = Convert.ToInt32(workSess[2].ElementAt(0) == '0' ? workSess[2].ElementAt(1).ToString() : workSess[2]);
+                timer = timer.Add(TimeSpan.FromHours(sessWrHr));
+                timer = timer.Add(TimeSpan.FromMinutes(sessWrMin));
+                timer = timer.Add(TimeSpan.FromSeconds(sessWrSec));
+            }
+            catch (Exception) { //Если вдруг данные получить не удалось, добавленное время будет 0 ч. 0 м. и 0 с.
+                timer = timer.Add(TimeSpan.FromHours(0));
+                timer = timer.Add(TimeSpan.FromMinutes(0));
+                timer = timer.Add(TimeSpan.FromSeconds(0));
+            }
         }
         public static void addSqlTime() {
             string date = DateTime.Now.ToString("yyyy-MM-dd");
@@ -336,6 +344,7 @@ namespace VTManager
                     SQLUtils.runQuery(selectLastUserRt, "rt", l3);
                     sessionWorkTime = l2.Content.ToString();
                     sessionRestTime = l3.Content.ToString();
+                    timeRestCollector = TimeSpan.ParseExact(sessionRestTime, @"hh\:mm\:ss", CultureInfo.InvariantCulture);
                     l1.Content = string.Empty; l2.Content = string.Empty; l3.Content = string.Empty;
                 }
                 else {
