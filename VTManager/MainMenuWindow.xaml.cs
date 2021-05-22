@@ -221,6 +221,8 @@ namespace VTManager
                 vt_button.IsEnabled = false;
                 delivery_button.IsEnabled = false;
                 clients_button.IsEnabled = false;
+                d.IsEnabled = false;
+                d.Opacity = 0.3;
                 processing_button.Opacity = 0.3;
                 clients_button.Opacity = 0.3;
                 vt_button.Opacity = 0.3;
@@ -232,6 +234,8 @@ namespace VTManager
                 vt_button.IsEnabled = true;
                 delivery_button.IsEnabled = true;
                 clients_button.IsEnabled = true;
+                d.IsEnabled = true;
+                d.Opacity = 1.0;
                 processing_button.Opacity = 1.0;
                 clients_button.Opacity = 1.0;
                 vt_button.Opacity = 1.0;

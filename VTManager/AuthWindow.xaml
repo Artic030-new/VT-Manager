@@ -68,7 +68,9 @@ WindowStartupLocation="CenterScreen" Title="VT Manager | Авторизация"
                 <MouseBinding Command="{Binding Path=DragApplicationCmd}" MouseAction="LeftClick"/>
             </Grid.InputBindings>
             <Label x:Name="header_label" HorizontalAlignment="center" VerticalAlignment="center" Width="96" Height="30" Content="VT Manager" Style="{DynamicResource light_label}" Margin="2,2,2,1"/>
-            <Button x:Name="close_button" Content="x" Background="Transparent" BorderBrush="Transparent" Foreground="White" Style="{DynamicResource close_buttons}" FontFamily="{DynamicResource NunitoLight}" FontSize="20" Grid.Column ="3" Padding="0, 0, 0, 4" Command="{Binding Path=CloseApplicationCmd}">
+            <Button x:Name="close_button" Content="x" Background="Transparent" BorderBrush="Transparent" Foreground="White" 
+                    Style="{DynamicResource close_buttons}" FontFamily="{DynamicResource NunitoLight}" FontSize="20" Grid.Column ="3" 
+                    Padding="0, 0, 0, 4" Command="{Binding Path=CloseApplicationCmd}">
                 <Button.Resources>
                     <Style x:Key="close_button">
                         

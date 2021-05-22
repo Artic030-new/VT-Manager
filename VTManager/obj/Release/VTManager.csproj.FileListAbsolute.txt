@@ -342,3 +342,4 @@ C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.csproj.Core
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.csproj.CopyComplete
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.exe
 C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.pdb
+C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\VTManager.csprojAssemblyReference.cache
