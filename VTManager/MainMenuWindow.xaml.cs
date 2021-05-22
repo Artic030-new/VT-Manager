@@ -320,17 +320,28 @@ namespace VTManager
             timer = timer.Add(TimeSpan.FromSeconds(sessWrSec));
         }
         public static void addSqlTime() {
+            string date = DateTime.Now.ToString("yyyy-MM-dd");
             try
             { //  Получить время последней сессии сотрудника и добавить к таймеру (продолжение при случайном или намеренном закрытии программы)
                 string selectUserId = query.select("id", "id", "personal", "login = \"" + AuthWindow.loginUsr + "\"");
                 SQLUtils.runQuery(selectUserId, "id", l1);
-                string selectLastUserWt = query.select("workTime", "wt", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
-                string selectLastUserRt = query.select("restTime", "rt", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
-                SQLUtils.runQuery(selectLastUserWt, "wt", l2);
-                SQLUtils.runQuery(selectLastUserRt, "rt", l3);
-                sessionWorkTime = l2.Content.ToString();
-                sessionRestTime = l3.Content.ToString();
-                l1.Content = string.Empty; l2.Content = string.Empty; l3.Content = string.Empty;
+                string selectLastUserSessionDate = query.select("date", "date", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
+                SQLUtils.runQuery(selectLastUserSessionDate, "date", l3);
+                DateTime datesql = DateTime.ParseExact(l3.Content.ToString().Substring(0, 10).Trim(), "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                if (date.ToString().Equals(datesql.ToString("yyyy-MM-dd").Substring(0, 10).Trim()))
+                {
+                    string selectLastUserWt = query.select("workTime", "wt", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
+                    string selectLastUserRt = query.select("restTime", "rt", "sessions", "personalId = " + l1.Content.ToString().Trim() + " ORDER BY id DESC LIMIT 1");
+                    SQLUtils.runQuery(selectLastUserWt, "wt", l2);
+                    SQLUtils.runQuery(selectLastUserRt, "rt", l3);
+                    sessionWorkTime = l2.Content.ToString();
+                    sessionRestTime = l3.Content.ToString();
+                    l1.Content = string.Empty; l2.Content = string.Empty; l3.Content = string.Empty;
+                }
+                else {
+                    sessionWorkTime = "00:00:00";
+                    sessionRestTime = "00:00:00";
+                } 
             }
             catch (Exception) {  /*Some problems*/  }
         }
