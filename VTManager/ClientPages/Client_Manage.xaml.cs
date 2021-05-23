@@ -177,6 +177,7 @@ namespace VTManager.ClientPages
                     SQLUtils.runQuery(query.update("dle_users", "banned = \'yes\'", "name = " + "\"" + selected_name + "\""));
                     reason = Interaction.InputBox("Введите причину блокировки: ");
                     SQLUtils.runQuery(VTDataGridQueries.clientsBanReasonAndDays + "(NULL, '" + res1.Content.ToString() + "', '" + reason + "', '0', '0', '')");
+                    SQLUtils.showTable(VTDataGridQueries.clientsQuery, VTManagerConfig.clientCols, clients_dg);
                 }
 
             }

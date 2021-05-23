@@ -58,16 +58,16 @@
                 <RowDefinition Height="98*"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Height="110" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="265">
-                <Interactive:VTManagerChart x:Name="vt_mark1" ItemName="6К4" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="333" Margin="10" Width="110"/>
-                <Interactive:VTManagerChart x:Name="vt_mark2" ItemName="6К7" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="333" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_mark1" ItemName="6К4" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="0" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_mark2" ItemName="6К7" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="0" Margin="10" Width="110"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="110" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="265" Margin="0,115,0,0" Grid.RowSpan="2">
-                <Interactive:VTManagerChart x:Name="vt_mark3" ItemName="6Ж3" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="333" Margin="10" Width="110"/>
-                <Interactive:VTManagerChart x:Name="vt_mark4" ItemName="6С1П" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="333" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_mark3" ItemName="6Ж3" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="0" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_mark4" ItemName="6С1П" Background="#D9CEAD" Color="#CDA11C" TextColor="#273049" MaxValue="4000" Value="777" Margin="10" Width="110"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="2" Height="110" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="265">
-                <Interactive:VTManagerChart x:Name="vt_type1" ItemName="Пентодов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="333" Margin="10" Width="110"/>
-                <Interactive:VTManagerChart x:Name="vt_type2" ItemName="Триодов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="333" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_type1" ItemName="Пентодов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="0" Margin="10" Width="110"/>
+                <Interactive:VTManagerChart x:Name="vt_type2" ItemName="Триодов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="0" Margin="10" Width="110"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="2" Height="110" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="265" Margin="0,115,0,0" Grid.RowSpan="2">
                 <Interactive:VTManagerChart x:Name="vt_type3" ItemName="Двойных диодов" Background="#adb8d9" Color="#273049" TextColor="White" MaxValue="4000" Value="0" Margin="10" Width="110"/>

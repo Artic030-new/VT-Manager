@@ -56,8 +56,8 @@ namespace VTManager.DeliveryPages
             }
             string resourceNames = query.select("name", "name", "resource", "id = ");
             string providerNames = query.select("fullName", "names", "providers", "id = ");
-            /*<summary> Метод, возвращающий список каких-либо значений из выполненного запроса в комбобокс.
-                для несложный условий подходит, в остальном работает плохо @see подробнее в самом классе </summary>*/
+            ///*<summary> Метод, возвращающий список каких-либо значений из выполненного запроса в комбобокс.
+            ///   для несложный условий подходит, в остальном работает плохо <see cref="SQLUtils"> подробнее в самом классе</see> </summary>*///
             SQLUtils.fillCombobox(1, VTDataGridQueries.totalResourceTypes, "resource_count", resourceNames, "name", select_resource_cbox);
             SQLUtils.fillCombobox(1, VTDataGridQueries.totalProviders, "provider_count", providerNames, "names", select_provider_cbox);
             t1.Content = "";
@@ -77,8 +77,9 @@ namespace VTManager.DeliveryPages
             string insertValues = "(NULL, " + providerIdValue + ", " + resourceIdValue + ", " + personalIdValue + ", " + count_field.Text + ", 0, " + "\'" + date_field.Text + "\'" + ", 0)";
             if (count_field.Text != "кол-во..." && (!(date_field.Text.Contains('_'))))
             {
-                debug_textbox.Text = "Запрос на товар " + resourceValue + " успешно создан.";
+                debug_textbox.Text = "Запрос на поставку материала " + resourceValue + " успешно создан.";
                 SQLUtils.runQuery(VTDataGridQueries.addDelivery + insertValues);
+                SQLUtils.showTable(VTDataGridQueries.deliveryTable, VTManagerConfig.deliveryCols, request_dg);
             }
             else debug_textbox.Text = "Заполните все поля!";
         }
