@@ -32,6 +32,5 @@ namespace VTManager.Interactive
             _LOGIN_ERROR = "Неверные данные (Логин/Пароль)",
             _USER_IS_NULL = "Пользователя не существует",
             _MUTEX_IS_DUPLICATED = "Приложение уже запущено";
-            
     }
 }

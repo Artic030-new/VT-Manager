@@ -49,7 +49,8 @@ namespace VTManager
         public static string user = xmldata.Descendants("user").First().Value;
         public static string password = xmldata.Descendants("password").First().Value;
         public static string database = xmldata.Descendants("database").First().Value;
-        public static string data = "server=" + host + ";user=" + user + ";password=" + password + ";database=" + database;
+        public static string timeout = xmldata.Descendants("callTimeout").First().Value;
+        public static string data = "server=" + host + ";user=" + user + ";password=" + password + ";database=" + database + ";Connect Timeout=" + timeout + "";
         /********************      Вывод табличных рядов        **********************/
         /* Выводимые поля в поиске работ*/
         public static string[] planCols = { "Смена", "Cотрудник", "Марка", "Дата", "Количество", "План", "Факт", "Завершен" };

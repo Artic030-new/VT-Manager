@@ -16,7 +16,9 @@ namespace VTManager.Utils
         public static HttpWebRequest runHttp(string script) {
             var request = (HttpWebRequest)WebRequest.Create(StringUtils.buildFileUrl(script));
             request.Method = "POST";
+                                    /*Тип передаваемого содержимого (unicode текст)*/
             request.ContentType = "application/x-www-form-urlencoded";
+            request.Timeout = Convert.ToInt32(VTManagerConfig.xmldata.Descendants("callTimeout").First().Value);
             return request;
         }
         public static void login(string l, string p) {
