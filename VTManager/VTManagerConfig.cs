@@ -9,10 +9,9 @@ using System.Xml.Linq;
 namespace VTManager
 {
     class VTManagerConfig
-    {     
+    {   
         /*******************        Данные для подключения      ************************/
-        /* Адрес сервера для подключения приложения к БД */
-        public static string server = "http://vtmanager.ru/";
+        
         /* Адрес директории, содержащей файл конфигурации */
         public static string config = "C:\\VTManager\\";
         /* Название файла конфигурации пользователя*/
@@ -23,6 +22,7 @@ namespace VTManager
         public static XElement xml = 
             new XElement("VTManager",
                 new XElement("VTDatabase",
+                    new XElement("webserver", "-"),
                     new XElement("host", "-"), 
                     new XElement("user", "-"), 
                     new XElement("password", "-"), 
@@ -43,12 +43,18 @@ namespace VTManager
         /*Загрузка созданного XML-файла*/
         private static bool confExists = File.Exists(db_config_file);
         public static XDocument xmldata = XDocument.Load(config + db_config_file);
-
         /*/********************     Данные для подключения к БД     **********************/
+        /* Адрес сервера для подключения приложения к Веб-серверу */
+        public static string server = xmldata.Descendants("webserver").First().Value;
+        /* Адрес сервера для подключения приложения к серверу БД */
         public static string host = xmldata.Descendants("host").First().Value;
+        /* Пользователь БД */
         public static string user = xmldata.Descendants("user").First().Value;
+        /* Пароль БД */
         public static string password = xmldata.Descendants("password").First().Value;
+        /* Имя БД */
         public static string database = xmldata.Descendants("database").First().Value;
+        /* Тайм-аут соединения */
         public static string timeout = xmldata.Descendants("callTimeout").First().Value;
         public static string data = "server=" + host + ";user=" + user + ";password=" + password + ";database=" + database + ";Connect Timeout=" + timeout + "";
         /********************      Вывод табличных рядов        **********************/
