@@ -45,17 +45,17 @@ namespace VTManager
         public static XDocument xmldata = XDocument.Load(config + db_config_file);
         /*/********************     Данные для подключения к БД     **********************/
         /* Адрес сервера для подключения приложения к Веб-серверу */
-        public static string server = xmldata.Descendants("webserver").First().Value;
+        public static string server = xmldata.Descendants("webserver").First()?.Value;
         /* Адрес сервера для подключения приложения к серверу БД */
-        public static string host = xmldata.Descendants("host").First().Value;
+        public static string host = xmldata.Descendants("host").First()?.Value;
         /* Пользователь БД */
-        public static string user = xmldata.Descendants("user").First().Value;
+        public static string user = xmldata.Descendants("user").First()?.Value;
         /* Пароль БД */
-        public static string password = xmldata.Descendants("password").First().Value;
+        public static string password = xmldata.Descendants("password").First()?.Value;
         /* Имя БД */
-        public static string database = xmldata.Descendants("database").First().Value;
+        public static string database = xmldata.Descendants("database").First()?.Value;
         /* Тайм-аут соединения */
-        public static string timeout = xmldata.Descendants("callTimeout").First().Value;
+        public static string timeout = xmldata.Descendants("callTimeout").First()?.Value;
         public static string data = "server=" + host + ";user=" + user + ";password=" + password + ";database=" + database + ";Connect Timeout=" + timeout + "";
         /********************      Вывод табличных рядов        **********************/
         /* Выводимые поля в поиске работ*/
