@@ -4,11 +4,11 @@
 winexe
 C#
 .cs
-C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Release\
+C:\Users\030\Source\Repos\VT-Manager\VTManager\obj\Debug\
 VTManager
 none
 false
-TRACE
+DEBUG;TRACE
 C:\Users\030\Source\Repos\VT-Manager\VTManager\App.xaml
 23-1998900924
 

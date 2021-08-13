@@ -33,7 +33,7 @@ namespace VTManager.ClientPages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             SQLUtils.showTable(VTDataGridQueries.clientsQuery, VTManagerConfig.clientCols, clients_dg);
-            /*                          Плэйсхолдеры                            */
+            /*                          Плэйсхолдеры                          */
             if (string.IsNullOrWhiteSpace(firstname_field.Text))
             {
                 firstname_field.Text = "фамилия...";
