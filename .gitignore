@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/VTManager/obj/Debug/VTManager_MarkupCompile.cache
+/VTManager/obj/Debug/GeneratedInternalTypeHelper.g.cs
