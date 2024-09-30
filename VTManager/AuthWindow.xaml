@@ -4,7 +4,9 @@ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 xmlns:local="clr-namespace:VTManager"
+xmlns:vm="clr-namespace:VTManager.ViewModels"
 mc:Ignorable="d"
+d:DataContext="{d:DesignInstance Type={x:Type vm:AuthWindowVM}}"
 WindowStartupLocation="CenterScreen" Title="VT Manager | Авторизация" Height="340" Width="460" ResizeMode="NoResize" WindowStyle="None" Activated="Window_Activated" Icon="vt.png" Loaded="Window_Loaded">
     <Window.Resources>
         <!-- ************************* Надписи ************************** -->
@@ -25,7 +27,7 @@ WindowStartupLocation="CenterScreen" Title="VT Manager | Авторизация"
             <RowDefinition Height="101*"/>
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
-        <Label x:FieldModifier="private" x:Name="authorize_label" Style="{StaticResource light_label}" FontSize="32" Content="А В Т О Р И З А Ц И Я" VerticalAlignment="center" HorizontalAlignment="center"  Width="340" Height="48" Margin="66,47,54,13"/>
+        <Label Style="{StaticResource light_label}" FontSize="32" Content="А В Т О Р И З А Ц И Я" VerticalAlignment="center" HorizontalAlignment="center"  Width="340" Height="48" Margin="66,47,54,13"/>
         <Rectangle Fill="#333d5c" RadiusX="16" RadiusY="16" HorizontalAlignment="center" VerticalAlignment="center" Width="282" Height="200" Grid.Row="1" Margin="93,8,85,24" Grid.RowSpan="2"/>
         <Grid x:Name="login_items" Grid.Row="1" HorizontalAlignment="center" VerticalAlignment="center" Width="252" Height="166" Margin="104,18">
             <Grid.ColumnDefinitions>
@@ -41,16 +43,16 @@ WindowStartupLocation="CenterScreen" Title="VT Manager | Авторизация"
             </Grid.RowDefinitions>
             <Label x:Name="login_label" VerticalAlignment="center" HorizontalAlignment="left" Content="Логин : " Height="32" Grid.Column="0" Width="75" Margin="0,7,0,9" Style="{DynamicResource bold_label}"/>
             <Border BorderThickness="1" BorderBrush="Transparent" CornerRadius="6" Padding="4" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0" Background="#273049" Margin="4,3" Height="42" Width="154" Grid.ColumnSpan="2">
-                <TextBox x:Name="login_field" Width="144" Height="32" VerticalAlignment="center" Grid.Column="1" Grid.Row="0" BorderThickness="0" Background="#273049" Foreground="#cecece" FontFamily="{DynamicResource NunitoBold}" FontSize="18" Margin="0,4,0,-4"/>
+                <TextBox Text="{Binding Path=Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="144" Height="32" VerticalAlignment="center" Grid.Column="1" Grid.Row="0" BorderThickness="0" Background="#273049" Foreground="#cecece" FontFamily="{DynamicResource NunitoBold}" FontSize="18" Margin="0,4,0,-4"/>
             </Border>
             <Label x:Name="passsword_label" VerticalAlignment="center" HorizontalAlignment="left" Content="Пароль : " Width="89" Height="32" Grid.Column="0" Grid.Row="1"  Margin="0,7,0,9" Style="{DynamicResource bold_label}"/>
             <Border BorderThickness="1" BorderBrush="Transparent" CornerRadius="6" Padding="4" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" Background="#273049" Margin="4,3" Height="42" Width="154" Grid.ColumnSpan="2">
-                <PasswordBox x:Name="password_field" Width="144" Height="32" VerticalAlignment="center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" Background="#273049" Foreground="#cecece" FontFamily="{DynamicResource NunitoBold}" FontSize="18" Margin="0,1,0,-1"/>
+                <PasswordBox Password="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="144" Height="32" VerticalAlignment="center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" Background="#273049" Foreground="#cecece" FontFamily="{DynamicResource NunitoBold}" FontSize="18" Margin="0,1,0,-1"/>
             </Border>
             <Button x:Name="login_button" IsDefault="True" Content="ВОЙТИ" Height="45" VerticalAlignment="bottom" Grid.Column="0"  Grid.Row="3"  Grid.ColumnSpan="3" Margin="72,0,80,-16" Padding="0,0,-2,-3" FontFamily="{DynamicResource NunitoBold}" Style="{DynamicResource rounded_button}" Command="{Binding LoginCmd}"/>
             <Border x:Name="Border" Width="28" Height="28" Background="#273049" CornerRadius="4" HorizontalAlignment="Left" Margin="4,2,0,2" VerticalAlignment="Center" BorderThickness="1" Grid.Column="1" Grid.Row="2"/>
             <CheckBox  
-                x:Name="keep" Content="" HorizontalAlignment="Left" Grid.Column="1"  Grid.Row="2" VerticalAlignment="Top" Style="{DynamicResource auth_checkbox}">
+                IsChecked="{Binding Path=KeepEntry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Grid.Column="1"  Grid.Row="2" VerticalAlignment="Top" Style="{DynamicResource auth_checkbox}">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform  ScaleX="2" ScaleY="2" />
                 </CheckBox.LayoutTransform>

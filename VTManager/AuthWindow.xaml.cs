@@ -6,6 +6,8 @@ using System.IO;
 using System.Threading;
 using VTManager.Utils;
 using VTManager.Interactive;
+using VTManager.ViewModels;
+using System.Runtime.Remoting.Contexts;
 
 namespace VTManager
 {
@@ -17,10 +19,20 @@ namespace VTManager
         public static Window ThisWindow;
         public static string loginUsr;
         public static string passUsr;
-        private string db_config_file = VTManagerConfig.config + VTManagerConfig.db_config_file;
+
+        private AuthWindowVM context;
+
+        private VTManagerConfig config;
+        
         Mutex mutex = new Mutex(false, "VTManager");
         public AuthWindow() {
             InitializeComponent();
+            config = VTManagerConfig.CreateConfig();
+            if ()
+            context = new AuthWindowVM
+            {
+                KeepEntry = 
+            }
             ThisWindow = this;
             #region =========   КОМАНДЫ    =========
             CloseApplicationCmd = new VTActionCommand(OnCloseApplicationCmdExecute, CanCloseApplicationCmdExecuted);
@@ -59,17 +71,17 @@ namespace VTManager
         #endregion =========   КОМАНДЫ    =========
         private void Window_Activated(object sender, EventArgs e)
         {
-            DirectoryInfo di = new DirectoryInfo(VTManagerConfig.config);
+            DirectoryInfo di = new DirectoryInfo(db_config_dir);
             if (!di.Exists) {
                 di.Create();   
             }
             else {
-                if (!(File.Exists(VTManagerConfig.config + VTManagerConfig.config_file)))
-                    new FileStream(VTManagerConfig.config + VTManagerConfig.config_file, FileMode.Create);
-                System.IO.FileInfo file = new System.IO.FileInfo(VTManagerConfig.config + VTManagerConfig.config_file);
+                if (!File.Exists($"{db_config_dir}{db_config_file}"))
+                    new FileStream($"{db_config_dir}{db_config_file}", FileMode.Create);
+                System.IO.FileInfo file = new System.IO.FileInfo($"{db_config_dir}{db_config_file}");
                 if (file.Length > 1)
                 {
-                    using (var reader = new StreamReader(VTManagerConfig.config + VTManagerConfig.config_file))
+                    using (var reader = new StreamReader($"{db_config_dir}{db_config_file}"))
                     {
                         login_field.Text = reader.ReadLine();
                         password_field.Password = Encoding.UTF8.GetString(Convert.FromBase64String(reader.ReadLine()));

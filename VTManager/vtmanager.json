@@ -1,0 +1,20 @@
+{
+  "serverData": {
+	  "webServer": "http://vtmanager.ru/",
+	  "host": "localhost",
+	  "user": "root",
+	  "password": null,
+	  "database": "vtmanager"
+  },
+  "standarts": {
+	  "lossRatio": 125.34,
+	  "sandCost": 13.73,
+	  "siliconeCost": 5.46,
+	  "steelCost": 14.0,
+	  "orcGlassCost": 0.17,
+	  "ptPfCost": 0.09
+  },
+  "settings": {
+	  "callTimeout": 900
+  },
+}
